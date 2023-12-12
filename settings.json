@@ -1,0 +1,23 @@
+{
+  "version": "a0.0.1",
+  "showTerminal": true,
+  "loggerEnabled": true,
+  "loggerTerminalOutput": true,
+  "loggerConsole": true,
+  "loggerFile": true,
+  "debugEnabled": true,
+  "debugTerminalOutput": true,
+  "debugConsole": true,
+  "debugFile": true,
+  "storageLocation": "data/",
+  "port": 19,
+  "getTempInterval": 5,
+  "getTempIntervalUnit": "MINUTES",
+  "getSensorDataJobInterval": 15,
+  "getSensorDataJobIntervalUnit": "SECONDS",
+  "conditionalCheckInterval": 15,
+  "conditionalCheckUnit": "SECONDS",
+  "timeOut": 15,
+  "autoLogin": true,
+  "loggedInEmailAuto": "admin"
+}
