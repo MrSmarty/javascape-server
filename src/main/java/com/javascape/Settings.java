@@ -31,7 +31,7 @@ public class Settings {
     public static boolean debugFile = true;
 
     /** The location of the data files */
-    public static String storageLocation = "data/";
+    public static String storageLocation = "./data/";
 
     /** The port that the server runs on */
     public static int port = 19;

@@ -99,7 +99,7 @@ public class NewChronjobPopup {
         });
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add("Java/Server/Resources/Stylesheets/buttonStyles.css");
+        scene.getStylesheets().add("resources/Stylesheets/buttonStyles.css");
 
         stage.setScene(scene);
 

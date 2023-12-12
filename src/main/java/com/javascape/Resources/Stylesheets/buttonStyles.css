@@ -1,3 +1,3 @@
 .deleteButton {
-    -fx-graphic: url('/Java/Server/Resources/Icons/delete_x16.png');
+  -fx-graphic: url("/resources/Icons/delete_x16.png");
 }

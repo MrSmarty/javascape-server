@@ -73,7 +73,7 @@ public class ServerGUI {
 
         Scene scene = new Scene(mainPane);
 
-        scene.getStylesheets().add(getClass().getResource("Resources/Stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("resources/Stylesheets/main.css").toExternalForm());
 
         return scene;
     }

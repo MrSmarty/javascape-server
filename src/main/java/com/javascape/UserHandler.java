@@ -4,8 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class UserHandler {
-    ObservableList<User> users = FXCollections.observableArrayList();
-
+    private ObservableList<User> users = FXCollections.observableArrayList();
 
     /** Adds the new user to the users list */
     public void addUser(User newUser) {

@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 /** The User class */
 public class User {
-    //TODO: User Preferences?
+    // TODO: User Preferences?
 
     private String email;
 
@@ -77,7 +77,7 @@ public class User {
     }
 
     public Image getUserImage() {
-        return new Image("Java/Server/Resources/Icons/defaultUser_x64.png");
+        return new Image("resources/Icons/defaultUser_x64.png");
     }
 
     @Override
