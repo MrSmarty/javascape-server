@@ -69,7 +69,7 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "Java.Server.Recievers." + item[1]);
+                classMap.put(item[0], "com.javascape.recievers." + item[1]);
             }
         } catch (IOException e) {
             // Logger.error("Error trying to fetch recievers from reciever map");

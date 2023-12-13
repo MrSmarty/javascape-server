@@ -99,7 +99,9 @@ public class NewChronjobPopup {
         });
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add("resources/Stylesheets/buttonStyles.css");
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
 
         stage.setScene(scene);
 
@@ -154,6 +156,8 @@ public class NewChronjobPopup {
         g.add(cancel, 1, 3);
 
         Scene s = new Scene(g);
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
 
         stage.setScene(s);
 

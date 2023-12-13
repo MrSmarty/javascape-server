@@ -29,7 +29,7 @@ public class DataHandler {
             .disableHtmlEscaping().create();
 
     /** The path for the settings file */
-    Path settingsFilePath = Paths.get("settings.json");
+    Path settingsFilePath = Paths.get("/settings.json");
     /** The file for the settings file */
     File settingsFile = new File(settingsFilePath.toString());
     /** The local settings object */
@@ -118,7 +118,7 @@ public class DataHandler {
                 Logger.print("Users file does not exist, creating new one");
                 userHandler = new UserHandler();
                 Logger.print("Initializing an admin user...");
-                userHandler.addUser(new User("admin", "admin", true, "ADMIN_ACCOUNT"));
+                userHandler.addUser(new User("admin", "admin", true, "admin"));
             } else {
                 Logger.print("Users file exists, loading");
                 userHandler = gson.fromJson(

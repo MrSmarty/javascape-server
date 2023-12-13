@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class AddSensorPopup {
     public AddSensorPopup(Reciever reciever, int index) {
         Stage popupStage = new Stage();
+        
 
         GridPane g = new GridPane();
 
@@ -37,6 +38,8 @@ public class AddSensorPopup {
         g.add(cancel, 1, 1);
 
         Scene scene = new Scene(g);
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
         popupStage.setScene(scene);
 
         popupStage.show();

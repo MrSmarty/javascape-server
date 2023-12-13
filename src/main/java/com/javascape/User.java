@@ -76,8 +76,12 @@ public class User {
         return this.householdID;
     }
 
+    
     public Image getUserImage() {
-        return new Image("resources/Icons/defaultUser_x64.png");
+        //System.out.println(getClass().getResourceAsStream("/icons/defaultUser_x64.png").toString());
+        //return new Image("/main/resources/icons/defaultUser_x64.png");
+        return new Image(getClass().getResourceAsStream("/main/resources/icons/defaultUser_x64.png"));
+
     }
 
     @Override

@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "email": "admin",
+      "username": "admin",
+      "password": "admin",
+      "isAdmin": true,
+      "householdID": 0
+    }
+  ]
+}

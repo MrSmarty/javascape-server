@@ -39,6 +39,8 @@ public class DeleteChronjobPopup {
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
         stage.setScene(scene);
         stage.show();
     }

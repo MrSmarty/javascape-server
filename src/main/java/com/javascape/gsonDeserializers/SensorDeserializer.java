@@ -17,7 +17,7 @@ public class SensorDeserializer implements JsonDeserializer<Sensor> {
         try {
             String className = json.getAsJsonObject().get("className").getAsString();
             System.out.println(className);
-            Class<?> tempClass = Class.forName("Java.Server.Sensors." + className);
+            Class<?> tempClass = Class.forName("com.javascape.sensors." + className);
             return context.deserialize(json, tempClass);
         } catch (Exception e) {
             e.printStackTrace();

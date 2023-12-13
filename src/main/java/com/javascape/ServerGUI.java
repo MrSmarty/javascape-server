@@ -73,7 +73,7 @@ public class ServerGUI {
 
         Scene scene = new Scene(mainPane);
 
-        scene.getStylesheets().add(getClass().getResource("resources/Stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
 
         return scene;
     }
@@ -85,7 +85,8 @@ public class ServerGUI {
         // menu.setStyle("-fx-background-color: #CCCCCC; -fx-padding: 10px;
         // -fx-text-align: center;");
 
-        ImageView profileImage = new ImageView(server.loggedInUser.getUserImage());
+        // FIXME: Fix the profile image not working
+        //ImageView profileImage = new ImageView(server.loggedInUser.getUserImage());
 
         Text name = new Text(server.loggedInUser.getUsername());
         name.setStyle("-fx-color: #222222;");
@@ -94,7 +95,8 @@ public class ServerGUI {
             mainPane.setCenter(recieverView.getRecieverView());
         });
 
-        menu.getChildren().addAll(profileImage, name, homeButton);
+        // ADD PROFILE IMAGW BACK TO THE FRONT
+        menu.getChildren().addAll( name, homeButton);
 
         return menu;
     }

@@ -43,6 +43,8 @@ public class DeleteUserPopup {
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
 
         popupStage.setScene(scene);
 

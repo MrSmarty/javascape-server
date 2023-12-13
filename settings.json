@@ -9,7 +9,7 @@
   "debugTerminalOutput": true,
   "debugConsole": true,
   "debugFile": true,
-  "storageLocation": "data/",
+  "storageLocation": "/data/",
   "port": 19,
   "getTempInterval": 5,
   "getTempIntervalUnit": "MINUTES",

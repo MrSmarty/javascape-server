@@ -31,7 +31,7 @@ public class Server extends Application {
         this.primaryStage = primaryStage;
         initialize();
 
-        java.awt.SplashScreen.getSplashScreen().close();
+        //java.awt.SplashScreen.getSplashScreen().close();
 
         startServer();
 

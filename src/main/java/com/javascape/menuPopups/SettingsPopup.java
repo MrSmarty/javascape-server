@@ -24,7 +24,6 @@ public class SettingsPopup {
         Label dataFileLabel = new Label("Data File Location:");
         TextField dataFileField = new TextField(Settings.storageLocation);
 
-
         g.add(dataFileLabel, 0, 0);
         g.add(dataFileField, 1, 0);
 
@@ -43,8 +42,8 @@ public class SettingsPopup {
 
         Label sensorDataPollingLabel = new Label("Sensor Data Polling Rate:");
         TextField sensorDataPollingField = new TextField("" + Settings.getSensorDataJobInterval);
-        ChoiceBox<TimeUnit> sensorDataPollingUnits = new ChoiceBox<TimeUnit>(FXCollections.observableArrayList(TimeUnit.values()));
-        
+        ChoiceBox<TimeUnit> sensorDataPollingUnits = new ChoiceBox<TimeUnit>(
+                FXCollections.observableArrayList(TimeUnit.values()));
 
         g.add(sensorDataPollingLabel, 0, 3);
         g.add(sensorDataPollingField, 1, 3);
@@ -71,6 +70,8 @@ public class SettingsPopup {
         g.add(cancel, 1, 4);
 
         Scene scene = new Scene(g);
+
+        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
 
         popupStage.setScene(scene);
         popupStage.show();

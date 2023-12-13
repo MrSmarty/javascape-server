@@ -37,6 +37,12 @@
             <version>13</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.panteleyev</groupId>
+            <artifactId>jpackage-maven-plugin</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -63,10 +69,22 @@
                         <configuration>
                             <launcher>Run_Javascape_Server</launcher>
                             <options>--enable-preview</options>
-                            <mainClass>com.javascape.Server</mainClass>
+                            <mainClass>com.javascape/com.javascape.Server</mainClass>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <!--<SplashScreen-Image>src/main/com/javascape/resources/Splash.png</SplashScreen-Image>-->
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
         </plugins>
     </build>

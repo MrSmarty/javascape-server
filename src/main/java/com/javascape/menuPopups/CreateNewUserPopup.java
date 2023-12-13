@@ -69,6 +69,8 @@ public class CreateNewUserPopup {
         g.add(cancel, 1, 5);
 
         Scene s = new Scene(g);
+        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+
         popupStage.setScene(s);
 
         popupStage.show();
