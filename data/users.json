@@ -6,6 +6,13 @@
       "password": "admin",
       "isAdmin": true,
       "householdID": 0
+    },
+    {
+      "email": "testemail",
+      "username": "Grandpa",
+      "password": "gpa23",
+      "isAdmin": true,
+      "householdID": 0
     }
   ]
 }

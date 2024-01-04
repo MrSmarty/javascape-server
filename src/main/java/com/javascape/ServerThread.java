@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 import com.javascape.recievers.Reciever;
@@ -72,6 +73,8 @@ public class ServerThread extends Thread {
             // to send data to the socket
             printStream = new PrintStream(socket.getOutputStream());
 
+            
+
             // to read data coming from the socket
             socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -82,9 +85,12 @@ public class ServerThread extends Thread {
 
         printStream.println("getInfo" + " ");
         printStream.flush();
+
         try {
             String info = socketReader.readLine();
             String[] args = info.split(" ");
+
+            System.out.println(Arrays.toString(args));
 
             if (args[1].equals("reciever")) {
                 deviceType = DeviceType.Reciever;

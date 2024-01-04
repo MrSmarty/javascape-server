@@ -1,4 +1,24 @@
 {
-  "repeatingJobs": [],
-  "conditionalJobs": []
+  "repeatingJobs": [
+    {
+      "period": 5,
+      "timeUnit": "SECONDS",
+      "name": "test2",
+      "commands": [
+        "togglePin 2 - 16600621186956491044"
+      ]
+    }
+  ],
+  "conditionalJobs": [
+    {
+      "conditions": [
+        "16600621186956491044:1 >= 10"
+      ],
+      "name": "test",
+      "commands": [
+        "setPin 0 1 - 16600621186956491044",
+        "setPin 0 0 - 16600621186956491044"
+      ]
+    }
+  ]
 }

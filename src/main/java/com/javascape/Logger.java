@@ -9,7 +9,7 @@ public class Logger {
 
     /**
      * Prints the specified string. Relies on the variables found in the
-     * {@link Java.Server.Settings} class to determine to where the message is
+     * {@link com.javascape.Settings} class to determine to where the message is
      * printed.
      * 
      * @param message The message to be printed
@@ -38,7 +38,7 @@ public class Logger {
 
     /**
      * Prints the specified string if debug mode is enabled. Relies on the variables
-     * found in the {@link Java.Server.Settings} class to determine to where the
+     * found in the {@link com.javascape.Settings} class to determine to where the
      * message is printed.
      * 
      * @param message The message to be printed
