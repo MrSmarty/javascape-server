@@ -31,7 +31,7 @@ public class ServerThread extends Thread {
         Reciever
     };
 
-    /** The commands to send the pico */
+    /** The commands to send the reciever */
     public ObservableList<String> commands = FXCollections.observableArrayList();
 
     /** Stores the type of device on the thread */
@@ -73,8 +73,6 @@ public class ServerThread extends Thread {
             // to send data to the socket
             printStream = new PrintStream(socket.getOutputStream());
 
-            
-
             // to read data coming from the socket
             socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -101,6 +99,21 @@ public class ServerThread extends Thread {
                 }
                 Server.getDataHandler().getRecieverHandler().getReciever(args[3]).setThreadInfo(this, this.threadId());
                 currentReciever = Server.getDataHandler().getRecieverHandler().getReciever(args[3]);
+            } else if (args[1].equals("client")) {
+                Logger.print("Client connection");
+                deviceType = DeviceType.Client;
+                User tempUser = Server.getDataHandler().getUserHandler().getUser(args[2]);
+                if (tempUser != null && tempUser.getPassword().equals(args[3])) {
+                    Logger.print("User logged in");
+                    printStream.println("loginStatus true");
+                    printStream.flush();
+                } else {
+                    Logger.print("User not logged in");
+                    printStream.println("loginStatus false");
+                    printStream.flush();
+                    quit();
+                }
+                
             }
         } catch (IOException e) {
             Logger.print("Exception getting info");
@@ -196,6 +209,7 @@ public class ServerThread extends Thread {
 
     /** Used for connections with user client */
     private void recieveFirstProtocol() {
+        Logger.debug("Starting recieveFirstProtocol on " + this.getName());
 
         String in = null;
         String out = null;
@@ -206,7 +220,15 @@ public class ServerThread extends Thread {
                 in = socketReader.readLine();
                 Logger.print("Recieved: " + in);
 
-                out = "ok";
+                String[] args = in.split(" ");
+
+                if (args[0].equals("getUserInfo")) {
+                    User tempUser = Server.getDataHandler().getUserHandler().getUser(args[1]);
+                    out = Server.getDataHandler().serialize(tempUser, true);
+                    System.out.println(out);
+                } else {
+                    out = "ok";
+                }
 
                 printStream.println(out);
                 printStream.flush();

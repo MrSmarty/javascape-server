@@ -77,12 +77,11 @@ public class User {
     }
 
     
-    public Image getUserImage() {
-        //System.out.println(getClass().getResourceAsStream("/icons/defaultUser_x64.png").toString());
-        //return new Image("/main/resources/icons/defaultUser_x64.png");
-        return new Image(getClass().getResourceAsStream("/main/resources/icons/defaultUser_x64.png"));
-
-    }
+    // public Image getUserImage() {
+    //     //System.out.println(getClass().getResourceAsStream("/icons/defaultUser_x64.png").toString());
+    //     //return new Image("/main/resources/icons/defaultUser_x64.png");
+    //     return new Image(getClass().getResourceAsStream("/main/resources/icons/defaultUser_x64.png"));
+    // }
 
     @Override
     public String toString() {

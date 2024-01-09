@@ -299,4 +299,17 @@ public class DataHandler {
     public ChronManager getChronManager() {
         return chronManager;
     }
+
+    public String serialize(Object obj) {
+        return gson.toJson(obj);
+    }
+
+    public String serialize(Object obj, boolean simplify) {
+        if (simplify) {
+            String tempString = gson.toJson(obj);
+            return tempString.replaceAll("\n", "");
+        } else {
+            return gson.toJson(obj);
+        }
+    }
 }
