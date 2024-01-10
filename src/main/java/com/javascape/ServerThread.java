@@ -12,6 +12,7 @@ import com.javascape.recievers.Reciever;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart.Data;
 
 /**
  * A connection thread for the Server.
@@ -220,12 +221,19 @@ public class ServerThread extends Thread {
                 in = socketReader.readLine();
                 Logger.print("Recieved: " + in);
 
+                if (in == null) {
+                    Logger.print("'in' is null");
+                    return; 
+                }
+
                 String[] args = in.split(" ");
 
                 if (args[0].equals("getUserInfo")) {
                     User tempUser = Server.getDataHandler().getUserHandler().getUser(args[1]);
                     out = Server.getDataHandler().serialize(tempUser, true);
                     System.out.println(out);
+                } else if (args[0].equals("createUser")) {
+                    out = "" + Server.getDataHandler().getUserHandler().addUser(new User(args[1], args[2], Boolean.parseBoolean(args[3]), args[4]));
                 } else {
                     out = "ok";
                 }
@@ -246,7 +254,8 @@ public class ServerThread extends Thread {
     public void quit() {
         Logger.print("Closing thread with name:" + this.getName());
         run = false;
-        currentReciever.setThreadInfo(null, 0);
+        if (currentReciever != null)
+            currentReciever.setThreadInfo(null, 0);
         ServerGUI.recieverView.update();
 
         // close connection

@@ -36,11 +36,11 @@ public class CreateNewUserPopup {
         submit.setOnAction(e -> {
             if (usernameField.textProperty().getValue() != "" && passwordField.textProperty().getValue() != ""
                     && emailField.textProperty().getValue() != "") {
-                if (Server.getDataHandler().getUserHandler().getUser(emailField.textProperty().getValue()) == null) {
-                    Server.getDataHandler().getUserHandler()
-                            .addUser(new User(usernameField.textProperty().getValue(),
-                                    emailField.textProperty().getValue(), adminCheckBox.selectedProperty().getValue(),
-                                    emailField.textProperty().getValue()));
+                if (Server.getDataHandler().getUserHandler()
+                        .addUser(new User(usernameField.textProperty().getValue(),
+                                passwordField.textProperty().getValue(), adminCheckBox.selectedProperty().getValue(),
+                                emailField.textProperty().getValue()))) {
+
                     popupStage.close();
                 } else {
                     // TODO: Inform user that email is in use

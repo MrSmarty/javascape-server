@@ -6,9 +6,16 @@ import javafx.collections.ObservableList;
 public class UserHandler {
     private ObservableList<User> users = FXCollections.observableArrayList();
 
-    /** Adds the new user to the users list */
-    public void addUser(User newUser) {
+    /** Adds the new user to the users list if there is not already one with that email
+     * @return True if the user was added, false otherwise
+    */
+    public boolean addUser(User newUser) {
+        if (getUser(newUser.getEmail()) != null) {
+            Logger.print("User with email " + newUser.getEmail() + " already exists");
+            return false;
+        }
         users.add(newUser);
+        return true;
     }
 
     /** Removes the specified user from the users list */
