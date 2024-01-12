@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.javascape.Logger;
 import com.javascape.Server;
-import com.javascape.recievers.Reciever;
+import com.javascape.receivers.Receiver;
 
 public class Chronjob extends Job {
 
@@ -30,7 +30,7 @@ public class Chronjob extends Job {
                         String[] targets = ls[1].split(" ");
                         if (Server.getDataHandler() != null && !targets[0].equals("all"))
                             for (String current : targets) {
-                                Reciever r = Server.getDataHandler().getRecieverHandler().getReciever(current);
+                                Receiver r = Server.getDataHandler().getReceiverHandler().getReceiver(current);
 
                                 if (r.getCurrentThread() != null) {
                                     if (ls[0].startsWith("wait")) {
@@ -59,8 +59,8 @@ public class Chronjob extends Job {
 
                             }
                         else if (Server.getDataHandler() != null)
-                            // All active recievers
-                            for (Reciever r : Server.getDataHandler().getRecieverHandler().getActiveRecieverList()) {
+                            // All active receivers
+                            for (Receiver r : Server.getDataHandler().getReceiverHandler().getActiveReceiverList()) {
 
                                 if (ls[0].startsWith("wait")) {
                                     String[] args = ls[0].split(" ");
@@ -85,7 +85,7 @@ public class Chronjob extends Job {
                             }
                     }
 
-                    // Server.getGUI().getRecieverView().update();
+                    // Server.getGUI().getReceiverView().update();
                 } catch (Exception e) {
                     Logger.error(e.toString());
                     e.printStackTrace();

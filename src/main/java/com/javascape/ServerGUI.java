@@ -27,7 +27,7 @@ public class ServerGUI {
     /** The main scene */
     BorderPane mainPane;
 
-    static RecieverView recieverView;
+    static ReceiverView receiverView;
 
     /** A reference to the terminal */
     static ListView<Text> terminalListView = new ListView<Text>();;
@@ -63,9 +63,9 @@ public class ServerGUI {
 
         mainPane.setLeft(sideMenu());
 
-        recieverView = new RecieverView();
+        receiverView = new ReceiverView();
 
-        mainPane.setCenter(recieverView.getRecieverView());
+        mainPane.setCenter(receiverView.getReceiverView());
 
         if (Settings.showTerminal)
             mainPane.setBottom(getTerminalElement());
@@ -85,17 +85,17 @@ public class ServerGUI {
         // -fx-text-align: center;");
 
         // FIXME: Fix the profile image not working
-        //ImageView profileImage = new ImageView(server.loggedInUser.getUserImage());
+        // ImageView profileImage = new ImageView(server.loggedInUser.getUserImage());
 
         Text name = new Text(server.loggedInUser.getUsername());
         name.setStyle("-fx-color: #222222;");
         Button homeButton = new Button("Home");
         homeButton.setOnAction(e -> {
-            mainPane.setCenter(recieverView.getRecieverView());
+            mainPane.setCenter(receiverView.getReceiverView());
         });
 
         // ADD PROFILE IMAGW BACK TO THE FRONT
-        menu.getChildren().addAll( name, homeButton);
+        menu.getChildren().addAll(name, homeButton);
 
         return menu;
     }
@@ -227,8 +227,8 @@ public class ServerGUI {
         terminalListView.getItems().clear();
     }
 
-    public RecieverView getRecieverView() {
-        return recieverView;
+    public ReceiverView getReceiverView() {
+        return receiverView;
     }
 
 }

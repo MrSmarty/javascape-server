@@ -62,17 +62,17 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
         return list;
     }
 
-    /** Pull the classes from the recievers file */
+    /** Pull the classes from the receivers file */
     private void getClasses() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "recievers.map"));
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.map"));
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "com.javascape.recievers." + item[1]);
+                classMap.put(item[0], "com.javascape.receivers." + item[1]);
             }
         } catch (IOException e) {
-            // Logger.error("Error trying to fetch recievers from reciever map");
+            // Logger.error("Error trying to fetch receivers from receiver map");
         }
 
     }

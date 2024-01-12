@@ -38,12 +38,12 @@ public class SensorManager {
         }
     }
 
-    public static Sensor createNewSensor(String deviceName, String recieverID, int index) {
+    public static Sensor createNewSensor(String deviceName, String receiverID, int index) {
         try {
             Class<?> tempClass = Class.forName(classMap.get(deviceName));
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, Integer.TYPE);
 
-            Object instance = constructor.newInstance(recieverID, deviceName, index);
+            Object instance = constructor.newInstance(receiverID, deviceName, index);
             Sensor temp = (Sensor) instance;
 
             return temp;

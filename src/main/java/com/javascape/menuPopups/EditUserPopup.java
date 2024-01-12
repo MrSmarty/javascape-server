@@ -41,11 +41,7 @@ public class EditUserPopup {
         Button cancel = new Button("Cancel");
 
         save.setOnAction(e -> {
-            User u = dropdown.getValue();
-            u.setUsername(usernameField.textProperty().getValue());
-            u.setPassword(passwordField.textProperty().getValue());
-            u.setEmail(emailField.textProperty().getValue());
-            u.setPermissions(Permissions.toInt(adminDropdown.getValue()));
+            Server.getDataHandler().getUserHandler().updateUser(dropdown.getValue(), usernameField.getText(), passwordField.getText(), Permissions.toInt(adminDropdown.getValue()), emailField.getText());
             popupStage.close();
         });
 

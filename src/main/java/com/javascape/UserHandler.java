@@ -38,6 +38,18 @@ public class UserHandler {
         return null;
     }
 
+    public boolean updateUser(User user, String username, String password, int permissionsLevel, String email) {
+        if (user != null && (user.getEmail().equals(email) || getUser(email) == null)) {
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setPermissions(permissionsLevel);
+            return true;
+        }
+        return false;
+
+    }
+
     /** Returns an ObservableList of all the Users */
     public ObservableList<User> getAllUsers() {
         return users;

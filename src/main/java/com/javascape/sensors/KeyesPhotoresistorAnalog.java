@@ -20,13 +20,13 @@ public class KeyesPhotoresistorAnalog extends Sensor {
     private int maxCal = 49000;
     private int minCal = 0;
 
-    public KeyesPhotoresistorAnalog(String recieverID, int index) {
-        super(recieverID, "Analog photoresistor", index);
+    public KeyesPhotoresistorAnalog(String receiverID, int index) {
+        super(receiverID, "Analog photoresistor", index);
         className = "KeyesPhotoresistorAnalog";
     }
 
-    public KeyesPhotoresistorAnalog(String recieverID, String name, int index) {
-        super(recieverID, name, index);
+    public KeyesPhotoresistorAnalog(String receiverID, String name, int index) {
+        super(receiverID, name, index);
         className = "KeyesPhotoresistorAnalog";
     }
 
@@ -81,8 +81,8 @@ public class KeyesPhotoresistorAnalog extends Sensor {
         Button delete = new Button("Delete");
 
         delete.setOnAction(e -> {
-            Server.getDataHandler().getRecieverHandler().getReciever(recieverID).removeSensor(this);
-            Server.getGUI().getRecieverView().update();
+            Server.getDataHandler().getReceiverHandler().getReceiver(receiverID).removeSensor(this);
+            Server.getGUI().getReceiverView().update();
         });
 
         g.add(valueLabel, 1, 0);

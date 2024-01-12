@@ -7,7 +7,7 @@ import com.javascape.Server;
 import com.javascape.chronjob.ChronManager;
 import com.javascape.chronjob.ChronjobItem;
 import com.javascape.chronjob.ConditionalJob;
-import com.javascape.recievers.Reciever;
+import com.javascape.receivers.Receiver;
 import com.javascape.sensors.Sensor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -160,7 +160,6 @@ public class NewConditionaljobPopup {
         Scene scene = new Scene(g);
         scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-        
 
         stage.setScene(scene);
 
@@ -185,23 +184,23 @@ public class NewConditionaljobPopup {
             infoLabelAfter.textProperty().setValue(setType.getValue().getAfterLabel());
         });
 
-        Label recieverLabel = new Label("Reciever");
-        ChoiceBox<Reciever> recieverBox = new ChoiceBox<Reciever>();
+        Label receiverLabel = new Label("Receiver");
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
-        recieverBox.getItems().addAll(Server.getDataHandler().getRecieverHandler().getRecieverList());
-        recieverBox.setValue(Server.getDataHandler().getRecieverHandler().getRecieverList().get(0));
+        receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
+        receiverBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));
 
         g.add(setType, 0, 0);
         g.add(infoLabel, 0, 1);
         g.add(valueField, 1, 1);
         g.add(infoLabelAfter, 2, 1);
-        g.add(recieverLabel, 0, 2);
-        g.add(recieverBox, 1, 2);
+        g.add(receiverLabel, 0, 2);
+        g.add(receiverBox, 1, 2);
 
         Button add = new Button("Add");
         add.setOnAction(e -> {
             String command = setType.getValue().getCommand(valueField.textProperty().getValue()) + " - "
-                    + recieverBox.valueProperty().get().getUID();
+                    + receiverBox.valueProperty().get().getUID();
             observableCommands.add(command);
             stage.close();
         });
@@ -217,7 +216,6 @@ public class NewConditionaljobPopup {
         Scene s = new Scene(g);
         s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
 
-
         stage.setScene(s);
 
         stage.show();
@@ -229,18 +227,18 @@ public class NewConditionaljobPopup {
 
         GridPane g = new GridPane();
 
-        ChoiceBox<Reciever> setReciever = new ChoiceBox<Reciever>(
-                Server.getDataHandler().getRecieverHandler().getRecieverList());
-        setReciever.setValue(Server.getDataHandler().getRecieverHandler().getRecieverList().get(0));
+        ChoiceBox<Receiver> setReceiver = new ChoiceBox<Receiver>(
+                Server.getDataHandler().getReceiverHandler().getReceiverList());
+        setReceiver.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));
 
         ChoiceBox<Sensor> setSensor = new ChoiceBox<Sensor>();
-        setSensor.getItems().addAll(Arrays.asList(setReciever.getValue().getSensors()));
-        setSensor.setValue(setReciever.getValue().getSensors()[0]);
+        setSensor.getItems().addAll(Arrays.asList(setReceiver.getValue().getSensors()));
+        setSensor.setValue(setReceiver.getValue().getSensors()[0]);
 
-        setReciever.setOnAction(e -> {
+        setReceiver.setOnAction(e -> {
             setSensor.getItems().clear();
-            setSensor.getItems().addAll(Arrays.asList(setReciever.getValue().getSensors()));
-            setSensor.setValue(setReciever.getValue().getSensors()[0]);
+            setSensor.getItems().addAll(Arrays.asList(setReceiver.getValue().getSensors()));
+            setSensor.setValue(setReceiver.getValue().getSensors()[0]);
         });
 
         ChoiceBox<String> setOperator = new ChoiceBox<String>();
@@ -249,14 +247,14 @@ public class NewConditionaljobPopup {
 
         TextField valueField = new TextField();
 
-        g.add(setReciever, 0, 0);
+        g.add(setReceiver, 0, 0);
         g.add(setSensor, 1, 0);
         g.add(setOperator, 2, 0);
         g.add(valueField, 3, 0);
 
         Button add = new Button("Add");
         add.setOnAction(e -> {
-            String condition = setReciever.getValue().getUID() + ":" + setSensor.getValue().getIndex() + " "
+            String condition = setReceiver.getValue().getUID() + ":" + setSensor.getValue().getIndex() + " "
                     + setOperator.getValue() + " " + valueField.textProperty().get();
             observableConditions.add(condition);
             stage.close();
@@ -272,7 +270,6 @@ public class NewConditionaljobPopup {
 
         Scene s = new Scene(g);
         s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
 
         stage.setScene(s);
 
@@ -297,23 +294,23 @@ public class NewConditionaljobPopup {
             infoLabelAfter.textProperty().setValue(setType.getValue().getAfterLabel());
         });
 
-        Label recieverLabel = new Label("Reciever");
-        ChoiceBox<Reciever> recieverBox = new ChoiceBox<Reciever>();
+        Label receiverLabel = new Label("Receiver");
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
-        recieverBox.getItems().addAll(Server.getDataHandler().getRecieverHandler().getRecieverList());
-        recieverBox.setValue(Server.getDataHandler().getRecieverHandler().getRecieverList().get(0));
+        receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
+        receiverBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));
 
         g.add(setType, 0, 0);
         g.add(infoLabel, 0, 1);
         g.add(valueField, 1, 1);
         g.add(infoLabelAfter, 2, 1);
-        g.add(recieverLabel, 0, 2);
-        g.add(recieverBox, 1, 2);
+        g.add(receiverLabel, 0, 2);
+        g.add(receiverBox, 1, 2);
 
         Button add = new Button("Add");
         add.setOnAction(e -> {
             String command = setType.getValue().getCommand(valueField.textProperty().getValue()) + " - "
-                    + recieverBox.valueProperty().get().getUID();
+                    + receiverBox.valueProperty().get().getUID();
             observableElseCommands.add(command);
             stage.close();
         });
@@ -330,7 +327,6 @@ public class NewConditionaljobPopup {
 
         stage.setScene(s);
         s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
 
         stage.show();
 

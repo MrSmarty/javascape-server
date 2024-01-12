@@ -20,13 +20,13 @@ public class CapacitiveV2 extends Sensor {
     private int maxCal = 48571;
     private int minCal = 18260;
 
-    public CapacitiveV2(String recieverID, int index) {
-        super(recieverID, "Capacitive V2", index);
+    public CapacitiveV2(String receiverID, int index) {
+        super(receiverID, "Capacitive V2", index);
         className = "CapacitiveV2";
     }
 
-    public CapacitiveV2(String recieverID, String name, int index) {
-        super(recieverID, name, index);
+    public CapacitiveV2(String receiverID, String name, int index) {
+        super(receiverID, name, index);
         className = "CapacitiveV2";
     }
 
@@ -81,8 +81,8 @@ public class CapacitiveV2 extends Sensor {
         Button delete = new Button("Delete");
 
         delete.setOnAction(e -> {
-            Server.getDataHandler().getRecieverHandler().getReciever(recieverID).removeSensor(this);
-            Server.getGUI().getRecieverView().update();
+            Server.getDataHandler().getReceiverHandler().getReceiver(receiverID).removeSensor(this);
+            Server.getGUI().getReceiverView().update();
         });
 
         g.add(valueLabel, 1, 0);

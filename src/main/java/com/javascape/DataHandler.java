@@ -38,7 +38,7 @@ public class DataHandler {
     // #region Handlers
     private UserHandler userHandler;
     private HouseholdHandler householdHandler;
-    private RecieverHandler recieverHandler;
+    private ReceiverHandler receiverHandler;
 
     private ChronManager chronManager;
     // #endregion
@@ -77,7 +77,7 @@ public class DataHandler {
         saveSettings();
         saveUsers();
         saveHouseholds();
-        saveRecievers();
+        saveReceivers();
         saveChronManager();
     }
 
@@ -104,7 +104,7 @@ public class DataHandler {
         Logger.print("Loading handlers");
         loadUserHandler();
         loadHouseholdHandler();
-        loadRecieverHandler();
+        loadReceiverHandler();
         loadChronManager();
     }
 
@@ -152,29 +152,29 @@ public class DataHandler {
         }
     }
 
-    /** Loads the recieverHandler */
-    private void loadRecieverHandler() {
-        Logger.print("Loading Reciever handler");
-        Path filePath = Paths.get(Settings.storageLocation + "recievers.json");
+    /** Loads the receiverHandler */
+    private void loadReceiverHandler() {
+        Logger.print("Loading Receiver handler");
+        Path filePath = Paths.get(Settings.storageLocation + "receivers.json");
         File file = new File(filePath.toString());
 
         try {
             if (!file.exists() || file.equals(null)) {
-                Logger.print("Reciever file does not exist, creating new one");
-                recieverHandler = new RecieverHandler();
+                Logger.print("Receiver file does not exist, creating new one");
+                receiverHandler = new ReceiverHandler();
             } else {
-                Logger.print("Reciever file exists, loading");
-                recieverHandler = gson.fromJson(
+                Logger.print("Receiver file exists, loading");
+                receiverHandler = gson.fromJson(
                         Files.lines(filePath, StandardCharsets.UTF_8).collect(Collectors.joining("\n")),
-                        RecieverHandler.class);
+                        ReceiverHandler.class);
             }
         } catch (Exception e) {
-            Logger.print("Failed to load Reciever Handler");
+            Logger.print("Failed to load Receiver Handler");
             Logger.error(e.toString());
         }
     }
 
-    /** Loads the recieverHandler */
+    /** Loads the receiverHandler */
     private void loadChronManager() {
         Logger.print("Loading Chronjob Manager");
         Path filePath = Paths.get(Settings.storageLocation + "chronManager.json");
@@ -234,13 +234,13 @@ public class DataHandler {
         }
     }
 
-    private void saveRecievers() {
-        Path filePath = Paths.get(Settings.storageLocation + "recievers.json");
+    private void saveReceivers() {
+        Path filePath = Paths.get(Settings.storageLocation + "receivers.json");
         try {
-            Logger.print("Saving Recievers");
-            Files.write(filePath, gson.toJson(recieverHandler).getBytes(StandardCharsets.UTF_8));
+            Logger.print("Saving Receivers");
+            Files.write(filePath, gson.toJson(receiverHandler).getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
-            Logger.print("Failed to save recievers");
+            Logger.print("Failed to save receivers");
             Logger.error(e.toString());
         }
     }
@@ -292,8 +292,8 @@ public class DataHandler {
         return householdHandler;
     }
 
-    public RecieverHandler getRecieverHandler() {
-        return recieverHandler;
+    public ReceiverHandler getReceiverHandler() {
+        return receiverHandler;
     }
 
     public ChronManager getChronManager() {

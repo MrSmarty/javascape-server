@@ -3,14 +3,14 @@ package com.javascape.chronjob;
 import java.util.ArrayList;
 
 import com.javascape.Logger;
-import com.javascape.RecieverHandler;
+import com.javascape.ReceiverHandler;
 import com.javascape.Server;
-import com.javascape.recievers.Reciever;
+import com.javascape.receivers.Receiver;
 
 public class ConditionalJob extends Job {
 
     // Store each condition as:
-    // RecieverUID:SensorID Operator value
+    // ReceiverUID:SensorID Operator value
     ArrayList<String> conditions;
     ArrayList<String> elseCommands;
 
@@ -39,7 +39,7 @@ public class ConditionalJob extends Job {
                             String[] targets = ls[1].split(" ");
                             if (!targets[0].equals("all"))
                                 for (String current : targets) {
-                                    Reciever r = Server.getDataHandler().getRecieverHandler().getReciever(current);
+                                    Receiver r = Server.getDataHandler().getReceiverHandler().getReceiver(current);
 
                                     if (r.getCurrentThread() != null) {
                                         if (ls[0].startsWith("wait")) {
@@ -68,9 +68,9 @@ public class ConditionalJob extends Job {
 
                                 }
                             else
-                                // All active recievers
-                                for (Reciever r : Server.getDataHandler().getRecieverHandler()
-                                        .getActiveRecieverList()) {
+                                // All active receivers
+                                for (Receiver r : Server.getDataHandler().getReceiverHandler()
+                                        .getActiveReceiverList()) {
 
                                     if (ls[0].startsWith("wait")) {
                                         String[] args = ls[0].split(" ");
@@ -100,7 +100,7 @@ public class ConditionalJob extends Job {
                             String[] targets = ls[1].split(" ");
                             if (!targets[0].equals("all"))
                                 for (String current : targets) {
-                                    Reciever r = Server.getDataHandler().getRecieverHandler().getReciever(current);
+                                    Receiver r = Server.getDataHandler().getReceiverHandler().getReceiver(current);
 
                                     if (r.getCurrentThread() != null) {
                                         if (ls[0].startsWith("wait")) {
@@ -129,9 +129,9 @@ public class ConditionalJob extends Job {
 
                                 }
                             else
-                                // All active recievers
-                                for (Reciever r : Server.getDataHandler().getRecieverHandler()
-                                        .getActiveRecieverList()) {
+                                // All active receivers
+                                for (Receiver r : Server.getDataHandler().getReceiverHandler()
+                                        .getActiveReceiverList()) {
 
                                     if (ls[0].startsWith("wait")) {
                                         String[] args = ls[0].split(" ");
@@ -157,7 +157,7 @@ public class ConditionalJob extends Job {
                         }
                     }
 
-                    // Server.getGUI().getRecieverView().update();
+                    // Server.getGUI().getReceiverView().update();
                 } catch (Exception e) {
                     Logger.error(e.toString());
                     e.printStackTrace();
@@ -169,10 +169,10 @@ public class ConditionalJob extends Job {
     }
 
     private boolean checkConditions() {
-        RecieverHandler handlerReference = Server.getDataHandler().getRecieverHandler();
+        ReceiverHandler handlerReference = Server.getDataHandler().getReceiverHandler();
         for (String s : conditions) {
             String[] args = s.split("[ :]");
-            Double currentSensorValue = handlerReference.getReciever(args[0]).getSensor(Integer.parseInt(args[1]))
+            Double currentSensorValue = handlerReference.getReceiver(args[0]).getSensor(Integer.parseInt(args[1]))
                     .getCurrentValueAsDouble();
             System.out.println("Current Sensor Value: " + currentSensorValue);
             if (currentSensorValue == null) {

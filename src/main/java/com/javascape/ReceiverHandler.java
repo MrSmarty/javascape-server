@@ -6,40 +6,40 @@ import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import com.javascape.recievers.*;
+import com.javascape.receivers.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class RecieverHandler {
-    private ObservableList<Reciever> recievers = FXCollections.observableArrayList();
+public class ReceiverHandler {
+    private ObservableList<Receiver> receivers = FXCollections.observableArrayList();
 
     transient HashMap<String, String> classMap = new HashMap<String, String>();
 
-    public RecieverHandler() {
+    public ReceiverHandler() {
         getClasses();
 
-        // Reciever test =
+        // Receiver test =
         // Class.forName(classMap.get("PiPicoW")).getConstructor(int.class).newInstance(0);
     }
 
-    /** Pull the classes from the recievers file */
+    /** Pull the classes from the receivers file */
     private void getClasses() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "recievers.map"));
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.map"));
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "com.javascape.recievers." + item[1]);
+                classMap.put(item[0], "com.javascape.receivers." + item[1]);
             }
         } catch (IOException e) {
-            Logger.error("Error trying to fetch recievers from reciever map");
+            Logger.error("Error trying to fetch receivers from receiver map");
         }
 
     }
 
-    /** Get specified reciever by ID */
-    public Reciever getReciever(String ID) {
-        for (Reciever r : recievers) {
+    /** Get specified receiver by ID */
+    public Receiver getReceiver(String ID) {
+        for (Receiver r : receivers) {
             if (r.getUID().equals(ID)) {
                 return r;
             }
@@ -47,46 +47,46 @@ public class RecieverHandler {
         return null;
     }
 
-    public ObservableList<Reciever> getRecieverList() {
-        System.out.println("There are " + recievers.size() + " recievers");
-        return recievers;
+    public ObservableList<Receiver> getReceiverList() {
+        System.out.println("There are " + receivers.size() + " receivers");
+        return receivers;
     }
 
-    public ObservableList<Reciever> getActiveRecieverList() {
-        ObservableList<Reciever> active = FXCollections.observableArrayList();
-        for (Reciever r : recievers)
+    public ObservableList<Receiver> getActiveReceiverList() {
+        ObservableList<Receiver> active = FXCollections.observableArrayList();
+        for (Receiver r : receivers)
             if (r.getCurrentThread() != null)
                 active.add(r);
-        System.out.println("There are " + active.size() + " active recievers");
+        System.out.println("There are " + active.size() + " active receivers");
         return active;
     }
 
-    /** Add a reciever to the recievers list */
-    public void addReciever(String deviceType, String ID) {
+    /** Add a receiver to the receivers list */
+    public void addReceiver(String deviceType, String ID) {
         try {
             Class<?> tempClass = Class.forName(classMap.get(deviceType));
             Constructor<?> constructor = tempClass.getConstructor(String.class);
 
             Object instance = constructor.newInstance(ID);
-            Reciever temp = (Reciever) instance;
+            Receiver temp = (Receiver) instance;
 
-            recievers.add(temp);
+            receivers.add(temp);
             Logger.print(temp.getName() + " | " + temp.getUID());
         } catch (Exception e) {
-            Logger.print("Error adding reciever: " + e.toString());
+            Logger.print("Error adding receiver: " + e.toString());
         }
     }
 
-    /** Add a reciever to the recievers list */
-    public void addReciever(String deviceType, String ID, String name) {
+    /** Add a receiver to the receivers list */
+    public void addReceiver(String deviceType, String ID, String name) {
         try {
             Class<?> tempClass = Class.forName(classMap.get(deviceType));
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, String.class);
 
             Object instance = constructor.newInstance(ID, name, deviceType);
-            Reciever temp = (Reciever) instance;
+            Receiver temp = (Receiver) instance;
 
-            recievers.add(temp);
+            receivers.add(temp);
             Logger.print(temp.getName() + " | " + temp.getUID());
         } catch (Exception e) {
             Logger.print(e.toString());

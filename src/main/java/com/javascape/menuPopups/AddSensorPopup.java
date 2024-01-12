@@ -1,7 +1,7 @@
 package com.javascape.menuPopups;
 
 import com.javascape.Server;
-import com.javascape.recievers.Reciever;
+import com.javascape.receivers.Receiver;
 import com.javascape.sensors.SensorManager;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,9 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class AddSensorPopup {
-    public AddSensorPopup(Reciever reciever, int index) {
+    public AddSensorPopup(Receiver receiver, int index) {
         Stage popupStage = new Stage();
-        
 
         GridPane g = new GridPane();
 
@@ -25,8 +24,8 @@ public class AddSensorPopup {
         Button cancel = new Button("Cancel");
 
         save.setOnAction(e -> {
-            reciever.addSensor(SensorManager.createNewSensor(dropdown.getValue(), reciever.getUID(), index), index);
-            Server.getGUI().getRecieverView().update();
+            receiver.addSensor(SensorManager.createNewSensor(dropdown.getValue(), receiver.getUID(), index), index);
+            Server.getGUI().getReceiverView().update();
             popupStage.close();
         });
 

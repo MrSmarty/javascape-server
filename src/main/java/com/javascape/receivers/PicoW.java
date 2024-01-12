@@ -1,4 +1,4 @@
-package com.javascape.recievers;
+package com.javascape.receivers;
 
 import com.javascape.Logger;
 import com.javascape.ServerThread;
@@ -21,7 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PicoW extends Reciever {
+public class PicoW extends Receiver {
 
     transient private ServerThread currentThread;
     private int[] values = new int[26];
@@ -40,7 +40,7 @@ public class PicoW extends Reciever {
         sensors = new Sensor[3];
     }
 
-    public GridPane getRecieverPane() {
+    public GridPane getReceiverPane() {
         if (checkBoxes == null)
             checkBoxes = new CheckBox[26];
         GridPane g = new GridPane();

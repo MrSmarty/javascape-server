@@ -9,16 +9,16 @@ public abstract class Sensor {
     /** The list of previous recorded values */
     protected transient ObservableList<Object> valueList;
 
-    protected String recieverID;
+    protected String receiverID;
 
     /** The name of the sensor */
     protected String name;
 
     protected int index;
 
-    public Sensor(String recieverID, String name, int index) {
+    public Sensor(String receiverID, String name, int index) {
         this.name = name;
-        this.recieverID = recieverID;
+        this.receiverID = receiverID;
         this.index = index;
     }
 

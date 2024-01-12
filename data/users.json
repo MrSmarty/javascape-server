@@ -16,7 +16,7 @@
     },
     {
       "email": "test2",
-      "username": "test2",
+      "username": "TestPerson2",
       "password": "test2",
       "permissionsLevel": 2,
       "householdID": 0

@@ -7,7 +7,7 @@ import com.javascape.Server;
 import com.javascape.chronjob.Chronjob;
 import com.javascape.chronjob.ChronManager;
 import com.javascape.chronjob.ChronjobItem;
-import com.javascape.recievers.Reciever;
+import com.javascape.receivers.Receiver;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -102,7 +102,6 @@ public class NewChronjobPopup {
         scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
         scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
 
-
         stage.setScene(scene);
 
         stage.show();
@@ -126,23 +125,23 @@ public class NewChronjobPopup {
             infoLabelAfter.textProperty().setValue(setType.getValue().getAfterLabel());
         });
 
-        Label recieverLabel = new Label("Reciever");
-        ChoiceBox<Reciever> recieverBox = new ChoiceBox<Reciever>();
+        Label receiverLabel = new Label("Receiver");
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
 
-        recieverBox.getItems().addAll(Server.getDataHandler().getRecieverHandler().getRecieverList());
-        recieverBox.valueProperty().set(recieverBox.getItems().get(0));
+        receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
+        receiverBox.valueProperty().set(receiverBox.getItems().get(0));
 
         g.add(setType, 0, 0);
         g.add(infoLabel, 0, 1);
         g.add(valueField, 1, 1);
         g.add(infoLabelAfter, 2, 1);
-        g.add(recieverLabel, 0, 2);
-        g.add(recieverBox, 1, 2);
+        g.add(receiverLabel, 0, 2);
+        g.add(receiverBox, 1, 2);
 
         Button add = new Button("Add");
         add.setOnAction(e -> {
             String command = setType.getValue().getCommand(valueField.textProperty().getValue()) + " - "
-                    + recieverBox.valueProperty().get().getUID();
+                    + receiverBox.valueProperty().get().getUID();
             observableCommands.add(command);
             stage.close();
         });
@@ -157,7 +156,6 @@ public class NewChronjobPopup {
 
         Scene s = new Scene(g);
         s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
 
         stage.setScene(s);
 

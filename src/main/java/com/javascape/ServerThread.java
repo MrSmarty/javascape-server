@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.concurrent.*;
 
-import com.javascape.recievers.Reciever;
+import com.javascape.receivers.Receiver;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,16 +23,16 @@ public class ServerThread extends Thread {
     /** A reference to the server */
     protected Server server;
 
-    private Reciever currentReciever;
+    private Receiver currentReceiver;
 
     /** An enum to store the possible types */
     private enum DeviceType {
         Pending,
         Client,
-        Reciever
+        Receiver
     };
 
-    /** The commands to send the reciever */
+    /** The commands to send the receiver */
     public ObservableList<String> commands = FXCollections.observableArrayList();
 
     /** Stores the type of device on the thread */
@@ -91,15 +91,15 @@ public class ServerThread extends Thread {
 
             System.out.println(Arrays.toString(args));
 
-            if (args[1].equals("reciever")) {
-                deviceType = DeviceType.Reciever;
-                if (Server.getDataHandler().getRecieverHandler().getReciever(args[3]) == null) {
-                    Logger.print("Reciever Created");
-                    Server.getDataHandler().getRecieverHandler().addReciever(args[2], args[3], args[4]);
+            if (args[1].equals("receiver")) {
+                deviceType = DeviceType.Receiver;
+                if (Server.getDataHandler().getReceiverHandler().getReceiver(args[3]) == null) {
+                    Logger.print("Receiver Created");
+                    Server.getDataHandler().getReceiverHandler().addReceiver(args[2], args[3], args[4]);
                     Server.getDataHandler().save();
                 }
-                Server.getDataHandler().getRecieverHandler().getReciever(args[3]).setThreadInfo(this, this.threadId());
-                currentReciever = Server.getDataHandler().getRecieverHandler().getReciever(args[3]);
+                Server.getDataHandler().getReceiverHandler().getReceiver(args[3]).setThreadInfo(this, this.threadId());
+                currentReceiver = Server.getDataHandler().getReceiverHandler().getReceiver(args[3]);
             } else if (args[1].equals("client")) {
                 Logger.print("Client connection");
                 deviceType = DeviceType.Client;
@@ -114,7 +114,7 @@ public class ServerThread extends Thread {
                     printStream.flush();
                     quit();
                 }
-                
+
             }
         } catch (IOException e) {
             Logger.print("Exception getting info");
@@ -123,10 +123,10 @@ public class ServerThread extends Thread {
 
         run = true;
 
-        if (deviceType == DeviceType.Reciever) {
+        if (deviceType == DeviceType.Receiver) {
             Platform.runLater(new Runnable() {
                 public void run() {
-                    ServerGUI.recieverView.update();
+                    ServerGUI.receiverView.update();
                 }
             });
             sendFirstProtocol();
@@ -170,7 +170,7 @@ public class ServerThread extends Thread {
                             String[] inArgs = in.split(" ");
                             switch (inArgs[0]) {
                                 case "internalTemp":
-                                    currentReciever.addInternalTemperatureValue(Double.parseDouble(inArgs[1]));
+                                    currentReceiver.addInternalTemperatureValue(Double.parseDouble(inArgs[1]));
                                     break;
                                 case "sensorValues":
                                     for (int i = 1; i < inArgs.length; i += 2) {
@@ -178,7 +178,7 @@ public class ServerThread extends Thread {
                                         Platform.runLater(new Runnable() {
                                             @Override
                                             public void run() {
-                                                currentReciever.getSensor(Integer.parseInt(inArgs[tempI]))
+                                                currentReceiver.getSensor(Integer.parseInt(inArgs[tempI]))
                                                         .addValue(inArgs[tempI + 1]);
                                             }
                                         });
@@ -223,7 +223,7 @@ public class ServerThread extends Thread {
 
                 if (in == null) {
                     Logger.print("'in' is null");
-                    return; 
+                    return;
                 }
 
                 String[] args = in.split(" ");
@@ -233,11 +233,21 @@ public class ServerThread extends Thread {
                     out = Server.getDataHandler().serialize(tempUser, true);
                     System.out.println(out);
                 } else if (args[0].equals("createUser")) {
-                    out = "" + Server.getDataHandler().getUserHandler().addUser(new User(args[1], args[2], Integer.parseInt(args[3]), args[4]));
+                    out = "" + Server.getDataHandler().getUserHandler()
+                            .addUser(new User(args[1], args[2], Integer.parseInt(args[3]), args[4]));
                 } else if (args[0].equals("deleteUser")) {
                     out = "" + Server.getDataHandler().getUserHandler().removeUser(args[1]);
+                } else if (args[0].equals("editUser")) {
+                    out = "" + Server.getDataHandler().getUserHandler().updateUser(
+                            Server.getDataHandler().getUserHandler().getUser(args[1]), args[2], args[3],
+                            Integer.parseInt(args[4]), args[5]);
                 } else if (args[0].equals("getUserList")) {
-                    out = Server.getDataHandler().serialize(Server.getDataHandler().getUserHandler().getAllUsers(), true);
+                    out = Server.getDataHandler().serialize(Server.getDataHandler().getUserHandler().getAllUsers(),
+                            true);
+                } else if (args[0].equals("createHousehold")) {
+                    // TODO: Createhousehold for clients
+                } else if (args[0].equals("newChronjob")) {
+                    // TODO: Client chronjobs
                 } else {
                     out = "ok";
                 }
@@ -258,9 +268,9 @@ public class ServerThread extends Thread {
     public void quit() {
         Logger.print("Closing thread with name:" + this.getName());
         run = false;
-        if (currentReciever != null)
-            currentReciever.setThreadInfo(null, 0);
-        ServerGUI.recieverView.update();
+        if (currentReceiver != null)
+            currentReceiver.setThreadInfo(null, 0);
+        ServerGUI.receiverView.update();
 
         // close connection
         try {
