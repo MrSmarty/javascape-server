@@ -12,15 +12,15 @@ public class User {
 
     private String password;
 
-    private boolean isAdmin;
+    private int permissionsLevel;
 
     private int householdID;
 
     /** Initialize a user with the given values */
-    public User(String username, String password, boolean isAdmin, String email) {
+    public User(String username, String password, int permissions, String email) {
         this.username = username;
         this.password = password;
-        this.isAdmin = isAdmin;
+        this.permissionsLevel = permissions;
         this.email = email;
         householdID = 0;
     }
@@ -49,13 +49,13 @@ public class User {
     }
 
     /** @return True if the user is an admin */
-    public boolean isAdmin() {
-        return isAdmin;
+    public int getPermissionsLevel() {
+        return permissionsLevel;
     }
 
     /** Set the admin status of the User */
-    public void setAdmin(boolean value) {
-        isAdmin = value;
+    public void setPermissions(int value) {
+        permissionsLevel = value;
     }
 
     /** @return The email of the user */

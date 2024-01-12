@@ -4,14 +4,21 @@
       "email": "admin",
       "username": "admin",
       "password": "admin",
-      "isAdmin": true,
+      "permissionsLevel": 0,
       "householdID": 0
     },
     {
-      "email": "testemail",
-      "username": "Grandpa",
-      "password": "gpa23",
-      "isAdmin": true,
+      "email": "test",
+      "username": "test",
+      "password": "test",
+      "permissionsLevel": 1,
+      "householdID": 0
+    },
+    {
+      "email": "test2",
+      "username": "test2",
+      "password": "test2",
+      "permissionsLevel": 2,
       "householdID": 0
     }
   ]

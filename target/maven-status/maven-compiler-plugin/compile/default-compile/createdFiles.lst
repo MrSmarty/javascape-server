@@ -1,5 +1,6 @@
 com/javascape/sensors/Sensor.class
 com/javascape/Logger$1.class
+com/javascape/Permissions.class
 com/javascape/menuPopups/CreateNewUserPopup.class
 com/javascape/menuPopups/AddSensorPopup.class
 com/javascape/Logger.class

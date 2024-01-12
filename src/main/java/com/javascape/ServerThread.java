@@ -233,7 +233,11 @@ public class ServerThread extends Thread {
                     out = Server.getDataHandler().serialize(tempUser, true);
                     System.out.println(out);
                 } else if (args[0].equals("createUser")) {
-                    out = "" + Server.getDataHandler().getUserHandler().addUser(new User(args[1], args[2], Boolean.parseBoolean(args[3]), args[4]));
+                    out = "" + Server.getDataHandler().getUserHandler().addUser(new User(args[1], args[2], Integer.parseInt(args[3]), args[4]));
+                } else if (args[0].equals("deleteUser")) {
+                    out = "" + Server.getDataHandler().getUserHandler().removeUser(args[1]);
+                } else if (args[0].equals("getUserList")) {
+                    out = Server.getDataHandler().serialize(Server.getDataHandler().getUserHandler().getAllUsers(), true);
                 } else {
                     out = "ok";
                 }

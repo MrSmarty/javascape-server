@@ -118,7 +118,7 @@ public class DataHandler {
                 Logger.print("Users file does not exist, creating new one");
                 userHandler = new UserHandler();
                 Logger.print("Initializing an admin user...");
-                userHandler.addUser(new User("admin", "admin", true, "admin"));
+                userHandler.addUser(new User("admin", "admin", 0, "admin"));
             } else {
                 Logger.print("Users file exists, loading");
                 userHandler = gson.fromJson(
@@ -259,7 +259,7 @@ public class DataHandler {
     /** Login for the Server side (Checks admin rights too) */
     public boolean serverLogin(String email, String password) {
         if (userHandler.login(email, password)) {
-            if (userHandler.getUser(email).isAdmin()) {
+            if (userHandler.getUser(email).getPermissionsLevel() == 0) {
                 return true;
             }
         }

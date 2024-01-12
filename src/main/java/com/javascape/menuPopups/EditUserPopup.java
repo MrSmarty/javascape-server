@@ -1,5 +1,6 @@
 package com.javascape.menuPopups;
 
+import com.javascape.Permissions;
 import com.javascape.Server;
 import com.javascape.User;
 import javafx.scene.Scene;
@@ -30,8 +31,10 @@ public class EditUserPopup {
         Label emailLabel = new Label("Email:");
         TextField emailField = new TextField();
 
-        Label adminLabel = new Label("Admin:");
-        CheckBox adminBox = new CheckBox();
+        Label adminLabel = new Label("Permissions level:");
+
+        ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
+        adminDropdown.getItems().addAll(Permissions.getPermissionsList());
 
         Button save = new Button("Save");
 
@@ -42,7 +45,7 @@ public class EditUserPopup {
             u.setUsername(usernameField.textProperty().getValue());
             u.setPassword(passwordField.textProperty().getValue());
             u.setEmail(emailField.textProperty().getValue());
-            u.setAdmin(adminBox.selectedProperty().getValue());
+            u.setPermissions(Permissions.toInt(adminDropdown.getValue()));
             popupStage.close();
         });
 
@@ -54,7 +57,7 @@ public class EditUserPopup {
             usernameField.textProperty().set(dropdown.getValue().getUsername());
             passwordField.textProperty().set(dropdown.getValue().getPassword());
             emailField.textProperty().set(dropdown.getValue().getEmail());
-            adminBox.selectedProperty().set(dropdown.getValue().isAdmin());
+            adminDropdown.valueProperty().set(Permissions.toString(dropdown.getValue().getPermissionsLevel()));
         });
 
         g.add(dropdown, 0, 0, 2, 1);
@@ -65,7 +68,7 @@ public class EditUserPopup {
         g.add(emailLabel, 0, 3);
         g.add(emailField, 1, 3);
         g.add(adminLabel, 0, 4);
-        g.add(adminBox, 1, 4);
+        g.add(adminDropdown, 1, 4);
         g.add(save, 0, 5);
         g.add(cancel, 1, 5);
 

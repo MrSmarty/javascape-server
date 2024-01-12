@@ -1,10 +1,11 @@
 package com.javascape.menuPopups;
 
+import com.javascape.Permissions;
 import com.javascape.Server;
 import com.javascape.User;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -28,8 +29,9 @@ public class CreateNewUserPopup {
         Label emailLabel = new Label("Email:");
         TextField emailField = new TextField();
 
-        Label adminLabel = new Label("Admin:");
-        CheckBox adminCheckBox = new CheckBox();
+        Label adminLabel = new Label("Permissions Level:");
+        ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
+        adminDropdown.getItems().addAll(Permissions.getPermissionsList());
 
         Button submit = new Button("Done");
 
@@ -38,7 +40,7 @@ public class CreateNewUserPopup {
                     && emailField.textProperty().getValue() != "") {
                 if (Server.getDataHandler().getUserHandler()
                         .addUser(new User(usernameField.textProperty().getValue(),
-                                passwordField.textProperty().getValue(), adminCheckBox.selectedProperty().getValue(),
+                                passwordField.textProperty().getValue(), Permissions.toInt(adminDropdown.getValue()),
                                 emailField.textProperty().getValue()))) {
 
                     popupStage.close();
@@ -64,7 +66,7 @@ public class CreateNewUserPopup {
         g.add(emailLabel, 0, 2);
         g.add(emailField, 1, 2);
         g.add(adminLabel, 0, 3);
-        g.add(adminCheckBox, 1, 3);
+        g.add(adminDropdown, 1, 3);
         g.add(submit, 0, 4);
         g.add(cancel, 1, 5);
 

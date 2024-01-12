@@ -19,8 +19,12 @@ public class UserHandler {
     }
 
     /** Removes the specified user from the users list */
-    public void removeUser(User user) {
-        users.remove(user);
+    public boolean removeUser(User user) {
+        return users.remove(user);
+    }
+
+    public boolean removeUser(String email) {
+        return users.remove(getUser(email));
     }
 
     /** Finds the user with the specified email and returns it. Returns null otherwise */
