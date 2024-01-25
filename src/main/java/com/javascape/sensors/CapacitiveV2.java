@@ -22,12 +22,12 @@ public class CapacitiveV2 extends Sensor {
 
     public CapacitiveV2(String receiverID, int index) {
         super(receiverID, "Capacitive V2", index);
-        className = "CapacitiveV2";
+        this.className = "CapacitiveV2";
     }
 
     public CapacitiveV2(String receiverID, String name, int index) {
         super(receiverID, name, index);
-        className = "CapacitiveV2";
+        this.className = "CapacitiveV2";
     }
 
     public void addValue(String value) {

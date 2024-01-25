@@ -1,0 +1,45 @@
+{
+  "receivers": [
+    {
+      "values": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "gpioExpanded": false,
+      "sensorExpanded": false,
+      "uid": "16600621186956491044",
+      "name": "PiPicoW",
+      "type": "PiPicoW",
+      "householdID": 0,
+      "sensors": [
+        null,
+        null,
+        null
+      ]
+    }
+  ]
+}

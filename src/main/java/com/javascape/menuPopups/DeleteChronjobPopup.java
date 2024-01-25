@@ -2,6 +2,8 @@ package com.javascape.menuPopups;
 
 import com.javascape.Server;
 import com.javascape.chronjob.Chronjob;
+import com.javascape.chronjob.Job;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,9 +18,9 @@ public class DeleteChronjobPopup {
 
         GridPane g = new GridPane();
 
-        ObservableList<Chronjob> chronList = Server.getDataHandler().getChronManager().getRepeatingChronjobs();
+        ObservableList<Job> chronList = Server.getDataHandler().getChronManager().getAllJobs();
 
-        ChoiceBox<Chronjob> dropdown = new ChoiceBox<Chronjob>(chronList);
+        ChoiceBox<Job> dropdown = new ChoiceBox<Job>(chronList);
 
 
         Button delete = new Button("Delete Chronjob");

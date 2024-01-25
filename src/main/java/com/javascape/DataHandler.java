@@ -304,6 +304,10 @@ public class DataHandler {
         return gson.toJson(obj);
     }
 
+    public Object deserialize(String json, Class<?> classType) {
+        return gson.fromJson(json, classType);
+    }
+
     public String serialize(Object obj, boolean simplify) {
         if (simplify) {
             String tempString = gson.toJson(obj);

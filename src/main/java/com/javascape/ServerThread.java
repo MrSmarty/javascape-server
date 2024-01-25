@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.Arrays;
 import java.util.concurrent.*;
 
+import com.javascape.chronjob.Chronjob;
+import com.javascape.chronjob.ConditionalJob;
 import com.javascape.receivers.Receiver;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -244,10 +246,22 @@ public class ServerThread extends Thread {
                 } else if (args[0].equals("getUserList")) {
                     out = Server.getDataHandler().serialize(Server.getDataHandler().getUserHandler().getAllUsers(),
                             true);
+                } else if (args[0].equals("getReceiverList")) {
+                    out = Server.getDataHandler().serialize(
+                            Server.getDataHandler().getReceiverHandler().getReceiverList(), true);
                 } else if (args[0].equals("createHousehold")) {
                     // TODO: Createhousehold for clients
-                } else if (args[0].equals("newChronjob")) {
-                    // TODO: Client chronjobs
+                } else if (args[0].equals("newRepeating")) {
+                    out = "" + Server.getDataHandler().getChronManager().newRepeating(in.substring(12));
+                } else if (args[0].equals("newConditional")) {
+                    //TODO: newConditional for clients
+                } else if (args[0].equals("getChronjobList")) {
+                    out = Server.getDataHandler().serialize(Server.getDataHandler().getChronManager().getAllJobs(), true);
+                } else if (args[0].equals("getChronjobListItems")) {
+                    out = Server.getDataHandler().serialize(
+                            Server.getDataHandler().getChronManager().getAllItems(), true);
+                } else if (args[0].equals("deleteChronjob")) {
+                    out = "" + Server.getDataHandler().getChronManager().remove(!in.contains("conditions") ? (Chronjob)Server.getDataHandler().deserialize(in.substring(14), Chronjob.class) : (ConditionalJob)Server.getDataHandler().deserialize(in.substring(14), ConditionalJob.class));
                 } else {
                     out = "ok";
                 }
