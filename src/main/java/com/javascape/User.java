@@ -1,6 +1,5 @@
 package com.javascape;
 
-import javafx.scene.image.Image;
 
 /** The User class */
 public class User {

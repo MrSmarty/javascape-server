@@ -14,7 +14,6 @@ import com.javascape.receivers.Receiver;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.chart.PieChart.Data;
 
 /**
  * A connection thread for the Server.

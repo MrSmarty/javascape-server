@@ -1,7 +1,6 @@
 package com.javascape.menuPopups;
 
 import com.javascape.Server;
-import com.javascape.chronjob.Chronjob;
 import com.javascape.chronjob.Job;
 
 import javafx.collections.ObservableList;
