@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 
 public class ReceiverView {
-    protected ServerThread currentThread;
 
     ObservableList<GridPane> receiverList = FXCollections.observableArrayList();
 

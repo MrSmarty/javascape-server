@@ -24,7 +24,7 @@ import javafx.scene.layout.VBox;
 public class PicoW extends Receiver {
 
     transient private ServerThread currentThread;
-    private int[] values = new int[26];
+    public int[] values = new int[26];
 
     transient private CheckBox[] checkBoxes;
 
