@@ -23,20 +23,19 @@ import javafx.scene.layout.VBox;
 
 public class PicoW extends Receiver {
 
-    transient private ServerThread currentThread;
-    public int[] values = new int[26];
-
     transient private CheckBox[] checkBoxes;
 
     private boolean gpioExpanded = false, sensorExpanded = false;
 
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");
+        values = new int[26];
         sensors = new Sensor[3];
     }
 
     public PicoW(String uid, String name, String type) {
         super(uid, name, type);
+        values = new int[26];
         sensors = new Sensor[3];
     }
 
@@ -102,8 +101,7 @@ public class PicoW extends Receiver {
                 buttonPane.add(checkBoxes[i], 3, i + 1 - 13);
             }
 
-            if (currentThread == null)
-                checkBoxes[i].disableProperty().set(true);
+            checkBoxes[i].disableProperty().set(!connected);
 
             checkBoxes[i].selectedProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
@@ -167,14 +165,20 @@ public class PicoW extends Receiver {
         return values;
     }
 
-    public void setValue(int pin, int value) {
+    public boolean setValue(int pin, int value) {
         checkBoxes[pin].selectedProperty().set(value == 1);
+        return true;
     }
 
     public void setThreadInfo(ServerThread thread, long id) {
         this.currentThread = thread;
-        if (thread != null)
+        if (thread != null) {
             Logger.print("Set the pico threadinfo | " + thread.getName());
+            connected = true;
+        } else {
+            connected = false;
+        }
+
     }
 
     private void sendCommand(String message) {

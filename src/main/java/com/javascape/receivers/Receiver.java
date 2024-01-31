@@ -8,11 +8,27 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 public abstract class Receiver {
+    /** Unique ID of the Receiver. */
     protected String uid;
+
+    /** Name of the Receiver */
     protected String name;
+
+    /** Specifies the type of Receiver */
     protected String type;
+
+    /** The Household that this Receiver is a part of */
     protected int householdID;
+
+    protected int[] values;
+
+    /** Sensor array lol */
     protected Sensor[] sensors;
+
+    /** Boolean to tell whether or not the receiver is connected */
+    protected boolean connected;
+    transient protected ServerThread currentThread;
+
     transient protected Label tempLabel;
     transient protected ObservableList<Double> internalTemps;
 
@@ -45,16 +61,25 @@ public abstract class Receiver {
     public String toString() {
         return getName();
     }
-
+    
+    /**
+     * Returns the connection thread of the Receiver
+     * @return ServerThread of the Receiver
+     */
     public abstract ServerThread getCurrentThread();
 
+    /** Sets the thead info of this Receiver.
+     *  <strong>Should also set the connected boolean to true.</strong>
+     * @param thread The thread to the Receiver to use
+     * @param id The ID of the thread
+     */
     public abstract void setThreadInfo(ServerThread thread, long id);
 
     public abstract GridPane getReceiverPane();
 
     public abstract int[] getValues();
 
-    public abstract void setValue(int pin, int value);
+    public abstract boolean setValue(int pin, int value);
 
     public abstract void addInternalTemperatureValue(double temperature);
 
@@ -71,5 +96,14 @@ public abstract class Receiver {
             return 0;
         }
         return internalTemps.get(0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Receiver) {
+            Receiver r = (Receiver) o;
+            return r.uid.equals(uid);
+        }
+        return false;
     }
 }

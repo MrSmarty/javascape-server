@@ -261,6 +261,8 @@ public class ServerThread extends Thread {
                             Server.getDataHandler().getChronManager().getAllItems(), true);
                 } else if (args[0].equals("deleteChronjob")) {
                     out = "" + Server.getDataHandler().getChronManager().remove(!in.contains("conditions") ? (Chronjob)Server.getDataHandler().deserialize(in.substring(14), Chronjob.class) : (ConditionalJob)Server.getDataHandler().deserialize(in.substring(14), ConditionalJob.class));
+                } else if (args[0].equals("setPin")) {
+                    out = "" + Server.getDataHandler().getReceiverHandler().getReceiver(args[1]).setValue(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
                 } else {
                     out = "ok";
                 }
