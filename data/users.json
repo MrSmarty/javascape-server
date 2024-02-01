@@ -20,6 +20,13 @@
       "password": "test2",
       "permissionsLevel": 2,
       "householdID": 0
+    },
+    {
+      "email": "admin2",
+      "username": "admin2",
+      "password": "admin2",
+      "permissionsLevel": 0,
+      "householdID": 0
     }
   ]
 }

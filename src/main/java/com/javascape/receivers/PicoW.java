@@ -110,6 +110,7 @@ public class PicoW extends Receiver {
                             String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
                     sendCommand(
                             String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
+                    values[tempI] = checkBoxes[tempI].selectedProperty().get() ? 1 : 0;
                 }
             });
         }
