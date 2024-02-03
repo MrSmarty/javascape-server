@@ -26,7 +26,7 @@ public abstract class Receiver {
     protected Sensor[] sensors;
 
     /** Boolean to tell whether or not the receiver is connected */
-    protected boolean connected;
+    transient protected boolean connected;
     transient protected ServerThread currentThread;
 
     transient protected Label tempLabel;
