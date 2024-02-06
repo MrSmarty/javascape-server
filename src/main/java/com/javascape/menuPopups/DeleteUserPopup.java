@@ -1,7 +1,8 @@
 package com.javascape.menuPopups;
 
 import com.javascape.Server;
-import com.javascape.User;
+import com.javascape.user.User;
+
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

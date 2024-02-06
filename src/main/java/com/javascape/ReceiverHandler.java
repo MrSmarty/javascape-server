@@ -31,6 +31,7 @@ public class ReceiverHandler {
 
                 classMap.put(item[0], "com.javascape.receivers." + item[1]);
             }
+            scan.close();
         } catch (IOException e) {
             Logger.error("Error trying to fetch receivers from receiver map");
         }

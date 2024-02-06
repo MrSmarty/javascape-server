@@ -18,7 +18,8 @@ public class ReceiverDeserializer implements JsonDeserializer<Receiver> {
     transient HashMap<String, String> classMap = new HashMap<String, String>();
 
     @Override
-    public Receiver deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Receiver deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
         getClasses();
         try {
             String s = json.getAsJsonObject().get("type").toString();
@@ -40,6 +41,7 @@ public class ReceiverDeserializer implements JsonDeserializer<Receiver> {
 
                 classMap.put(item[0], "com.javascape.receivers." + item[1]);
             }
+            scan.close();
         } catch (IOException e) {
             // Logger.error("Error trying to fetch receivers from receiver map");
         }

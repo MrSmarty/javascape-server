@@ -11,6 +11,8 @@ import java.util.concurrent.*;
 import com.javascape.chronjob.Chronjob;
 import com.javascape.chronjob.ConditionalJob;
 import com.javascape.receivers.Receiver;
+import com.javascape.user.User;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

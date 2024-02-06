@@ -1,5 +1,7 @@
 package com.javascape;
 
+import com.javascape.user.User;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

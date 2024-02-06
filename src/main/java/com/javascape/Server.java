@@ -1,5 +1,7 @@
 package com.javascape;
 
+import com.javascape.user.User;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;

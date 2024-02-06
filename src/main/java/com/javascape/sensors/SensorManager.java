@@ -33,6 +33,7 @@ public class SensorManager {
 
                 classMap.put(item[0], "com.javascape.sensors." + item[1]);
             }
+            scan.close();
         } catch (IOException e) {
             Logger.error("Error trying to fetch sensors from sensor map");
         }

@@ -13,6 +13,8 @@ import com.google.gson.*;
 import com.javascape.chronjob.ChronManager;
 import com.javascape.chronjob.Chronjob;
 import com.javascape.sensors.Sensor;
+import com.javascape.user.User;
+import com.javascape.user.UserHandler;
 import com.javascape.gsonDeserializers.*;
 import com.javascape.receivers.Receiver;
 

@@ -1,4 +1,6 @@
-package com.javascape;
+package com.javascape.user;
+
+import com.javascape.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -6,9 +8,12 @@ import javafx.collections.ObservableList;
 public class UserHandler {
     private ObservableList<User> users = FXCollections.observableArrayList();
 
-    /** Adds the new user to the users list if there is not already one with that email
+    /**
+     * Adds the new user to the users list if there is not already one with that
+     * email
+     * 
      * @return True if the user was added, false otherwise
-    */
+     */
     public boolean addUser(User newUser) {
         if (getUser(newUser.getEmail()) != null) {
             Logger.print("User with email " + newUser.getEmail() + " already exists");
@@ -27,7 +32,10 @@ public class UserHandler {
         return users.remove(getUser(email));
     }
 
-    /** Finds the user with the specified email and returns it. Returns null otherwise */
+    /**
+     * Finds the user with the specified email and returns it. Returns null
+     * otherwise
+     */
     public User getUser(String email) {
         for (User user : users) {
             if (user.getEmail().equals(email)) {

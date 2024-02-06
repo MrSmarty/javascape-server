@@ -2,7 +2,8 @@ package com.javascape.menuPopups;
 
 import com.javascape.Permissions;
 import com.javascape.Server;
-import com.javascape.User;
+import com.javascape.user.User;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -33,23 +34,25 @@ public class CreateNewUserPopup {
         ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
         adminDropdown.getItems().addAll(Permissions.getPermissionsList());
 
+        Label errorLabel = new Label();
+
         Button submit = new Button("Done");
 
         submit.setOnAction(e -> {
             if (usernameField.textProperty().getValue() != "" && passwordField.textProperty().getValue() != ""
                     && emailField.textProperty().getValue() != "") {
-                if (Server.getDataHandler().getUserHandler()
+                        boolean result = Server.getDataHandler().getUserHandler()
                         .addUser(new User(usernameField.textProperty().getValue(),
                                 passwordField.textProperty().getValue(), Permissions.toInt(adminDropdown.getValue()),
-                                emailField.textProperty().getValue()))) {
-
+                                emailField.textProperty().getValue()));
+                if (result) {
                     popupStage.close();
                 } else {
-                    // TODO: Inform user that email is in use
+                    errorLabel.textProperty().set("User with email " + emailField.textProperty().getValue() + " already exists");
                 }
 
             } else {
-                // TODO: Inform the user that all field must be filled out
+                errorLabel.textProperty().set("Please fill out all fields");
             }
         });
 
@@ -67,7 +70,8 @@ public class CreateNewUserPopup {
         g.add(emailField, 1, 2);
         g.add(adminLabel, 0, 3);
         g.add(adminDropdown, 1, 3);
-        g.add(submit, 0, 4);
+        g.add(errorLabel, 0, 4, 2, 1);
+        g.add(submit, 0, 5);
         g.add(cancel, 1, 5);
 
         Scene s = new Scene(g);

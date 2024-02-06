@@ -7,11 +7,10 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-
-import com.javascape.User;
 import com.javascape.chronjob.Chronjob;
 import com.javascape.chronjob.ConditionalJob;
 import com.javascape.receivers.Receiver;
+import com.javascape.user.User;
 import com.javascape.Household;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
