@@ -18,7 +18,7 @@ public abstract class Receiver {
     protected String type;
 
     /** The Household that this Receiver is a part of */
-    protected int householdID;
+    protected int householdID = -1;
 
     protected int[] values;
 
@@ -26,7 +26,7 @@ public abstract class Receiver {
     protected Sensor[] sensors;
 
     /** Boolean to tell whether or not the receiver is connected */
-    transient protected boolean connected;
+    protected boolean connected = false;
     transient protected ServerThread currentThread;
 
     transient protected Label tempLabel;

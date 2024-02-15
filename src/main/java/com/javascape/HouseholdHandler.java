@@ -7,8 +7,9 @@ public class HouseholdHandler {
     private ObservableList<Household> households = FXCollections.observableArrayList();
     private int currentID = 0;
 
-    public void createHousehold(String name) {
+    public boolean createHousehold(String name) {
         households.add(new Household(currentID++, name));
+        return true;
     }
 
     /** Returns the household with the specified id, otherwise returns null */

@@ -25,7 +25,7 @@ public class PicoW extends Receiver {
 
     transient private CheckBox[] checkBoxes;
 
-    private boolean gpioExpanded = false, sensorExpanded = false;
+    transient private boolean gpioExpanded = false, sensorExpanded = false;
 
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");

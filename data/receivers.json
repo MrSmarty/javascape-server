@@ -1,12 +1,10 @@
 {
   "receivers": [
     {
-      "gpioExpanded": true,
-      "sensorExpanded": true,
       "uid": "16600621186956491044",
       "name": "PiPicoW",
       "type": "PiPicoW",
-      "householdID": 0,
+      "householdID": -1,
       "values": [
         1,
         0,
@@ -46,7 +44,8 @@
           "index": 1
         },
         null
-      ]
+      ],
+      "connected": true
     }
   ]
 }

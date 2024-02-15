@@ -251,7 +251,7 @@ public class ServerThread extends Thread {
                     out = Server.getDataHandler().serialize(
                             Server.getDataHandler().getReceiverHandler().getReceiverList(), true);
                 } else if (args[0].equals("createHousehold")) {
-                    // TODO: Createhousehold for clients
+                    out = "" + Server.getDataHandler().getHouseholdHandler().createHousehold(args[1]);
                 } else if (args[0].equals("newRepeating")) {
                     out = "" + Server.getDataHandler().getChronManager().newRepeating(in.substring(12));
                 } else if (args[0].equals("newConditional")) {

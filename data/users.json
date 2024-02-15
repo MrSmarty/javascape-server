@@ -5,7 +5,7 @@
       "username": "admin",
       "password": "admin",
       "permissionsLevel": 0,
-      "householdID": 0
+      "householdID": -1
     }
   ]
 }

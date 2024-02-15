@@ -13,7 +13,7 @@ public class User {
 
     public int permissionsLevel;
 
-    public int householdID;
+    public int householdID = -1;
 
     /** Initialize a user with the given values */
     public User(String username, String password, int permissions, String email) {
@@ -21,7 +21,16 @@ public class User {
         this.password = password;
         this.permissionsLevel = permissions;
         this.email = email;
-        householdID = 0;
+        householdID = -1;
+    }
+
+    /** Initialize a user with the given values */
+    public User(String username, String password, int permissions, String email, int householdID) {
+        this.username = username;
+        this.password = password;
+        this.permissionsLevel = permissions;
+        this.email = email;
+        this.householdID = householdID;
     }
 
     /**

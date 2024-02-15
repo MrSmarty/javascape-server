@@ -1,4 +1,10 @@
 {
-  "households": [],
-  "currentID": 0
+  "households": [
+    {
+      "householdID": 0,
+      "householdName": "Smith",
+      "members": []
+    }
+  ],
+  "currentID": 1
 }
