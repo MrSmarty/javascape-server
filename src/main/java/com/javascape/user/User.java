@@ -5,15 +5,15 @@ package com.javascape.user;
 public class User {
     // TODO: User Preferences?
 
-    private String email;
+    public String email;
 
-    private String username;
+    public String username;
 
-    private String password;
+    public String password;
 
-    private int permissionsLevel;
+    public int permissionsLevel;
 
-    private int householdID;
+    public int householdID;
 
     /** Initialize a user with the given values */
     public User(String username, String password, int permissions, String email) {

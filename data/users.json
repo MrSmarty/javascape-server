@@ -6,27 +6,6 @@
       "password": "admin",
       "permissionsLevel": 0,
       "householdID": 0
-    },
-    {
-      "email": "test",
-      "username": "test",
-      "password": "test",
-      "permissionsLevel": 1,
-      "householdID": 0
-    },
-    {
-      "email": "test2",
-      "username": "TestPerson2",
-      "password": "test2",
-      "permissionsLevel": 2,
-      "householdID": 0
-    },
-    {
-      "email": "admin2",
-      "username": "admin2",
-      "password": "admin2",
-      "permissionsLevel": 0,
-      "householdID": 0
     }
   ]
 }

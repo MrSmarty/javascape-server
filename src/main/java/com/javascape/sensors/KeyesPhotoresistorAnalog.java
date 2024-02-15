@@ -17,8 +17,8 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
-    private int maxCal = 49000;
-    private int minCal = 0;
+    public int maxCal = 65565;
+    public int minCal = 0;
 
     public KeyesPhotoresistorAnalog(String receiverID, int index) {
         super(receiverID, "Analog photoresistor", index);
@@ -96,7 +96,7 @@ public class KeyesPhotoresistorAnalog extends Sensor {
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
+            double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             return String.format("%.2f", percent);
         }
         return "N/A";
@@ -104,7 +104,7 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
     public Double getCurrentValueAsDouble() {
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
+            double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             return percent;
         }
         return null;

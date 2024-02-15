@@ -56,7 +56,6 @@ public class PicoW extends Receiver {
         });
 
         nameLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent click) {
 
