@@ -9,6 +9,7 @@ com/javascape/Logger.class
 com/javascape/sensors/KeyesPhotoresistorAnalog$1.class
 com/javascape/ReceiverView$1.class
 com/javascape/DataHandler.class
+com/javascape/Helper.class
 com/javascape/user/UserHandler.class
 com/javascape/Server.class
 com/javascape/chronjob/ConditionalJob.class

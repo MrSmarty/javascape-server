@@ -179,7 +179,6 @@ public class ServerThread extends Thread {
                                     for (int i = 1; i < inArgs.length; i += 2) {
                                         int tempI = i;
                                         Platform.runLater(new Runnable() {
-                                            @Override
                                             public void run() {
                                                 currentReceiver.getSensor(Integer.parseInt(inArgs[tempI]))
                                                         .addValue(inArgs[tempI + 1]);
@@ -190,6 +189,7 @@ public class ServerThread extends Thread {
                             }
                         } catch (IOException e) {
                             Logger.print("Exception in send-first protocol: " + e.toString());
+                            e.printStackTrace();
                         }
                         return "done";
                     }

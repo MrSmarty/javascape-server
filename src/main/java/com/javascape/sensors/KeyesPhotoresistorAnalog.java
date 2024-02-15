@@ -1,5 +1,6 @@
 package com.javascape.sensors;
 
+import com.javascape.Helper;
 import com.javascape.Server;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -96,7 +97,8 @@ public class KeyesPhotoresistorAnalog extends Sensor {
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            //double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return String.format("%.2f", percent);
         }
         return "N/A";
@@ -104,7 +106,8 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
     public Double getCurrentValueAsDouble() {
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            //double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return percent;
         }
         return null;

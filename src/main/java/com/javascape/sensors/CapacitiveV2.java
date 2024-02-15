@@ -17,8 +17,9 @@ public class CapacitiveV2 extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
-    private int maxCal = 48571;
-    private int minCal = 18260;
+    public int maxCal = 48571;
+    public int minCal = 18260;
+
 
     public CapacitiveV2(String receiverID, int index) {
         super(receiverID, "Capacitive V2", index);
