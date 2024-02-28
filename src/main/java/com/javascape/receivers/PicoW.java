@@ -1,18 +1,18 @@
 package com.javascape.receivers;
 
+import java.util.ArrayList;
+
 import com.javascape.Logger;
 import com.javascape.ServerThread;
 import com.javascape.menuPopups.AddSensorPopup;
-import com.javascape.sensors.Sensor;
+import com.javascape.sensors.analog.Sensor;
+
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
@@ -23,25 +23,21 @@ import javafx.scene.layout.VBox;
 
 public class PicoW extends Receiver {
 
-    transient private CheckBox[] checkBoxes;
-
     transient private boolean gpioExpanded = false, sensorExpanded = false;
 
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");
-        values = new int[26];
+        gpio = new GPIO[26];
         sensors = new Sensor[3];
     }
 
     public PicoW(String uid, String name, String type) {
         super(uid, name, type);
-        values = new int[26];
+        gpio = new GPIO[26];
         sensors = new Sensor[3];
     }
 
     public GridPane getReceiverPane() {
-        if (checkBoxes == null)
-            checkBoxes = new CheckBox[26];
         GridPane g = new GridPane();
         Label nameLabel = new Label(super.getName());
         TextField nameField = new TextField(super.getName());
@@ -87,31 +83,16 @@ public class PicoW extends Receiver {
         GridPane buttonPane = new GridPane();
 
         for (int i = 0; i < 26; i++) {
-            int tempI = i;
-            Label l = new Label("GPIO: " + i);
-            checkBoxes[i] = new CheckBox();
+            gpio[i] = new GPIO(uid, i);
 
-            checkBoxes[i].selectedProperty().set(values[i] == 1 ? true : false);
             if (i < 13) {
-                buttonPane.add(l, 0, i + 1);
-                buttonPane.add(checkBoxes[i], 1, i + 1);
+                buttonPane.add(gpio[i].getUI(), 0, i);
             } else {
-                buttonPane.add(l, 2, i + 1 - 13);
-                buttonPane.add(checkBoxes[i], 3, i + 1 - 13);
+                buttonPane.add(gpio[i].getUI(), 1, i - 13);
             }
 
-            checkBoxes[i].disableProperty().set(!connected);
+            gpio[i].setConnectionStatus(connected);
 
-            checkBoxes[i].selectedProperty().addListener(new ChangeListener<Boolean>() {
-                @Override
-                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    Logger.print(
-                            String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
-                    sendCommand(
-                            String.format("setPin %d %d", tempI, checkBoxes[tempI].selectedProperty().get() ? 1 : 0));
-                    values[tempI] = checkBoxes[tempI].selectedProperty().get() ? 1 : 0;
-                }
-            });
         }
         TitledPane gpioPane = new TitledPane("GPIO", buttonPane);
         gpioPane.expandedProperty().set(gpioExpanded);
@@ -159,14 +140,15 @@ public class PicoW extends Receiver {
     }
 
     public int[] getValues() {
-        for (int i = 0; i < checkBoxes.length; i++) {
-            values[i] = checkBoxes[i].selectedProperty().getValue() == true ? 1 : 0;
+        int[] values = new int[26];
+        for (int i = 0; i < gpio.length; i++) {
+            values[i] = gpio[i].value;
         }
         return values;
     }
 
     public boolean setValue(int pin, int value) {
-        checkBoxes[pin].selectedProperty().set(value == 1);
+        gpio[pin].setValue(value);
         return true;
     }
 
@@ -181,7 +163,7 @@ public class PicoW extends Receiver {
 
     }
 
-    private void sendCommand(String message) {
+    public void sendCommand(String message) {
         if (currentThread == null)
             return;
         Logger.print("Sending Command to " + currentThread.getName());
@@ -214,6 +196,19 @@ public class PicoW extends Receiver {
 
     public Sensor[] getSensors() {
         return sensors;
+    }
+
+    public ArrayList<GPIO> getDigitalSensors() {
+       ArrayList<GPIO> digitalSensors = new ArrayList<GPIO>();
+       System.out.println("Getting digital sensors");
+       for (GPIO g : gpio) {
+           if (g.sensor != null) {
+               digitalSensors.add(g);
+           }
+       }
+       System.out.println(digitalSensors.size());
+
+       return digitalSensors;
     }
 
 }

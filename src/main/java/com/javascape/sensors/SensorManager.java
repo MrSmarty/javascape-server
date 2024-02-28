@@ -3,45 +3,58 @@ package com.javascape.sensors;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import com.javascape.Logger;
 import com.javascape.Settings;
+import com.javascape.sensors.analog.Sensor;
+import com.javascape.sensors.digital.DigitalSensor;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class SensorManager {
 
-    private static HashMap<String, String> classMap = new HashMap<String, String>();
+    private static ObservableList<String> sensors = FXCollections.observableArrayList();
+    private static ObservableList<String> digitalSensors = FXCollections.observableArrayList();
 
     public static ObservableList<String> getSensorList() {
-        ObservableList<String> sensors = FXCollections.observableArrayList();
-
-        for (String key : classMap.keySet()) {
-            sensors.add(key);
-        }
-
         return sensors;
     }
 
-    public static void getClassMap() {
+    public static ObservableList<String> getDigitalSensorList() {
+        return digitalSensors;
+    }
+
+    public static void initializeSensorLists() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "sensors.map"));
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "sensors.txt"));
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "com.javascape.sensors." + item[1]);
+                sensors.add("com.javascape.sensors." + item[0]);
             }
             scan.close();
         } catch (IOException e) {
-            Logger.error("Error trying to fetch sensors from sensor map");
+            Logger.error("Error trying to fetch sensors from sensor list");
+        }
+
+        try {
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "digitalsensors.txt"));
+            while (scan.hasNextLine()) {
+                String[] item = scan.nextLine().split(" ");
+
+                digitalSensors.add("com.javascape.sensors." + item[0]);
+            }
+            scan.close();
+        } catch (IOException e) {
+            Logger.error("Error trying to fetch digital sensors from digital sensor list");
         }
     }
 
-    public static Sensor createNewSensor(String deviceName, String receiverID, int index) {
+    public static Sensor createNewAnalogSensor(String deviceName, String receiverID, int index) {
         try {
-            Class<?> tempClass = Class.forName(classMap.get(deviceName));
+            Class<?> tempClass = Class.forName("com.javascape.sensors.analog."+deviceName);
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, Integer.TYPE);
 
             Object instance = constructor.newInstance(receiverID, deviceName, index);
@@ -50,6 +63,25 @@ public class SensorManager {
             return temp;
         } catch (ClassNotFoundException e) {
             Logger.error("Error trying to get class " + deviceName);
+            return null;
+        } catch (Exception e) {
+            Logger.error(e.toString());
+        }
+        return null;
+    }
+
+    public static DigitalSensor createNewDigitalSensor(String sensorName, int index) {
+        try {
+            Class<?> tempClass = Class.forName("com.javascape.sensors.digital." + sensorName);
+
+            //TODO: Fix this
+            Object instance = tempClass.getConstructor(String.class, Integer.TYPE).newInstance("", index);
+            DigitalSensor temp = (DigitalSensor) instance;
+            System.out.println(temp);
+            return temp;
+        } catch (ClassNotFoundException e) {
+            Logger.error("Error trying to get class " + sensorName);
+            e.printStackTrace();
             return null;
         } catch (Exception e) {
             Logger.error(e.toString());

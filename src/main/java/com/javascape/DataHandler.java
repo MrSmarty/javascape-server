@@ -12,11 +12,11 @@ import com.google.gson.*;
 
 import com.javascape.chronjob.ChronManager;
 import com.javascape.chronjob.Chronjob;
-import com.javascape.sensors.Sensor;
 import com.javascape.user.User;
 import com.javascape.user.UserHandler;
 import com.javascape.gsonDeserializers.*;
 import com.javascape.receivers.Receiver;
+import com.javascape.sensors.analog.Sensor;
 
 import javafx.collections.ObservableList;
 
@@ -200,6 +200,7 @@ public class DataHandler {
             }
             createTempJob();
             createSensorDataJob();
+            createDigitalSensorDataJob();
         } catch (Exception e) {
             Logger.print("Failed to load Chronjob Manager");
             Logger.error(e.toString());
@@ -285,6 +286,15 @@ public class DataHandler {
         commands.add("getSensors - all");
 
         Chronjob getTempJob = new Chronjob("getSensorDataJob", commands, Settings.getSensorDataJobInterval,
+                Settings.getSensorDataJobIntervalUnit);
+        chronManager.newRepeating(getTempJob, false);
+    }
+
+    public void createDigitalSensorDataJob() {
+        ArrayList<String> commands = new ArrayList<String>();
+        commands.add("getDigitalSensors - all");
+
+        Chronjob getTempJob = new Chronjob("getDigitalSensorDataJob", commands, Settings.getSensorDataJobInterval,
                 Settings.getSensorDataJobIntervalUnit);
         chronManager.newRepeating(getTempJob, false);
     }

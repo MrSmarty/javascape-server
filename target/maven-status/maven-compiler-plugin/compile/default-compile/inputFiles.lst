@@ -2,6 +2,7 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/ReceiverDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/Logger.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/SettingsPopup.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/receivers/GPIO.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/SensorDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ReceiverView.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/DataHandler.java
@@ -15,6 +16,7 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/NewConditionaljobPopup.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/DeleteChronjobPopup.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/receivers/Receiver.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/sensors/DHT11.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/CreateNewUserPopup.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/HouseholdHandler.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ReceiverHandler.java

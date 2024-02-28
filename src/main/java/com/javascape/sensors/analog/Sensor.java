@@ -1,4 +1,4 @@
-package com.javascape.sensors;
+package com.javascape.sensors.analog;
 
 import javafx.collections.ObservableList;
 import javafx.scene.layout.GridPane;
@@ -40,13 +40,8 @@ public abstract class Sensor {
 
     public abstract Double getCurrentValueAsDouble();
 
-    /**
-     * Returns the GridPane of the Sensor.
-     * Should include a delete button
-     * 
-     * @return The GridPane of the Sensor
-     */
-    abstract public GridPane getSensorPane();
+
+    public abstract GridPane getSensorPane();
 
     @Override
     public String toString() {

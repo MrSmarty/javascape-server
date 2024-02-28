@@ -8,7 +8,8 @@ import com.javascape.chronjob.ChronManager;
 import com.javascape.chronjob.ChronjobItem;
 import com.javascape.chronjob.ConditionalJob;
 import com.javascape.receivers.Receiver;
-import com.javascape.sensors.Sensor;
+import com.javascape.sensors.analog.Sensor;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

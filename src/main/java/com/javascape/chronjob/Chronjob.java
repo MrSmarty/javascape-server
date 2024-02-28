@@ -53,6 +53,13 @@ public class Chronjob extends Job {
                                             }
                                         }
                                         r.getCurrentThread().addCommand(temp, 0);
+                                    } else if (ls[0].startsWith("getDigitalSensors")) {
+                                        String temp = ls[0];
+                                        for (int i = 0; i < r.getDigitalSensors().size(); i++) {
+                                            temp += " " + r.getDigitalSensors().get(i).getCommand();
+                                            System.out.println(r.getDigitalSensors().size());
+                                        }
+                                        r.getCurrentThread().addCommand(temp, 0);
                                     } else
                                         r.getCurrentThread().addCommand(ls[0], 0);
                                 }
@@ -78,6 +85,13 @@ public class Chronjob extends Job {
                                         if (r.getSensors()[i] != null) {
                                             temp += " " + i;
                                         }
+                                    }
+                                    r.getCurrentThread().addCommand(temp, 0);
+                                } else if (ls[0].startsWith("getDigitalSensors")) {
+                                    String temp = ls[0];
+                                    for (int i = 0; i < r.getDigitalSensors().size(); i++) {
+                                        temp += " " + r.getDigitalSensors().get(i).getCommand();
+                                        System.out.println(r.getDigitalSensors().size());
                                     }
                                     r.getCurrentThread().addCommand(temp, 0);
                                 } else

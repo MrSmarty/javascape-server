@@ -1,5 +1,4 @@
 com/javascape/gsonDeserializers/ReceiverDeserializer.class
-com/javascape/receivers/PicoW$3.class
 com/javascape/sensors/Sensor.class
 com/javascape/Logger$1.class
 com/javascape/Permissions.class
@@ -23,6 +22,7 @@ com/javascape/menuPopups/SettingsPopup.class
 com/javascape/sensors/SensorManager.class
 com/javascape/gsonDeserializers/SensorDeserializer.class
 com/javascape/chronjob/Chronjob.class
+com/javascape/ServerThread$2$2.class
 com/javascape/ReceiverHandler.class
 com/javascape/menuPopups/DeleteChronjobPopup.class
 com/javascape/menuPopups/DeleteUserPopup.class
@@ -31,6 +31,7 @@ com/javascape/chronjob/ConditionalJob$1.class
 com/javascape/Settings.class
 com/javascape/ServerThread$2.class
 com/javascape/menuPopups/NewConditionaljobPopup.class
+com/javascape/receivers/GPIO$1.class
 com/javascape/chronjob/ChronManager.class
 com/javascape/ServerGUI.class
 com/javascape/sensors/CapacitiveV2$1.class
@@ -38,6 +39,7 @@ com/javascape/sensors/KeyesPhotoresistorAnalog$2.class
 com/javascape/ServerThreadHandler.class
 com/javascape/chronjob/Job.class
 com/javascape/HouseholdHandler.class
+com/javascape/sensors/DHT11.class
 module-info.class
 com/javascape/menuPopups/CreateNewHouseholdPopup.class
 com/javascape/ReceiverView.class
@@ -48,6 +50,8 @@ com/javascape/ServerThread.class
 com/javascape/chronjob/Chronjob$1.class
 com/javascape/ServerThread$1.class
 com/javascape/sensors/CapacitiveV2$2.class
+com/javascape/receivers/GPIO.class
+com/javascape/receivers/GPIO$2.class
 com/javascape/receivers/Receiver.class
 com/javascape/Logger$2.class
 com/javascape/receivers/PicoW.class

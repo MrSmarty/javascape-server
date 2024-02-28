@@ -1,0 +1,2 @@
+CapacitiveV2
+KeyesPhotoresistorAnalog

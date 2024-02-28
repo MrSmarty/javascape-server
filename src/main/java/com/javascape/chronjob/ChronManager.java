@@ -36,6 +36,9 @@ public class ChronManager {
             job.setFuture(scheduler.scheduleAtFixedRate(job.getRunnable(), 0, job.getPeriod(), job.getTimeUnit()));
     }
 
+    /**
+     * 
+     * @param job The job to add     */
     public void newRepeating(Chronjob job) {
 
         job.setFuture(scheduler.scheduleAtFixedRate(job.getRunnable(), 0, job.getPeriod(), job.getTimeUnit()));
@@ -43,6 +46,11 @@ public class ChronManager {
         repeatingJobs.add(job);
     }
 
+    /**
+     * 
+     * @param job The job to add
+     * @param addtoList Whether or not to add the job to the joblist so that it is saved.
+     */
     public void newRepeating(Chronjob job, boolean addtoList) {
 
         job.setFuture(scheduler.scheduleAtFixedRate(job.getRunnable(), 0, job.getPeriod(), job.getTimeUnit()));

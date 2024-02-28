@@ -1,7 +1,10 @@
 package com.javascape.receivers;
 
+import java.util.ArrayList;
+
 import com.javascape.ServerThread;
-import com.javascape.sensors.Sensor;
+import com.javascape.sensors.analog.Sensor;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
@@ -20,7 +23,7 @@ public abstract class Receiver {
     /** The Household that this Receiver is a part of */
     protected int householdID = -1;
 
-    protected int[] values;
+    protected GPIO gpio[];
 
     /** Sensor array lol */
     protected Sensor[] sensors;
@@ -90,6 +93,14 @@ public abstract class Receiver {
     public abstract Sensor getSensor(int pin);
 
     public abstract Sensor[] getSensors();
+
+    public abstract ArrayList<GPIO> getDigitalSensors();
+
+    public GPIO[] getGPIO() {
+        return gpio;
+    }
+
+    public abstract void sendCommand(String command);
 
     public double getInternalTemperatureValue() {
         if (internalTemps.size() == 0) {

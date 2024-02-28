@@ -6,8 +6,7 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-
-import com.javascape.sensors.Sensor;
+import com.javascape.sensors.analog.Sensor;
 
 public class SensorDeserializer implements JsonDeserializer<Sensor> {
 

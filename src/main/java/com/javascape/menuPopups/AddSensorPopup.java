@@ -15,7 +15,7 @@ public class AddSensorPopup {
 
         GridPane g = new GridPane();
 
-        SensorManager.getClassMap();
+        SensorManager.initializeSensorLists();
         ChoiceBox<String> dropdown = new ChoiceBox<String>(SensorManager.getSensorList());
 
         g.add(dropdown, 0, 0, 1, 1);
@@ -24,7 +24,8 @@ public class AddSensorPopup {
         Button cancel = new Button("Cancel");
 
         save.setOnAction(e -> {
-            receiver.addSensor(SensorManager.createNewSensor(dropdown.getValue(), receiver.getUID(), index), index);
+            receiver.addSensor(SensorManager.createNewAnalogSensor(dropdown.getValue(), receiver.getUID(), index),
+                    index);
             Server.getGUI().getReceiverView().update();
             popupStage.close();
         });

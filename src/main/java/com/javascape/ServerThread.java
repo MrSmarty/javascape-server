@@ -186,6 +186,18 @@ public class ServerThread extends Thread {
                                         });
                                     }
                                     break;
+                                case "digitalSensorValues":
+                                    for (int i = 1; i < inArgs.length; i += 2) {
+                                        int tempI = i;
+                                        Platform.runLater(new Runnable() {
+                                            public void run() {
+                                                currentReceiver.getGPIO()[Integer.parseInt(inArgs[tempI])].sensor
+                                                        .addValue(
+                                                                inArgs[tempI + 1]);
+                                            }
+                                        });
+                                    }
+                                    break;
                             }
                         } catch (IOException e) {
                             Logger.print("Exception in send-first protocol: " + e.toString());
@@ -255,16 +267,22 @@ public class ServerThread extends Thread {
                 } else if (args[0].equals("newRepeating")) {
                     out = "" + Server.getDataHandler().getChronManager().newRepeating(in.substring(12));
                 } else if (args[0].equals("newConditional")) {
-                    //TODO: newConditional for clients
+                    // TODO: newConditional for clients
                 } else if (args[0].equals("getChronjobList")) {
-                    out = Server.getDataHandler().serialize(Server.getDataHandler().getChronManager().getAllJobs(), true);
+                    out = Server.getDataHandler().serialize(Server.getDataHandler().getChronManager().getAllJobs(),
+                            true);
                 } else if (args[0].equals("getChronjobListItems")) {
                     out = Server.getDataHandler().serialize(
                             Server.getDataHandler().getChronManager().getAllItems(), true);
                 } else if (args[0].equals("deleteChronjob")) {
-                    out = "" + Server.getDataHandler().getChronManager().remove(!in.contains("conditions") ? (Chronjob)Server.getDataHandler().deserialize(in.substring(14), Chronjob.class) : (ConditionalJob)Server.getDataHandler().deserialize(in.substring(14), ConditionalJob.class));
+                    out = "" + Server.getDataHandler().getChronManager()
+                            .remove(!in.contains("conditions")
+                                    ? (Chronjob) Server.getDataHandler().deserialize(in.substring(14), Chronjob.class)
+                                    : (ConditionalJob) Server.getDataHandler().deserialize(in.substring(14),
+                                            ConditionalJob.class));
                 } else if (args[0].equals("setPin")) {
-                    out = "" + Server.getDataHandler().getReceiverHandler().getReceiver(args[1]).setValue(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                    out = "" + Server.getDataHandler().getReceiverHandler().getReceiver(args[1])
+                            .setValue(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
                 } else {
                     out = "ok";
                 }
