@@ -20,4 +20,6 @@ module com.javascape {
     exports com.javascape.menuPopups;
     exports com.javascape.sensors;
     exports com.javascape.user;
+    exports com.javascape.sensors.digital;
+    exports com.javascape.sensors.analog;
 }

@@ -2,6 +2,7 @@ package com.javascape.receivers;
 
 import com.javascape.Logger;
 import com.javascape.Server;
+import com.javascape.ServerGUI;
 import com.javascape.sensors.SensorManager;
 import com.javascape.sensors.digital.DigitalSensor;
 
@@ -26,11 +27,12 @@ public class GPIO {
 
     private transient CheckBox checkBox;
 
-    private transient Label sensorValueLabel;
+    String uid;
 
     public DigitalSensor sensor;
 
     public GPIO(String uid, int index) {
+        this.uid = uid;
 
         checkBox = new CheckBox();
 
@@ -46,6 +48,7 @@ public class GPIO {
     }
 
     public void setValue(int value) {
+        System.out.println("Setting value: " + value);
         this.value = value;
         if (value >= 0) {
             checkBox.selectedProperty().set(value==1);
@@ -67,7 +70,11 @@ public class GPIO {
     public HBox getUI() {
         HBox hbox = new HBox();
 
-        hbox.getChildren().addAll(new Label("GPIO "+index+":"), checkBox);
+        if (value >= 0)
+            hbox.getChildren().addAll(new Label("GPIO "+index+":"), checkBox);
+        else {
+            hbox.getChildren().addAll(sensor.getSensorPane());
+        }
 
         hbox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
@@ -128,6 +135,7 @@ public class GPIO {
                 setSensor(SensorManager.createNewDigitalSensor(device.getSelectionModel().getSelectedItem(), index));
             }
             System.out.println("Sensor: "+ sensor);
+            //ServerGUI.getReceiverView().update();
             popup.close();
         });
 
@@ -150,11 +158,16 @@ public class GPIO {
 
     public void setSensor(DigitalSensor s) {
         this.sensor = s;
-        System.out.println("Set the sensor: " + s);
+        System.out.println("Set the sensor: " + s.name);
     }
 
     public DigitalSensor getSensor() {
         return sensor;
+    }
+
+    public void removeSensor() {
+        sensor = null;
+        setValue(0);
     }
 
     /**

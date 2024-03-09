@@ -40,11 +40,12 @@ public class ReceiverHandler {
 
     /** Get specified receiver by ID */
     public Receiver getReceiver(String ID) {
-        for (Receiver r : receivers) {
-            if (r.getUID().equals(ID)) {
-                return r;
+        if (!receivers.isEmpty())
+            for (Receiver r : receivers) {
+                if (r.getUID().equals(ID)) {
+                    return r;
+                }
             }
-        }
         return null;
     }
 

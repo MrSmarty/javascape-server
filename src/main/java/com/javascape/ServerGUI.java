@@ -227,7 +227,7 @@ public class ServerGUI {
         terminalListView.getItems().clear();
     }
 
-    public ReceiverView getReceiverView() {
+    public static ReceiverView getReceiverView() {
         return receiverView;
     }
 

@@ -6,22 +6,19 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import com.javascape.sensors.analog.Sensor;
+import com.javascape.sensors.digital.DigitalSensor;
 
-public class SensorDeserializer implements JsonDeserializer<Sensor> {
-
+public class DigitalSensorDeserializer  implements JsonDeserializer<DigitalSensor>{
     @Override
-    public Sensor deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+    public DigitalSensor deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         try {
             String className = json.getAsJsonObject().get("className").getAsString();
             System.out.println(className);
-            Class<?> tempClass = Class.forName("com.javascape.sensors.analog." + className);
+            Class<?> tempClass = Class.forName("com.javascape.sensors.digital." + className);
             return context.deserialize(json, tempClass);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }

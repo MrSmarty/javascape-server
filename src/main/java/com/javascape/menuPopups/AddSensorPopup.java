@@ -1,6 +1,6 @@
 package com.javascape.menuPopups;
 
-import com.javascape.Server;
+import com.javascape.ServerGUI;
 import com.javascape.receivers.Receiver;
 import com.javascape.sensors.SensorManager;
 import javafx.scene.Scene;
@@ -26,7 +26,7 @@ public class AddSensorPopup {
         save.setOnAction(e -> {
             receiver.addSensor(SensorManager.createNewAnalogSensor(dropdown.getValue(), receiver.getUID(), index),
                     index);
-            Server.getGUI().getReceiverView().update();
+            ServerGUI.getReceiverView().update();
             popupStage.close();
         });
 
