@@ -38,6 +38,8 @@ public class ObservableListDeserializer implements JsonDeserializer<ObservableLi
                 list.add(context.deserialize(jsonElement, ConditionalJob.class));
             } else if (jsonElement.getAsJsonObject().has("commands")) {
                 list.add(context.deserialize(jsonElement, Chronjob.class));
+            } else {
+                list.add(context.deserialize(jsonElement, typeOfT));
             }
         }
 

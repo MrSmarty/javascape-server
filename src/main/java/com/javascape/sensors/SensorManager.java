@@ -32,7 +32,7 @@ public class SensorManager {
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                sensors.add("com.javascape.sensors." + item[0]);
+                sensors.add(item[0]);
             }
             scan.close();
         } catch (IOException e) {
@@ -44,7 +44,7 @@ public class SensorManager {
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                digitalSensors.add("com.javascape.sensors." + item[0]);
+                digitalSensors.add(item[0]);
             }
             scan.close();
         } catch (IOException e) {
@@ -74,7 +74,6 @@ public class SensorManager {
         try {
             Class<?> tempClass = Class.forName("com.javascape.sensors.digital." + sensorName);
 
-            //TODO: Fix this
             Object instance = tempClass.getConstructor(String.class, Integer.TYPE).newInstance("", index);
             DigitalSensor temp = (DigitalSensor) instance;
             System.out.println(temp);

@@ -27,13 +27,13 @@ public class PicoW extends Receiver {
 
     public PicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");
-        gpio = new GPIO[26];
+        gpio = new GPIO[23];
         sensors = new Sensor[3];
     }
 
     public PicoW(String uid, String name, String type) {
         super(uid, name, type);
-        gpio = new GPIO[26];
+        gpio = new GPIO[23];
         sensors = new Sensor[3];
     }
 
@@ -82,13 +82,14 @@ public class PicoW extends Receiver {
 
         GridPane buttonPane = new GridPane();
 
-        for (int i = 0; i < 26; i++) {
-            gpio[i] = new GPIO(uid, i);
+        for (int i = 0; i < gpio.length; i++) {
+            if (gpio[i] == null)
+                gpio[i] = new GPIO(uid, i);
 
-            if (i < 13) {
+            if (i < gpio.length/2) {
                 buttonPane.add(gpio[i].getUI(), 0, i);
             } else {
-                buttonPane.add(gpio[i].getUI(), 1, i - 13);
+                buttonPane.add(gpio[i].getUI(), 1, i - gpio.length/2);
             }
 
             gpio[i].setConnectionStatus(connected);
@@ -140,7 +141,7 @@ public class PicoW extends Receiver {
     }
 
     public int[] getValues() {
-        int[] values = new int[26];
+        int[] values = new int[gpio.length];
         for (int i = 0; i < gpio.length; i++) {
             values[i] = gpio[i].value;
         }

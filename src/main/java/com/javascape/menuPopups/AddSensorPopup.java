@@ -15,7 +15,6 @@ public class AddSensorPopup {
 
         GridPane g = new GridPane();
 
-        SensorManager.initializeSensorLists();
         ChoiceBox<String> dropdown = new ChoiceBox<String>(SensorManager.getSensorList());
 
         g.add(dropdown, 0, 0, 1, 1);

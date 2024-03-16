@@ -1,6 +1,7 @@
 package com.javascape.sensors.analog;
 
 import com.javascape.Server;
+import com.javascape.ServerGUI;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -84,7 +85,7 @@ public class CapacitiveV2 extends Sensor {
 
         delete.setOnAction(e -> {
             Server.getDataHandler().getReceiverHandler().getReceiver(receiverID).removeSensor(this);
-            Server.getGUI().getReceiverView().update();
+            ServerGUI.getReceiverView().update();
         });
 
         g.add(valueLabel, 1, 0);

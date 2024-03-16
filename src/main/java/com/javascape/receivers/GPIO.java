@@ -26,10 +26,11 @@ public class GPIO {
     public int index;
 
     private transient CheckBox checkBox;
+    private transient Label checkBoxLabel;
 
     String uid;
 
-    public DigitalSensor sensor;
+    public DigitalSensor sensor = null;
 
     public GPIO(String uid, int index) {
         this.uid = uid;
@@ -37,12 +38,14 @@ public class GPIO {
         checkBox = new CheckBox();
 
         this.index = index;
+        checkBoxLabel = new Label("GPIO " + index + ":");
 
         checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
-                Server.getDataHandler().getReceiverHandler().getReceiver(uid).sendCommand(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
+                Server.getDataHandler().getReceiverHandler().getReceiver(uid)
+                        .sendCommand(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
             }
         });
     }
@@ -51,7 +54,7 @@ public class GPIO {
         System.out.println("Setting value: " + value);
         this.value = value;
         if (value >= 0) {
-            checkBox.selectedProperty().set(value==1);
+            checkBox.selectedProperty().set(value == 1);
             checkBox.setDisable(false);
         } else {
             checkBox.setDisable(true);
@@ -60,6 +63,9 @@ public class GPIO {
     }
 
     public void setConnectionStatus(boolean connected) {
+        if (checkBox == null) {
+            checkBox = new CheckBox();
+        }
         if (connected && value >= 0) {
             checkBox.disableProperty().set(false);
         } else {
@@ -70,9 +76,24 @@ public class GPIO {
     public HBox getUI() {
         HBox hbox = new HBox();
 
-        if (value >= 0)
-            hbox.getChildren().addAll(new Label("GPIO "+index+":"), checkBox);
-        else {
+        if (value >= 0 || sensor == null) {
+            if (checkBoxLabel == null) {
+                checkBoxLabel = new Label("GPIO " + index + ":");
+            }
+            if (checkBox == null) {
+                checkBox = new CheckBox();
+                checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                            Boolean newValue) {
+                        Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
+                        Server.getDataHandler().getReceiverHandler().getReceiver(uid).sendCommand(
+                                String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
+                    }
+                });
+            }
+            hbox.getChildren().addAll(checkBoxLabel, checkBox);
+        } else {
             hbox.getChildren().addAll(sensor.getSensorPane());
         }
 
@@ -90,17 +111,17 @@ public class GPIO {
 
     public void editWindow() {
         Stage popup = new Stage();
-        popup.setTitle("Edit GPIO "+index);
+        popup.setTitle("Edit GPIO " + index);
         GridPane g = new GridPane();
 
-        Label nameLabel = new Label("GPIO "+index);
+        Label nameLabel = new Label("GPIO " + index);
         g.add(nameLabel, 0, 0);
 
         ComboBox<String> mode = new ComboBox<String>();
         mode.getItems().addAll("Output", "Input");
 
         ComboBox<String> device = new ComboBox<String>();
-        device.getItems().addAll("None", "DHT11");
+        device.getItems().add("None");
         device.getItems().addAll(SensorManager.getDigitalSensorList());
         device.visibleProperty().set(false);
 
@@ -117,6 +138,9 @@ public class GPIO {
             mode.getSelectionModel().select("Output");
         } else {
             mode.getSelectionModel().select("Input");
+            device.visibleProperty().set(true);
+            device.getSelectionModel().select(sensor.className);
+
         }
 
         g.add(mode, 0, 1);
@@ -129,13 +153,13 @@ public class GPIO {
         saveButton.setOnAction(e -> {
             if (mode.getSelectionModel().getSelectedItem().equals("Output")) {
                 setValue(0);
-                sensor=null;
+                sensor = null;
             } else {
                 setValue(-1);
                 setSensor(SensorManager.createNewDigitalSensor(device.getSelectionModel().getSelectedItem(), index));
             }
-            System.out.println("Sensor: "+ sensor);
-            //ServerGUI.getReceiverView().update();
+            System.out.println("Sensor: " + sensor);
+            ServerGUI.getReceiverView().update();
             popup.close();
         });
 
@@ -149,7 +173,6 @@ public class GPIO {
         Scene scene = new Scene(g);
 
         scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
 
         popup.setScene(scene);
         popup.show();
@@ -172,6 +195,7 @@ public class GPIO {
 
     /**
      * Get the command to set the GPIO.
+     * 
      * @return
      */
     public String getCommand() {

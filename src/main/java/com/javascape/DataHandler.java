@@ -17,6 +17,7 @@ import com.javascape.user.UserHandler;
 import com.javascape.gsonDeserializers.*;
 import com.javascape.receivers.Receiver;
 import com.javascape.sensors.analog.Sensor;
+import com.javascape.sensors.digital.DigitalSensor;
 
 import javafx.collections.ObservableList;
 
@@ -30,6 +31,7 @@ public class DataHandler {
             .excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT)
             .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer())
             .registerTypeAdapter(Sensor.class, new SensorDeserializer())
+            .registerTypeAdapter(DigitalSensor.class, new DigitalSensorDeserializer())
             .registerTypeAdapter(Receiver.class, new ReceiverDeserializer())
             .disableHtmlEscaping().create();
 

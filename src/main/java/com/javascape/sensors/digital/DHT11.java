@@ -1,4 +1,5 @@
 package com.javascape.sensors.digital;
+
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -10,12 +11,27 @@ public class DHT11 extends DigitalSensor {
         super(receiverID, index);
         name = "DHT11";
         className = "DHT11";
+        
+        // This sets up the values of the sensor
+        numValues = 2;
+        valueNames = new String[2];
+        valueNames[0] = "Humidity";
+        valueNames[1] = "Temperature";
     }
 
     @Override
     public GridPane getSensorPane() {
 
-        String currentValue[] = getValue().split("|");
+        String[] currentValue = new String[2];
+
+        try {
+            currentValue = getValue().split("|");
+        } catch (NullPointerException e) {
+            currentValue = new String[2];
+            currentValue[0] = "N/A";
+            currentValue[1] = "N/A";
+        }
+        
 
         GridPane pane = new GridPane();
 
@@ -37,7 +53,8 @@ public class DHT11 extends DigitalSensor {
         values.addListener(new ListChangeListener<String>() {
             @Override
             public void onChanged(Change<? extends String> c) {
-                String currentValue[] = getValue().split("|");
+
+                String currentValue[] = getValue().split(regex);
                 tempValue.setText(currentValue[1]);
                 humidityValue.setText(currentValue[0]);
             }

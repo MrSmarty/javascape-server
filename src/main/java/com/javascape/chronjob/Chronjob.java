@@ -32,7 +32,7 @@ public class Chronjob extends Job {
                             for (String current : targets) {
                                 Receiver r = Server.getDataHandler().getReceiverHandler().getReceiver(current);
 
-                                if (r.getCurrentThread() != null) {
+                                if (r != null && r.getCurrentThread() != null) {
                                     if (ls[0].startsWith("wait")) {
                                         String[] args = ls[0].split(" ");
                                         // System.out.println("Waiting " + args[1] + " Seconds");

@@ -1,5 +1,6 @@
 package com.javascape;
 
+import com.javascape.sensors.SensorManager;
 import com.javascape.user.User;
 
 import javafx.application.Application;
@@ -55,6 +56,7 @@ public class Server extends Application {
         dataHandler.getChronManager().startJobs();
 
         serverThreadHandler = new ServerThreadHandler(this);
+        SensorManager.initializeSensorLists();
     }
 
     /** Called once the user has been logged in */
