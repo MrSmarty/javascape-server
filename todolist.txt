@@ -1,0 +1,3 @@
+TODO: Digital Sensors & conditional jobs
+TODO: Waterproof temperature Sensor
+TODO: ESP32
