@@ -10,7 +10,7 @@ import com.javascape.receivers.Receiver;
 public class ConditionalJob extends Job {
 
     // Store each condition as:
-    // ReceiverUID:SensorID Operator value
+    // ReceiverUID:SensorIndex:ValueIndex Operator value
     ArrayList<String> conditions;
     ArrayList<String> elseCommands;
 
@@ -172,33 +172,68 @@ public class ConditionalJob extends Job {
         ReceiverHandler handlerReference = Server.getDataHandler().getReceiverHandler();
         for (String s : conditions) {
             String[] args = s.split("[ :]");
-            Double currentSensorValue = handlerReference.getReceiver(args[0]).getSensor(Integer.parseInt(args[1]))
-                    .getCurrentValueAsDouble();
-            System.out.println("Current Sensor Value: " + currentSensorValue);
-            if (currentSensorValue == null) {
-                return false;
-            }
+            Double currentSensorValue;
+            Receiver r = handlerReference.getReceiver(args[0]);
+            if (Integer.parseInt(args[1]) > r.getGPIO().length) {
+                // Analog Sensor
+                currentSensorValue = r.getSensor(Integer.parseInt(args[1]) - r.getGPIO().length)
+                        .getCurrentValueAsDouble();
 
-            if (args[2].equals("==")) {
-                if (currentSensorValue == Double.parseDouble(args[3])) {
-                    return true;
+                System.out.println("Current Sensor Value: " + currentSensorValue);
+                if (currentSensorValue == null) {
+                    return false;
                 }
-            } else if (args[2].equals(">")) {
-                if (currentSensorValue > Double.parseDouble(args[3])) {
-                    return true;
+
+                if (args[2].equals("==")) {
+                    if (currentSensorValue == Double.parseDouble(args[3])) {
+                        return true;
+                    }
+                } else if (args[2].equals(">")) {
+                    if (currentSensorValue > Double.parseDouble(args[3])) {
+                        return true;
+                    }
+                } else if (args[2].equals(">=")) {
+                    if (currentSensorValue >= Double.parseDouble(args[3])) {
+                        return true;
+                    }
+                } else if (args[2].equals("<")) {
+                    if (currentSensorValue < Double.parseDouble(args[3])) {
+                        return true;
+                    }
+                } else if (args[2].equals("<=")) {
+                    if (currentSensorValue <= Double.parseDouble(args[3])) {
+                        return true;
+                    }
                 }
-            } else if (args[2].equals(">=")) {
-                if (currentSensorValue >= Double.parseDouble(args[3])) {
-                    return true;
+
+            } else {
+                // Digital Sensor
+                currentSensorValue = Double.parseDouble(
+                        r.getGPIO()[Integer.parseInt(args[1])].getSensor().getValue(args[2]));
+                System.out.println("Current Sensor Value: " + currentSensorValue);
+
+                if (args[3].equals("==")) {
+                    if (currentSensorValue == Double.parseDouble(args[4])) {
+                        return true;
+                    }
+                } else if (args[3].equals(">")) {
+                    if (currentSensorValue > Double.parseDouble(args[4])) {
+                        return true;
+                    }
+                } else if (args[3].equals(">=")) {
+                    if (currentSensorValue >= Double.parseDouble(args[4])) {
+                        return true;
+                    }
+                } else if (args[3].equals("<")) {
+                    if (currentSensorValue < Double.parseDouble(args[4])) {
+                        return true;
+                    }
+                } else if (args[3].equals("<=")) {
+                    if (currentSensorValue <= Double.parseDouble(args[4])) {
+                        return true;
+                    }
                 }
-            } else if (args[2].equals("<")) {
-                if (currentSensorValue < Double.parseDouble(args[3])) {
-                    return true;
-                }
-            } else if (args[2].equals("<=")) {
-                if (currentSensorValue <= Double.parseDouble(args[3])) {
-                    return true;
-                }
+
             }
 
         }

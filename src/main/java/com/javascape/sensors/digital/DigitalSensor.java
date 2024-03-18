@@ -1,14 +1,14 @@
 package com.javascape.sensors.digital;
 
+import com.javascape.sensors.SensorBase;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 
-public abstract class DigitalSensor {
+public abstract class DigitalSensor extends SensorBase {
 
     transient public static final String regex = ",";
-
-    public String receiverID;
 
     public int index;
 
@@ -51,6 +51,30 @@ public abstract class DigitalSensor {
         if (values == null || values.size() == 0)
             return null;
         return values.get(values.size() - 1).split(regex)[index];
+    }
+
+    public String getValue(String valueName) {
+        if (values == null || values.size() == 0)
+            return null;
+        int index = 0;
+        for (String s : valueNames) {
+            if (s.equals(valueName))
+                return getValue(index);
+            index++;
+        }
+        return null;
+    }
+
+    public String[] getValueNames() {
+        return valueNames;
+    }
+
+    public int getNumValues() {
+        return numValues;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public abstract Node getSensorPane();

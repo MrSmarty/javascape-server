@@ -9,6 +9,34 @@
       ]
     }
   ],
-  "conditionalJobs": [],
-  "allJobs": []
+  "conditionalJobs": [
+    {
+      "conditions": [
+        "16600621186956491044:5:Temperature >= 10"
+      ],
+      "name": "TestJob2",
+      "commands": [
+        "togglePin 3 - 16600621186956491044"
+      ]
+    }
+  ],
+  "allJobs": [
+    {
+      "period": 1,
+      "timeUnit": "MINUTES",
+      "name": "testjob",
+      "commands": [
+        "togglePin 0 - 16600621186956491044"
+      ]
+    },
+    {
+      "conditions": [
+        "16600621186956491044:5:Humidity >= 10"
+      ],
+      "name": "TestJob",
+      "commands": [
+        "togglePin 0 - 16600621186956491044"
+      ]
+    }
+  ]
 }

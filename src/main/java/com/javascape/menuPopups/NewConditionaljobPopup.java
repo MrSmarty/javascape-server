@@ -7,8 +7,11 @@ import com.javascape.Server;
 import com.javascape.chronjob.ChronManager;
 import com.javascape.chronjob.ChronjobItem;
 import com.javascape.chronjob.ConditionalJob;
+import com.javascape.receivers.GPIO;
 import com.javascape.receivers.Receiver;
+import com.javascape.sensors.SensorBase;
 import com.javascape.sensors.analog.Sensor;
+import com.javascape.sensors.digital.DigitalSensor;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -232,14 +235,38 @@ public class NewConditionaljobPopup {
                 Server.getDataHandler().getReceiverHandler().getReceiverList());
         setReceiver.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));
 
-        ChoiceBox<Sensor> setSensor = new ChoiceBox<Sensor>();
+        ChoiceBox<SensorBase> setSensor = new ChoiceBox<SensorBase>();
+        ChoiceBox<String> digitalSensorIndex = new ChoiceBox<String>();
+        digitalSensorIndex.setVisible(false);
+
+        for (GPIO gpio : setReceiver.getValue().getDigitalSensors()) {
+            setSensor.getItems().add(gpio.getSensor());
+        }
         setSensor.getItems().addAll(Arrays.asList(setReceiver.getValue().getSensors()));
-        setSensor.setValue(setReceiver.getValue().getSensors()[0]);
+        // FIXME: Set this to the first value in arraylist
+        // setSensor.setValue(setReceiver.getValue().getSensors()[0]);
 
         setReceiver.setOnAction(e -> {
             setSensor.getItems().clear();
+            for (GPIO gpio : setReceiver.getValue().getDigitalSensors()) {
+                setSensor.getItems().add(gpio.getSensor());
+            }
             setSensor.getItems().addAll(Arrays.asList(setReceiver.getValue().getSensors()));
-            setSensor.setValue(setReceiver.getValue().getSensors()[0]);
+            // FIXME: Same as above
+            // setSensor.setValue(setReceiver.getValue().getSensors()[0]);
+        });
+
+        setSensor.setOnAction(e -> {
+            if (setSensor.getValue() instanceof DigitalSensor) {
+                digitalSensorIndex.getItems().clear();
+                for (int i = 0; i < ((DigitalSensor) setSensor.getValue()).getNumValues(); i++) {
+                    digitalSensorIndex.getItems().add(((DigitalSensor) setSensor.getValue()).getValueNames()[i]);
+                }
+                digitalSensorIndex.setVisible(true);
+            } else {
+                digitalSensorIndex.setVisible(false);
+            }
+
         });
 
         ChoiceBox<String> setOperator = new ChoiceBox<String>();
@@ -250,15 +277,25 @@ public class NewConditionaljobPopup {
 
         g.add(setReceiver, 0, 0);
         g.add(setSensor, 1, 0);
-        g.add(setOperator, 2, 0);
-        g.add(valueField, 3, 0);
+        g.add(digitalSensorIndex, 2, 0);
+        g.add(setOperator, 3, 0);
+        g.add(valueField, 4, 0);
 
         Button add = new Button("Add");
         add.setOnAction(e -> {
-            String condition = setReceiver.getValue().getUID() + ":" + setSensor.getValue().getIndex() + " "
-                    + setOperator.getValue() + " " + valueField.textProperty().get();
-            observableConditions.add(condition);
+            if (setSensor.getValue() instanceof Sensor) {
+                String condition = setReceiver.getValue().getUID() + ":" + ((Sensor) setSensor.getValue()).getIndex()
+                        + " "
+                        + setOperator.getValue() + " " + valueField.textProperty().get();
+                observableConditions.add(condition);
+            } else {
+                String condition = setReceiver.getValue().getUID() + ":" + ((DigitalSensor) setSensor.getValue()).getIndex()+":"+digitalSensorIndex.getValue()
+                        + " "
+                        + setOperator.getValue() + " " + valueField.textProperty().get();
+                observableConditions.add(condition);
+            }
             stage.close();
+
         });
 
         Button cancel = new Button("Cancel");
