@@ -6,12 +6,11 @@ import javafx.scene.layout.GridPane;
 
 public class DHT11 extends DigitalSensor {
 
-
     public DHT11(String receiverID, int index) {
         super(receiverID, index);
         name = "DHT11";
         className = "DHT11";
-        
+
         // This sets up the values of the sensor
         numValues = 2;
         valueNames = new String[2];
@@ -31,7 +30,6 @@ public class DHT11 extends DigitalSensor {
             currentValue[0] = "N/A";
             currentValue[1] = "N/A";
         }
-        
 
         GridPane pane = new GridPane();
 
@@ -50,11 +48,11 @@ public class DHT11 extends DigitalSensor {
         pane.add(humidityLabel, 2, 1);
         pane.add(humidityValue, 3, 1);
 
-        values.addListener(new ListChangeListener<String>() {
+        valueList.addListener(new ListChangeListener<String>() {
             @Override
             public void onChanged(Change<? extends String> c) {
 
-                String currentValue[] = getValue().split(regex);
+                String currentValue[] = getValue().split(DELIMITER);
                 tempValue.setText(currentValue[1]);
                 humidityValue.setText(currentValue[0]);
             }
@@ -68,5 +66,4 @@ public class DHT11 extends DigitalSensor {
         return "DHT11";
     }
 
-    
 }
