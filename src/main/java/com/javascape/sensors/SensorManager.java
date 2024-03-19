@@ -15,17 +15,37 @@ import javafx.collections.ObservableList;
 
 public class SensorManager {
 
+    /**
+     * The list of analog sensors that are available to be used.
+     */
     private static ObservableList<String> sensors = FXCollections.observableArrayList();
+    /**
+     * The list of digital sensors that are available to be used.
+     */
     private static ObservableList<String> digitalSensors = FXCollections.observableArrayList();
 
+    /**
+     * Returns the list of analog sensors available to be used.
+     * 
+     * @return
+     */
     public static ObservableList<String> getSensorList() {
         return sensors;
     }
 
+    /**
+     * Returns the list of digital sensors available to be used.
+     * 
+     * @return
+     */
     public static ObservableList<String> getDigitalSensorList() {
         return digitalSensors;
     }
 
+    /**
+     * Initializes the list of sensors from the sensors.txt file, and the list of
+     * digitalSensors from the digitalsensors.txt file.
+     */
     public static void initializeSensorLists() {
         try {
             Scanner scan = new Scanner(new File(Settings.storageLocation + "sensors.txt"));
@@ -52,9 +72,10 @@ public class SensorManager {
         }
     }
 
+    /** Creates and returns a new analog sensor. */
     public static Sensor createNewAnalogSensor(String deviceName, String receiverID, int index) {
         try {
-            Class<?> tempClass = Class.forName("com.javascape.sensors.analog."+deviceName);
+            Class<?> tempClass = Class.forName("com.javascape.sensors.analog." + deviceName);
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, Integer.TYPE);
 
             Object instance = constructor.newInstance(receiverID, deviceName, index);
@@ -70,6 +91,7 @@ public class SensorManager {
         return null;
     }
 
+    /** Creates and returns a new digital sensor */
     public static DigitalSensor createNewDigitalSensor(String sensorName, int index) {
         try {
             Class<?> tempClass = Class.forName("com.javascape.sensors.digital." + sensorName);
