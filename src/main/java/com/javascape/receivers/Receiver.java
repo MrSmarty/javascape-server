@@ -7,8 +7,8 @@ import com.javascape.sensors.analog.Sensor;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 
 public abstract class Receiver {
     /** Unique ID of the Receiver. */
@@ -23,6 +23,7 @@ public abstract class Receiver {
     /** The Household that this Receiver is a part of */
     protected int householdID = -1;
 
+    /** Array that stores all the GPIO pins for the receiver */
     protected GPIO gpio[];
 
     /** Sensor array lol */
@@ -30,17 +31,24 @@ public abstract class Receiver {
 
     /** Boolean to tell whether or not the receiver is connected */
     protected boolean connected = false;
+
+    /** The current thread that the Receiver is running */
     transient protected ServerThread currentThread;
 
+    /** Label to display the internal temperatuer of the Receiver */
     transient protected Label tempLabel;
+
+    /** List of the last 10 internal temperatures or the Reciever */
     transient protected ObservableList<Double> internalTemps;
 
+    /** Constructor that declares a Receiver with a default name of "Receiver" */
     public Receiver(String ID) {
         internalTemps = FXCollections.<Double>observableArrayList();
         this.uid = ID;
         name = "Receiver";
     };
 
+    /** Constructor for declaring a Receiver with more parameters. */
     public Receiver(String ID, String name, String type) {
         internalTemps = FXCollections.<Double>observableArrayList();
         this.uid = ID;
@@ -48,37 +56,78 @@ public abstract class Receiver {
         this.type = type;
     }
 
+    /** Returns the UID of the Receiver */
     public String getUID() {
         return uid;
     };
 
+    /** Returns the name of the Reciever */
     public String getName() {
         return name;
     };
 
+    /** Sets the name of the Receiver */
     public void setName(String name) {
         this.name = name;
     };
+
+    /** Return the array of GPIO pins */
+    public GPIO[] getGPIO() {
+        return gpio;
+    }
+
+    /** Return the array of Sensors */
+    public Sensor[] getSensors() {
+        return sensors;
+    }
+
+    /** Returns the last recorded internal temperature. */
+    public double getInternalTemperatureValue() {
+        if (internalTemps.size() == 0) {
+            return 0;
+        }
+        return internalTemps.get(0);
+    }
+
+    /**
+     * Returns true if the UIDs are the same.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Receiver) {
+            Receiver r = (Receiver) o;
+            return r.uid.equals(uid);
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
         return getName();
     }
-    
+
     /**
      * Returns the connection thread of the Receiver
+     * 
      * @return ServerThread of the Receiver
      */
     public abstract ServerThread getCurrentThread();
 
-    /** Sets the thead info of this Receiver.
-     *  <strong>Should also set the connected boolean to true.</strong>
+    /**
+     * Sets the thead info of this Receiver.
+     * <strong>Should also set the connected boolean to true.</strong>
+     * 
      * @param thread The thread to the Receiver to use
-     * @param id The ID of the thread
+     * @param id     The ID of the thread
      */
     public abstract void setThreadInfo(ServerThread thread, long id);
 
-    public abstract GridPane getReceiverPane();
+    /**
+     * Returns the GUI element for the Receiver
+     * 
+     * @return
+     */
+    public abstract Node getReceiverPane();
 
     public abstract int[] getValues();
 
@@ -92,29 +141,8 @@ public abstract class Receiver {
 
     public abstract Sensor getSensor(int pin);
 
-    public abstract Sensor[] getSensors();
-
     public abstract ArrayList<GPIO> getDigitalSensors();
-
-    public GPIO[] getGPIO() {
-        return gpio;
-    }
 
     public abstract void sendCommand(String command);
 
-    public double getInternalTemperatureValue() {
-        if (internalTemps.size() == 0) {
-            return 0;
-        }
-        return internalTemps.get(0);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o instanceof Receiver) {
-            Receiver r = (Receiver) o;
-            return r.uid.equals(uid);
-        }
-        return false;
-    }
 }

@@ -13,13 +13,17 @@ import javafx.collections.ObservableList;
 public class ReceiverHandler {
     private ObservableList<Receiver> receivers = FXCollections.observableArrayList();
 
+    /**
+     * Maps the the name of the device to the name of the Class.
+     * <p>
+     * TODO: Change this from a map to a list like the sensors.
+     */
     transient HashMap<String, String> classMap = new HashMap<String, String>();
 
+    /** Generic constructor that creates and initializes the ReceiverHandler. */
     public ReceiverHandler() {
         getClasses();
 
-        // Receiver test =
-        // Class.forName(classMap.get("PiPicoW")).getConstructor(int.class).newInstance(0);
     }
 
     /** Pull the classes from the receivers file */
@@ -49,11 +53,16 @@ public class ReceiverHandler {
         return null;
     }
 
+    /** Returns the list of Receivers */
     public ObservableList<Receiver> getReceiverList() {
         System.out.println("There are " + receivers.size() + " receivers");
         return receivers;
     }
 
+    /**
+     * Returns the list of active Receivers. A Receiver is considered active if
+     * there is current a socket connection.
+     */
     public ObservableList<Receiver> getActiveReceiverList() {
         ObservableList<Receiver> active = FXCollections.observableArrayList();
         for (Receiver r : receivers)

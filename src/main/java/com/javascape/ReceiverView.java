@@ -5,13 +5,18 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
 
 public class ReceiverView {
 
-    ObservableList<GridPane> receiverList = FXCollections.observableArrayList();
+    /** List that contains the Nodes to represent each receiver */
+    ObservableList<Node> receiverList = FXCollections.observableArrayList();
 
+    /**
+     * Creates a receiverView and sets it to update every time the
+     * {@link #receiverList} changes.
+     */
     public ReceiverView() {
         update();
 
@@ -21,12 +26,14 @@ public class ReceiverView {
                 });
     }
 
-    public ListView<GridPane> getReceiverView() {
-        ListView<GridPane> view = new ListView<GridPane>(receiverList);
+    /** Returns the list with the Receiver panes */
+    public ListView<Node> getReceiverView() {
+        ListView<Node> view = new ListView<Node>(receiverList);
 
         return view;
     }
 
+    /** Updates the ReceiverView with any new data */
     public void update() {
         Logger.print("Updating ReceiverView");
         Platform.runLater(new Runnable() {

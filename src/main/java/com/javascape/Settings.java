@@ -62,5 +62,6 @@ public class Settings {
     /** Whether or not to automagically login to the application */
     public static boolean autoLogin = true;
 
+    /** The email that is to be used for the autologin. */
     public static String loggedInEmailAuto = "admin";
 }
