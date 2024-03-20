@@ -3,6 +3,7 @@ package com.javascape.sensors.analog;
 import com.javascape.Helper;
 import com.javascape.Server;
 import com.javascape.ServerGUI;
+import com.javascape.Settings;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -35,8 +36,8 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
     public void addValue(String value) {
         valueList.add(0, Double.parseDouble(value));
-        if (valueList.size() > 10)
-            valueList.remove(10);
+        if (valueList.size() > Settings.maxSensorData)
+            valueList.remove(Settings.maxSensorData);
     }
 
     public GridPane getSensorPane() {

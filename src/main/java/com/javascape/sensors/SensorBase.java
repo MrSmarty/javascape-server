@@ -1,5 +1,7 @@
 package com.javascape.sensors;
 
+import com.javascape.Settings;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -31,9 +33,7 @@ public abstract class SensorBase {
     public String name = "SensorBase";
 
     /**
-     * The list of previously recorded values. The number of values stored is 10.
-     * <p>
-     * TODO: Make the number of values stored variable in settings.
+     * The list of previously recorded values. The number of values stored is set in {@link Settings}.
      */
     public ObservableList<String> valueList = FXCollections.observableArrayList();
 
@@ -48,7 +48,7 @@ public abstract class SensorBase {
     public void addValue(String value) {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
-        if (valueList.size() >= 10)
+        if (valueList.size() >= Settings.maxSensorData)
             valueList.remove(0);
         valueList.add(value);
 
