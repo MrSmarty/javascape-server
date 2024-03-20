@@ -3,7 +3,7 @@ package com.javascape;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.javascape.receivers.*;
@@ -15,10 +15,8 @@ public class ReceiverHandler {
 
     /**
      * Maps the the name of the device to the name of the Class.
-     * <p>
-     * TODO: Change this from a map to a list like the sensors.
      */
-    transient HashMap<String, String> classMap = new HashMap<String, String>();
+    transient ArrayList<String> classList = new ArrayList<String>();
 
     /** Generic constructor that creates and initializes the ReceiverHandler. */
     public ReceiverHandler() {
@@ -29,11 +27,11 @@ public class ReceiverHandler {
     /** Pull the classes from the receivers file */
     private void getClasses() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.map"));
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.txt"));
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "com.javascape.receivers." + item[1]);
+                classList.add("com.javascape.receivers." + item[0]);
             }
             scan.close();
         } catch (IOException e) {
@@ -75,7 +73,7 @@ public class ReceiverHandler {
     /** Add a receiver to the receivers list */
     public void addReceiver(String deviceType, String ID) {
         try {
-            Class<?> tempClass = Class.forName(classMap.get(deviceType));
+            Class<?> tempClass = Class.forName(deviceType);
             Constructor<?> constructor = tempClass.getConstructor(String.class);
 
             Object instance = constructor.newInstance(ID);
@@ -91,7 +89,7 @@ public class ReceiverHandler {
     /** Add a receiver to the receivers list */
     public void addReceiver(String deviceType, String ID, String name) {
         try {
-            Class<?> tempClass = Class.forName(classMap.get(deviceType));
+            Class<?> tempClass = Class.forName(deviceType);
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, String.class);
 
             Object instance = constructor.newInstance(ID, name, deviceType);
