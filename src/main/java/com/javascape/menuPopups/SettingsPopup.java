@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/** The popup menu for the Settings. */
 public class SettingsPopup {
 
     public SettingsPopup() {
@@ -49,6 +50,21 @@ public class SettingsPopup {
         g.add(sensorDataPollingField, 1, 3);
         g.add(sensorDataPollingUnits, 2, 3);
 
+        Label maxSensorDataLabel = new Label("Maximum Sensor Data Stored:");
+        TextField maxSensorDataField = new TextField("" + Settings.maxSensorData);
+
+        g.add(maxSensorDataLabel, 0, 4);
+        g.add(maxSensorDataField, 1, 4);
+
+        Label conditionalPollingLabel = new Label("Conditional Polling Rate:");
+        TextField conditionalPollingField = new TextField("" + Settings.conditionalCheckInterval);
+        ChoiceBox<TimeUnit> conditionalPollingUnits = new ChoiceBox<TimeUnit>(
+                FXCollections.observableArrayList(TimeUnit.values()));
+
+        g.add(conditionalPollingLabel, 0, 5);
+        g.add(conditionalPollingField, 1, 5);
+        g.add(conditionalPollingUnits, 2, 5);
+
         Button save = new Button("Save");
 
         save.setOnAction(e -> {
@@ -57,6 +73,9 @@ public class SettingsPopup {
             Settings.autoLogin = autoLoginCheckbox.selectedProperty().getValue();
             Settings.getSensorDataJobInterval = Integer.parseInt(sensorDataPollingField.textProperty().getValue());
             Settings.getSensorDataJobIntervalUnit = sensorDataPollingUnits.getValue();
+            Settings.maxSensorData = Integer.parseInt(maxSensorDataField.textProperty().getValue());
+            Settings.conditionalCheckInterval = Integer.parseInt(conditionalPollingField.textProperty().getValue());
+            Settings.conditionalCheckUnit = conditionalPollingUnits.getValue();
             popupStage.close();
         });
 
@@ -66,8 +85,8 @@ public class SettingsPopup {
             popupStage.close();
         });
 
-        g.add(save, 0, 4);
-        g.add(cancel, 1, 4);
+        g.add(save, 0, 6);
+        g.add(cancel, 1, 6);
 
         Scene scene = new Scene(g);
 
