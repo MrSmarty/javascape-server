@@ -35,7 +35,7 @@ public class ReceiverHandler {
             }
             scan.close();
         } catch (IOException e) {
-            Logger.error("Error trying to fetch receivers from receiver map");
+            Logger.error("Error trying to fetch receivers from receiver list");
         }
 
     }
@@ -73,7 +73,7 @@ public class ReceiverHandler {
     /** Add a receiver to the receivers list */
     public void addReceiver(String deviceType, String ID) {
         try {
-            Class<?> tempClass = Class.forName(deviceType);
+            Class<?> tempClass = Class.forName("com.javascape.receivers." + deviceType);
             Constructor<?> constructor = tempClass.getConstructor(String.class);
 
             Object instance = constructor.newInstance(ID);
@@ -89,7 +89,7 @@ public class ReceiverHandler {
     /** Add a receiver to the receivers list */
     public void addReceiver(String deviceType, String ID, String name) {
         try {
-            Class<?> tempClass = Class.forName(deviceType);
+            Class<?> tempClass = Class.forName("com.javascape.receivers." + deviceType);
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, String.class);
 
             Object instance = constructor.newInstance(ID, name, deviceType);

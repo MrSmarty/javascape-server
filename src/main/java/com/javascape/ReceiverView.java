@@ -40,12 +40,15 @@ public class ReceiverView {
             public void run() {
                 receiverList.clear();
                 for (Receiver r : Server.getDataHandler().getReceiverHandler().getReceiverList()) {
-                    if (r.getCurrentThread() != null) {
-                        receiverList.add(r.getReceiverPane());
-                    } else {
-                        Logger.debug("Null thread");
-                        receiverList.add(r.getReceiverPane());
+                    if (r != null) {
+                        if (r.getCurrentThread() != null) {
+                            receiverList.add(r.getReceiverPane());
+                        } else {
+                            Logger.debug("Null thread");
+                            receiverList.add(r.getReceiverPane());
+                        }
                     }
+
                 }
             }
         });

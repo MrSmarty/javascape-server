@@ -3,6 +3,8 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/sensors/SensorBase.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/Logger.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/SettingsPopup.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/user/Permissions.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/receivers/PiPicoW.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/receivers/GPIO.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/SensorDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ReceiverView.java
@@ -27,7 +29,6 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/LoginWindow.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/chronjob/Job.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ServerGUI.java
-/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/Permissions.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/sensors/analog/CapacitiveV2.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/Settings.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/module-info.java
@@ -35,10 +36,10 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/NewChronjobPopup.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/CreateNewHouseholdPopup.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/AddSensorPopup.java
-/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/receivers/PicoW.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/chronjob/ConditionalJob.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/menuPopups/DeleteUserPopup.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/user/User.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ui/EditableLabel.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/DigitalSensorDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/chronjob/ChronjobItem.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ServerThreadHandler.java

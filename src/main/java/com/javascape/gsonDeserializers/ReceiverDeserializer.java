@@ -24,7 +24,7 @@ public class ReceiverDeserializer implements JsonDeserializer<Receiver> {
         try {
             String s = json.getAsJsonObject().get("type").toString();
             Class<?> tempClass = Class
-                    .forName(classList.get(classList.indexOf(s.substring(1, s.length() - 1))));
+                    .forName("com.javascape.receivers." + s.substring(1, s.length() - 1));
             return context.deserialize(json, tempClass);
         } catch (Exception e) {
             e.printStackTrace();

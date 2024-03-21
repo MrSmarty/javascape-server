@@ -2,12 +2,12 @@
   "receivers": [
     {
       "uid": "16600621186956491044",
-      "name": "PiPicoW",
+      "name": "DemoPico",
       "type": "PiPicoW",
       "householdID": -1,
       "gpio": [
         {
-          "value": 1,
+          "value": 0,
           "index": 0,
           "uid": "16600621186956491044"
         },
@@ -22,7 +22,7 @@
           "uid": "16600621186956491044"
         },
         {
-          "value": 1,
+          "value": 0,
           "index": 3,
           "uid": "16600621186956491044"
         },
@@ -32,29 +32,9 @@
           "uid": "16600621186956491044"
         },
         {
-          "value": -1,
+          "value": 0,
           "index": 5,
-          "uid": "16600621186956491044",
-          "sensor": {
-            "index": 5,
-            "name": "DHT11",
-            "className": "DHT11",
-            "numValues": 2,
-            "valueNames": [
-              "Humidity",
-              "Temperature"
-            ],
-            "values": [
-              "34,23",
-              "34,23",
-              "34,23",
-              "34,23",
-              "34,23",
-              "34,23",
-              "34,23"
-            ],
-            "receiverID": ""
-          }
+          "uid": "16600621186956491044"
         },
         {
           "value": 0,
