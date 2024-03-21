@@ -3,7 +3,6 @@ package com.javascape.user;
 
 /** The User class */
 public class User {
-    // TODO: User Preferences?
 
     public String email;
 
@@ -15,6 +14,8 @@ public class User {
 
     public int householdID = -1;
 
+    public Preferences preferences;
+
     /** Initialize a user with the given values */
     public User(String username, String password, int permissions, String email) {
         this.username = username;
@@ -22,6 +23,7 @@ public class User {
         this.permissionsLevel = permissions;
         this.email = email;
         householdID = -1;
+        preferences = new Preferences();
     }
 
     /** Initialize a user with the given values */
@@ -31,6 +33,7 @@ public class User {
         this.permissionsLevel = permissions;
         this.email = email;
         this.householdID = householdID;
+        preferences = new Preferences();
     }
 
     /**
