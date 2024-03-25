@@ -6,32 +6,29 @@ import com.javascape.Logger;
 import com.javascape.ServerThread;
 import com.javascape.menuPopups.AddSensorPopup;
 import com.javascape.sensors.analog.Sensor;
+import com.javascape.ui.EditableLabel;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class PicoW extends Receiver {
+public class PiPicoW extends Receiver {
 
     transient private boolean gpioExpanded = false, sensorExpanded = false;
 
-    public PicoW(String uid) {
+    public PiPicoW(String uid) {
         super(uid, "Pico W", "PiPicoW");
         gpio = new GPIO[23];
         sensors = new Sensor[3];
     }
 
-    public PicoW(String uid, String name, String type) {
+    public PiPicoW(String uid, String name, String type) {
         super(uid, name, type);
         gpio = new GPIO[23];
         sensors = new Sensor[3];
@@ -39,31 +36,14 @@ public class PicoW extends Receiver {
 
     public GridPane getReceiverPane() {
         GridPane g = new GridPane();
-        Label nameLabel = new Label(super.getName());
-        TextField nameField = new TextField(super.getName());
-        nameField.visibleProperty().set(false);
-        nameLabel.cursorProperty().setValue(Cursor.HAND);
 
-        nameField.setOnAction(e -> {
-            nameLabel.setText(nameField.getText());
-            nameField.visibleProperty().set(false);
-            nameLabel.visibleProperty().set(true);
-            super.setName(nameField.getText());
-        });
-
-        nameLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-
-                if (click.getClickCount() == 2) {
-                    nameField.visibleProperty().set(true);
-                    nameLabel.visibleProperty().set(false);
-                }
-            }
-        });
-
-        g.add(nameLabel, 0, 0);
-        g.add(nameField, 0, 0);
+        try {
+            EditableLabel nameLabel = new EditableLabel(super.getName(), this,
+                    this.getClass().getMethod("setName", String.class));
+            g.add(nameLabel, 0, 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         g.add(new Label("UID: " + super.getUID()), 1, 0);
         g.add(new Label("Temperature: "), 2, 0);
@@ -86,10 +66,10 @@ public class PicoW extends Receiver {
             if (gpio[i] == null)
                 gpio[i] = new GPIO(uid, i);
 
-            if (i < gpio.length/2) {
+            if (i < gpio.length / 2) {
                 buttonPane.add(gpio[i].getUI(), 0, i);
             } else {
-                buttonPane.add(gpio[i].getUI(), 1, i - gpio.length/2);
+                buttonPane.add(gpio[i].getUI(), 1, i - gpio.length / 2);
             }
 
             gpio[i].setConnectionStatus(connected);
@@ -200,16 +180,16 @@ public class PicoW extends Receiver {
     }
 
     public ArrayList<GPIO> getDigitalSensors() {
-       ArrayList<GPIO> digitalSensors = new ArrayList<GPIO>();
-       System.out.println("Getting digital sensors");
-       for (GPIO g : gpio) {
-           if (g.sensor != null) {
-               digitalSensors.add(g);
-           }
-       }
-       System.out.println(digitalSensors.size());
+        ArrayList<GPIO> digitalSensors = new ArrayList<GPIO>();
+        System.out.println("Getting digital sensors");
+        for (GPIO g : gpio) {
+            if (g.sensor != null) {
+                digitalSensors.add(g);
+            }
+        }
+        System.out.println(digitalSensors.size());
 
-       return digitalSensors;
+        return digitalSensors;
     }
 
 }

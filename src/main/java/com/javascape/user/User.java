@@ -1,19 +1,28 @@
 package com.javascape.user;
 
-
 /** The User class */
 public class User {
-    // TODO: User Preferences?
 
+    /** The email associated with the user. The email is used for all login info. */
     public String email;
 
+    /** The username for the user */
     public String username;
 
+    /** The password for the user */
     public String password;
 
+    /** The permissions level granted to the user. */
     public int permissionsLevel;
 
+    /**
+     * The ID of the household tied to the User. Used instead of a reference to the
+     * household to prevent the storing of a lot of unnecessary data.
+     */
     public int householdID = -1;
+
+    /** The Preferences that are tied to this User. */
+    public Preferences preferences;
 
     /** Initialize a user with the given values */
     public User(String username, String password, int permissions, String email) {
@@ -22,6 +31,7 @@ public class User {
         this.permissionsLevel = permissions;
         this.email = email;
         householdID = -1;
+        preferences = new Preferences();
     }
 
     /** Initialize a user with the given values */
@@ -31,6 +41,7 @@ public class User {
         this.permissionsLevel = permissions;
         this.email = email;
         this.householdID = householdID;
+        preferences = new Preferences();
     }
 
     /**
@@ -84,13 +95,14 @@ public class User {
         return this.householdID;
     }
 
-    
     // public Image getUserImage() {
-    //     //System.out.println(getClass().getResourceAsStream("/icons/defaultUser_x64.png").toString());
-    //     //return new Image("/main/resources/icons/defaultUser_x64.png");
-    //     return new Image(getClass().getResourceAsStream("/main/resources/icons/defaultUser_x64.png"));
+    // //System.out.println(getClass().getResourceAsStream("/icons/defaultUser_x64.png").toString());
+    // //return new Image("/main/resources/icons/defaultUser_x64.png");
+    // return new
+    // Image(getClass().getResourceAsStream("/main/resources/icons/defaultUser_x64.png"));
     // }
 
+    /** Returns the email of the user */
     @Override
     public String toString() {
         return email;

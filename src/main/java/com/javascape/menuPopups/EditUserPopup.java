@@ -1,7 +1,7 @@
 package com.javascape.menuPopups;
 
-import com.javascape.Permissions;
 import com.javascape.Server;
+import com.javascape.user.Permissions;
 import com.javascape.user.User;
 
 import javafx.scene.Scene;

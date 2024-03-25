@@ -3,7 +3,7 @@ package com.javascape;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.javascape.receivers.*;
@@ -13,27 +13,29 @@ import javafx.collections.ObservableList;
 public class ReceiverHandler {
     private ObservableList<Receiver> receivers = FXCollections.observableArrayList();
 
-    transient HashMap<String, String> classMap = new HashMap<String, String>();
+    /**
+     * Maps the the name of the device to the name of the Class.
+     */
+    transient ArrayList<String> classList = new ArrayList<String>();
 
+    /** Generic constructor that creates and initializes the ReceiverHandler. */
     public ReceiverHandler() {
         getClasses();
 
-        // Receiver test =
-        // Class.forName(classMap.get("PiPicoW")).getConstructor(int.class).newInstance(0);
     }
 
     /** Pull the classes from the receivers file */
     private void getClasses() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.map"));
+            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.txt"));
             while (scan.hasNextLine()) {
                 String[] item = scan.nextLine().split(" ");
 
-                classMap.put(item[0], "com.javascape.receivers." + item[1]);
+                classList.add("com.javascape.receivers." + item[0]);
             }
             scan.close();
         } catch (IOException e) {
-            Logger.error("Error trying to fetch receivers from receiver map");
+            Logger.error("Error trying to fetch receivers from receiver list");
         }
 
     }
@@ -49,11 +51,16 @@ public class ReceiverHandler {
         return null;
     }
 
+    /** Returns the list of Receivers */
     public ObservableList<Receiver> getReceiverList() {
         System.out.println("There are " + receivers.size() + " receivers");
         return receivers;
     }
 
+    /**
+     * Returns the list of active Receivers. A Receiver is considered active if
+     * there is current a socket connection.
+     */
     public ObservableList<Receiver> getActiveReceiverList() {
         ObservableList<Receiver> active = FXCollections.observableArrayList();
         for (Receiver r : receivers)
@@ -66,7 +73,7 @@ public class ReceiverHandler {
     /** Add a receiver to the receivers list */
     public void addReceiver(String deviceType, String ID) {
         try {
-            Class<?> tempClass = Class.forName(classMap.get(deviceType));
+            Class<?> tempClass = Class.forName("com.javascape.receivers." + deviceType);
             Constructor<?> constructor = tempClass.getConstructor(String.class);
 
             Object instance = constructor.newInstance(ID);
@@ -82,7 +89,7 @@ public class ReceiverHandler {
     /** Add a receiver to the receivers list */
     public void addReceiver(String deviceType, String ID, String name) {
         try {
-            Class<?> tempClass = Class.forName(classMap.get(deviceType));
+            Class<?> tempClass = Class.forName("com.javascape.receivers." + deviceType);
             Constructor<?> constructor = tempClass.getConstructor(String.class, String.class, String.class);
 
             Object instance = constructor.newInstance(ID, name, deviceType);

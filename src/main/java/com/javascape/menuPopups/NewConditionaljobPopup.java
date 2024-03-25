@@ -243,8 +243,8 @@ public class NewConditionaljobPopup {
             setSensor.getItems().add(gpio.getSensor());
         }
         setSensor.getItems().addAll(Arrays.asList(setReceiver.getValue().getSensors()));
-        // FIXME: Set this to the first value in arraylist
-        // setSensor.setValue(setReceiver.getValue().getSensors()[0]);
+
+        setSensor.setValue(setSensor.getItems().get(0));
 
         setReceiver.setOnAction(e -> {
             setSensor.getItems().clear();
@@ -252,8 +252,7 @@ public class NewConditionaljobPopup {
                 setSensor.getItems().add(gpio.getSensor());
             }
             setSensor.getItems().addAll(Arrays.asList(setReceiver.getValue().getSensors()));
-            // FIXME: Same as above
-            // setSensor.setValue(setReceiver.getValue().getSensors()[0]);
+            setSensor.setValue(setSensor.getItems().get(0));
         });
 
         setSensor.setOnAction(e -> {

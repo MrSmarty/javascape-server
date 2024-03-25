@@ -2,59 +2,53 @@ package com.javascape.sensors.digital;
 
 import com.javascape.sensors.SensorBase;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
-
+/**
+ * A base class for all digital sensors
+ */
 public abstract class DigitalSensor extends SensorBase {
 
-    transient public static final String regex = ",";
+    /** The delimiter used to split the value string into it's individual parts. */
+    transient public static final String DELIMITER = ",";
 
-    public int index;
-
-    public String name = "Digital Sensor";
-
-    public String className = "DigitalSensor";
-
+    /** The length of the valueNames array. */
     public int numValues = 1;
+    /**
+     * This type of sensor can collect multiple types of data at once. This array
+     * stores the names of those values at the indices they appear in the value
+     * string.
+     */
     public String[] valueNames;
 
-    public ObservableList<String> values = FXCollections.observableArrayList();
-
+    /** Generic constructor for the DigitalSensor class. */
     public DigitalSensor(String receiverID, int index) {
         this.receiverID = receiverID;
         this.index = index;
-    }
 
-    public void addValue(String value) {
-        if (values == null)
-            values = FXCollections.observableArrayList();
-        if (values.size() >= 10)
-            values.remove(0);
-        values.add(value);
+        name = "Digital Sensor";
 
-    }
-
-    /** Returns the last value stored */
-    public String getValue() {
-        if (values == null || values.size() == 0)
-            return null;
-        return values.get(values.size() - 1);
+        className = "DigitalSensor";
     }
 
     /**
-     * This ovverridden method will return the specified value when the sensor
+     * This overridden method will return the specified value given the
+     * <strong>index</strong> from {@link #valueNames} when the sensor
      * returns more than one value at a time. e.g. a sensor that returns both
      * temperature and humidity
      */
     public String getValue(int index) {
-        if (values == null || values.size() == 0)
+        if (valueList == null || valueList.size() == 0)
             return null;
-        return values.get(values.size() - 1).split(regex)[index];
+        return valueList.get(valueList.size() - 1).split(DELIMITER)[index];
     }
 
+    /**
+     * This overridden method will return the specified value given the
+     * <strong>name</strong> from {@link #valueNames} when the sensor
+     * returns more than one value at a time. e.g. a sensor that returns both
+     * temperature and humidity
+     */
     public String getValue(String valueName) {
-        if (values == null || values.size() == 0)
+        if (valueList == null || valueList.size() == 0)
             return null;
         int index = 0;
         for (String s : valueNames) {
@@ -65,19 +59,20 @@ public abstract class DigitalSensor extends SensorBase {
         return null;
     }
 
+    /** Returns the array with the valueNames */
     public String[] getValueNames() {
         return valueNames;
     }
 
+    /** Returns the number of values the sensor reports on. */
     public int getNumValues() {
         return numValues;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public abstract Node getSensorPane();
-
+    /**
+     * Returns the command to send to the device to get the value.
+     * <p>
+     * Used because different sensors require different commands to get the value.
+     */
     public abstract String getCommand();
 }

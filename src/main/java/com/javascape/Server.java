@@ -19,6 +19,7 @@ public class Server extends Application {
     private static DataHandler dataHandler;
     Stage primaryStage;
 
+    /** Static reference to the GUI */
     private static ServerGUI gui;
 
     /** The User currently logged in */
@@ -28,13 +29,17 @@ public class Server extends Application {
         launch(args);
     }
 
+    /**
+     * Starts the server. This method contains the logic for bypassing the login via
+     * autologin.
+     */
     @Override
     public void start(Stage primaryStage) {
         Platform.setImplicitExit(false);
         this.primaryStage = primaryStage;
         initialize();
 
-        //java.awt.SplashScreen.getSplashScreen().close();
+        // java.awt.SplashScreen.getSplashScreen().close();
 
         startServer();
 
@@ -81,15 +86,18 @@ public class Server extends Application {
         Thread.ofVirtual().start(serverThreadHandler);
     }
 
-    // #region Get and Set function
+    // #region Get and Set functions
+    /** Returns the DataHandler */
     public static DataHandler getDataHandler() {
         return dataHandler;
     }
 
+    /** Returns the ServerThreadHandler */
     public ServerThreadHandler getServerThreadHandler() {
         return serverThreadHandler;
     }
 
+    /** Returns the GUI */
     public static ServerGUI getGUI() {
         return gui;
     }

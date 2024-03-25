@@ -1,4 +1,4 @@
-package com.javascape;
+package com.javascape.user;
 
 import java.util.ArrayList;
 
