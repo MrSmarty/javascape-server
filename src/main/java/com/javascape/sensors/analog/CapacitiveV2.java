@@ -1,5 +1,6 @@
 package com.javascape.sensors.analog;
 
+import com.javascape.Helper;
 import com.javascape.Server;
 import com.javascape.ServerGUI;
 import com.javascape.Settings;
@@ -20,8 +21,8 @@ public class CapacitiveV2 extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
-    public int maxCal = 48571;
-    public int minCal = 18260;
+    public int maxCal = 22000;
+    public int minCal = 10500;
 
 
     public CapacitiveV2(String receiverID, int index) {
@@ -100,15 +101,18 @@ public class CapacitiveV2 extends Sensor {
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
+            double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
+            // double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
             return String.format("%.2f", percent);
         }
         return "N/A";
     }
 
     public Double getCurrentValueAsDouble() {
+        if (valueList == null)
+            valueList = FXCollections.<Double>observableArrayList();
         if (valueList.size() > 0) {
-            double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
+            double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
             return percent;
         }
         return null;
