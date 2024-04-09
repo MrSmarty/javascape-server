@@ -138,30 +138,7 @@
         {
           "value": -1,
           "index": 0,
-          "uid": "16600659688114897450",
-          "sensor": {
-            "numValues": 2,
-            "valueNames": [
-              "Humidity",
-              "Temperature"
-            ],
-            "receiverID": "",
-            "index": 0,
-            "className": "DHT11",
-            "name": "DHT11",
-            "valueList": [
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16",
-              "45,16"
-            ]
-          }
+          "uid": "16600659688114897450"
         },
         {
           "value": 0,
@@ -298,30 +275,7 @@
         {
           "value": -1,
           "index": 0,
-          "uid": "16600690508064966453",
-          "sensor": {
-            "numValues": 2,
-            "valueNames": [
-              "Humidity",
-              "Temperature"
-            ],
-            "receiverID": "",
-            "index": 0,
-            "className": "DHT11",
-            "name": "DHT11",
-            "valueList": [
-              "51,5",
-              "51,5",
-              "50,5",
-              "50,5",
-              "50,5",
-              "50,5",
-              "50,5",
-              "50,5",
-              "50,5",
-              "50,5"
-            ]
-          }
+          "uid": "16600690508064966453"
         },
         {
           "value": 0,
