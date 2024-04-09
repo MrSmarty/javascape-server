@@ -81,7 +81,7 @@ public class CapacitiveV2 extends Sensor {
      */
     private String getCurrentValue() {
         if (valueList == null)
-            valueList = FXCollections.<Double>observableArrayList();
+            valueList = FXCollections.observableArrayList();
         if (valueList.size() > 0) {
             double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
             // double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
@@ -95,16 +95,12 @@ public class CapacitiveV2 extends Sensor {
      */
     public Double getCurrentValueAsDouble() {
         if (valueList == null)
-            valueList = FXCollections.<Double>observableArrayList();
+            valueList = FXCollections.observableArrayList();
         if (valueList.size() > 0) {
             double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
             return percent;
         }
         return null;
     }
-
-    // public void setName(String name) {
-    // this.name = name;
-    // }
 
 }

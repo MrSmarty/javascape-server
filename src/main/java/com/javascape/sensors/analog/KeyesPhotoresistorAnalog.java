@@ -74,20 +74,28 @@ public class KeyesPhotoresistorAnalog extends Sensor {
         return g;
     }
 
+    /**
+     * This method will return the current value as a String.
+     * 
+     * @return
+     */
     private String getCurrentValue() {
         if (valueList == null)
-            valueList = FXCollections.<Double>observableArrayList();
+            valueList = FXCollections.observableArrayList();
         if (valueList.size() > 0) {
-            //double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return String.format("%.2f", percent);
         }
         return "N/A";
     }
 
+    /**
+     * This method will return the current value as a double instead of a String.
+     */
     public Double getCurrentValueAsDouble() {
         if (valueList.size() > 0) {
-            //double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return percent;
         }
