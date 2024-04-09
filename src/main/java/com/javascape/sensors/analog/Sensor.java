@@ -20,4 +20,9 @@ public abstract class Sensor extends SensorBase {
      */
     public abstract Double getCurrentValueAsDouble();
 
+    /** Need it for the editableLabel */
+    public void setName(String name) {
+        super.setName(name);
+    }
+
 }
