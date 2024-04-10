@@ -39,6 +39,7 @@ C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascap
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\gsonDeserializers\ReceiverDeserializer.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\HouseholdHandler.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\menuPopups\DeleteUserPopup.java
+C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\sensors\digital\DS18B20.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\gsonDeserializers\SensorDeserializer.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\Server.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\ReceiverHandler.java

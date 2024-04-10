@@ -1,0 +1,170 @@
+import machine
+from machine import Pin, ADC
+import network
+import socket
+import uasyncio as aio
+import time
+
+import onewire
+import ds18x20
+
+import dht
+
+#IP = "10.3.11.71"
+
+IP = "192.168.1.241"
+
+PORT = "19"
+
+SSID = "Da Snifs"
+PASSWORD = "11111111"
+
+#SSID = "LVISD Staff"
+#PASSWORD = "!3XC3ll3nt Row1ng!"
+
+#SSID = "LVISD Student"
+#PASSWORD = "!V1k1ng$R0w1ng!"
+
+NAME = "PiPicoW"
+UID = int.from_bytes(machine.unique_id(), "big")
+
+sensor_temp = ADC(4)
+conversion_factor = 3.3 /(65535)
+
+print("Name: " + NAME)
+print("UID: " + str(UID))
+
+wirelessNet = network.WLAN(network.STA_IF)
+wirelessNet.active(True)
+wirelessNet.connect(SSID, PASSWORD)
+
+while not wirelessNet.isconnected() and wirelessNet.status() >= 0:
+    print("Connecting...")
+    time.sleep(1)
+
+print("Connection established")
+
+activeTimers = []
+pins = []
+for x in range(23):
+    pins.append(Pin(int(x), Pin.OUT))
+for x in range(3):
+    pins.append(ADC(26+x))
+    
+def process(data):
+    if data[0] == "getInfo":
+        return "info receiver " + NAME + " " + str(UID) + " " + NAME
+    elif data[0] == "ping":
+        return "pong"
+    elif data[0] == "getPinStates":
+        states = ""
+        for i in 26:
+            states += str(i) + " "
+        return states[:-1]
+    elif data[0] == "setPin":
+        print("set pin " + str(data[1]))
+        pins[int(data[1])].value(int(data[2]))
+        return "ok"
+    elif data[0] == "togglePin":
+        print("toggling pin " + str(data[1]))
+        pins[int(data[1])].value(pins[int(data[1])].value() - 1)
+        return "ok"
+    elif data[0] == "getTemp": # Returns the temperature in Celsius
+        reading = sensor_temp.read_u16() * conversion_factor
+        return "internalTemp " + str(27 - (reading - 0.706)/0.001721)
+    elif data[0] == "getADC":
+        return pins[str(data[1])].read_u16()
+    elif data[0] == "getSensors":
+        s = "sensorValues"
+        for x in range(len(data) - 1):
+            #print("data[x+1]: " + str(data[x+1]))
+            s += " " + data[x+1] + " " + str(pins[23+int(data[x+1])].read_u16())
+            #print("dataLength " + str(len(data)))
+        return s;
+    elif data[0] == "getDigitalSensors":
+        s = "digitalSensorValues"
+        for x in range((len(data)-1)/2):
+            s+= " " + data[(x*2)+1] + " "
+            #DHT11 special case
+            if (data[(x*2)+2] == "DHT11"):
+                print(str(data[(x*2)+1]))
+                sensor = dht.DHT11(Pin(int(data[(x*2)+1])))
+                try:
+                    sensor.measure()
+                    time.sleep(1)
+                    s += str(sensor.humidity()) +","+str(sensor.temperature())
+                except:
+                    continue
+            elif (data[(x*2)+2] == "DS18B20"):
+                ow = onewire.OneWire(Pin(int(data[(x*2)+1])))
+                ds = ds18x20.DS18X20(ow)
+                devices = ds.scan()
+                for device in devices:
+                    s += str(ds.read_temp(device))
+        print("done running range")
+        return s
+    # Final case
+    else:
+        return "ok"
+
+def run():
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
+    def close():
+        Pin("LED", machine.Pin.OUT, value=0)
+        sock.close()
+        print("Socket closed")
+    
+    # Attempt to connect to the server
+    try:
+        print("Connecting to -> " + IP + ":" + PORT)
+        server = socket.getaddrinfo(IP, int(PORT))[0][-1]
+        sock.connect(server)
+        print("Connected")
+        Pin("LED", machine.Pin.OUT, value=1)
+    except OSError as e:
+        print("Socket error: " + str(e))
+        sock.close()
+        return
+    
+    while True:
+        sreader = aio.StreamReader(sock)
+        swriter = aio.StreamWriter(sock, {})
+        
+        while True:
+            try:
+                input = (await sreader.readline())[:-2]
+                input = input.decode("utf-8")
+                print("Input received: " + str(input))
+                
+                if input.split(" ")[0] == "close":
+                    close()
+                
+                inputList = filter(None, input.split(' '))
+                
+                output = process(list(inputList)) + " \n"
+                print("Sending: " + output[:-2])
+                
+                swriter.write(output.encode("utf-8"))
+                await swriter.drain()
+            
+            except OSError as e:
+                print("OSError prompted close")
+                print(e)
+                return
+            await aio.sleep(1)
+    
+try:
+    Pin("LED", machine.Pin.OUT, value=1)
+    time.sleep(1)
+    Pin("LED", machine.Pin.OUT, value=0)
+    aio.run(run())
+except KeyboardInterrupt:
+    print("Keyboard interrupt")
+finally:
+    _ = aio.new_event_loop()
+    Pin("LED", machine.Pin.OUT, value=0)
+    print("Done")
+
+
+

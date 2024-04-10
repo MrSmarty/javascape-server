@@ -6,6 +6,7 @@ com\javascape\ReceiverHandler.class
 com\javascape\Logger$1.class
 com\javascape\menuPopups\NewConditionaljobPopup.class
 com\javascape\ReceiverView.class
+com\javascape\sensors\digital\DS18B20.class
 com\javascape\receivers\GPIO.class
 com\javascape\user\Preferences.class
 com\javascape\chronjob\Chronjob$1.class
@@ -66,3 +67,4 @@ com\javascape\ReceiverView$1.class
 com\javascape\ServerThread$1.class
 com\javascape\menuPopups\DeleteChronjobPopup.class
 com\javascape\Server.class
+com\javascape\sensors\digital\DS18B20$1.class
