@@ -25,6 +25,7 @@ public abstract class Sensor extends SensorBase {
      * 
      * @return
      */
+    @SuppressWarnings("unused")
     private String getCurrentValue() {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
