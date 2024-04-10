@@ -4,17 +4,14 @@ import com.javascape.Helper;
 import com.javascape.Server;
 import com.javascape.ServerGUI;
 import com.javascape.Settings;
+import com.javascape.ui.EditableLabel;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class KeyesPhotoresistorAnalog extends Sensor {
@@ -43,32 +40,13 @@ public class KeyesPhotoresistorAnalog extends Sensor {
     public GridPane getSensorPane() {
         GridPane g = new GridPane();
 
-        Label nameLabel = new Label(super.getName());
-        TextField nameField = new TextField(super.getName());
-        nameField.visibleProperty().set(false);
-        nameLabel.cursorProperty().setValue(Cursor.HAND);
-
-        nameField.setOnAction(e -> {
-            nameLabel.setText(nameField.getText());
-            nameField.visibleProperty().set(false);
-            nameLabel.visibleProperty().set(true);
-            super.setName(nameField.getText());
-        });
-
-        nameLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent click) {
-
-                if (click.getClickCount() == 2) {
-                    nameField.visibleProperty().set(true);
-                    nameLabel.visibleProperty().set(false);
-                }
-            }
-        });
-
-        g.add(nameLabel, 0, 0);
-        g.add(nameField, 0, 0);
+        try {
+            EditableLabel nameLabel = new EditableLabel(super.getName(), this,
+                    super.getClass().getMethod("setName", String.class));
+            g.add(nameLabel, 0, 0);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
 
         Label valueLabel = new Label(String.format("Light Level: %s%%", getCurrentValue()));
 
@@ -96,20 +74,28 @@ public class KeyesPhotoresistorAnalog extends Sensor {
         return g;
     }
 
+    /**
+     * This method will return the current value as a String.
+     * 
+     * @return
+     */
     private String getCurrentValue() {
         if (valueList == null)
-            valueList = FXCollections.<Double>observableArrayList();
+            valueList = FXCollections.observableArrayList();
         if (valueList.size() > 0) {
-            //double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return String.format("%.2f", percent);
         }
         return "N/A";
     }
 
+    /**
+     * This method will return the current value as a double instead of a String.
+     */
     public Double getCurrentValueAsDouble() {
         if (valueList.size() > 0) {
-            //double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
+            // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return percent;
         }
