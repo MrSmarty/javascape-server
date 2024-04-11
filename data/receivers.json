@@ -252,15 +252,7 @@
         }
       ],
       "sensors": [
-        {
-          "maxCal": 21500,
-          "minCal": 10500,
-          "receiverID": "16600659688114897450",
-          "index": 0,
-          "className": "CapacitiveV2",
-          "name": "Silver_Pot",
-          "valueList": []
-        },
+        null,
         null,
         null
       ],
@@ -464,22 +456,7 @@
         {
           "value": -1,
           "index": 12,
-          "uid": "16600690508064624181",
-          "sensor": {
-            "numValues": 1,
-            "valueNames": [
-              "Temperature"
-            ],
-            "receiverID": "",
-            "index": 12,
-            "className": "DS18B20",
-            "name": "DS18B20",
-            "valueList": [
-              "0.0",
-              "0.0",
-              "24.0"
-            ]
-          }
+          "uid": "16600690508064624181"
         },
         {
           "value": 0,

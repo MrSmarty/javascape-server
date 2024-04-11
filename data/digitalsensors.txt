@@ -1,2 +1,3 @@
 DHT11
 DS18B20
+Input

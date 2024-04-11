@@ -75,4 +75,8 @@ public abstract class DigitalSensor extends SensorBase {
      * Used because different sensors require different commands to get the value.
      */
     public abstract String getCommand();
+
+    public void setName(String name) {
+        super.setName(name);
+    }
 }
