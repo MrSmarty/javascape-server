@@ -38,7 +38,7 @@ public abstract class DigitalSensor extends SensorBase {
     public String getValue(int index) {
         if (valueList == null || valueList.size() == 0)
             return null;
-        return valueList.get(valueList.size() - 1).split(DELIMITER)[index];
+        return valueList.get(0).split(DELIMITER)[index];
     }
 
     /**

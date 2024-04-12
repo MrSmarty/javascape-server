@@ -49,8 +49,8 @@ public abstract class SensorBase {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
         if (valueList.size() >= Settings.maxSensorData)
-            valueList.remove(0);
-        valueList.add(value);
+            valueList.remove(valueList.size() - 1);
+        valueList.add(0, value);
 
     }
 
@@ -58,7 +58,7 @@ public abstract class SensorBase {
     public String getValue() {
         if (valueList == null || valueList.size() == 0)
             return null;
-        return valueList.get(valueList.size() - 1);
+        return valueList.get(0);
     }
 
     /** Returns the name of the sensor */

@@ -1,2 +1,3 @@
 CapacitiveV2
 KeyesPhotoresistorAnalog
+TDS

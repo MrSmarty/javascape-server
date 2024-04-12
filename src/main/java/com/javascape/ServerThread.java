@@ -213,7 +213,7 @@ public class ServerThread extends Thread {
                     Logger.print("Finished!");
                 } catch (Exception e) {
                     future.cancel(true);
-                    Logger.print("Terminated!\n" + e.toString());
+                    Logger.print("Terminated by Timeout!\n" + e.toString());
                     quit();
                 }
 

@@ -28,6 +28,7 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/user/Preferences.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/ReceiverDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/sensors/SensorBase.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/sensors/analog/TDS.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/DataHandler.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/sensors/digital/DS18B20.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ServerThread.java

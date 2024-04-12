@@ -10,7 +10,7 @@ import javafx.collections.FXCollections;
  */
 public abstract class Sensor extends SensorBase {
 
-    public int maxCal = 65565;
+    public int maxCal = 65536;
     public int minCal = 0;
 
     /** Generic constructor for the Sensor class. */
@@ -45,6 +45,24 @@ public abstract class Sensor extends SensorBase {
             // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return percent;
+        }
+        return null;
+    }
+
+    /** Returns a value between 0 and 65565 as opposed to a percent */
+    public String getCurrentRaw() {
+        if (valueList.size() > 0) {
+            return valueList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * This method will return the current raw value as a double instead of a String.
+     */
+    public Double getCurrentRawAsDouble() {
+        if (valueList.size() > 0) {
+            return Double.parseDouble(valueList.get(0));
         }
         return null;
     }
