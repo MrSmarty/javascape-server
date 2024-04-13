@@ -1,5 +1,6 @@
 package com.javascape.sensors.digital;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -25,6 +26,10 @@ public class DS18B20 extends DigitalSensor {
 
     @Override
     public Node getSensorPane() {
+
+        if (valueList == null) {
+            valueList = FXCollections.observableArrayList();
+        }
 
         GridPane pane = new GridPane();
 

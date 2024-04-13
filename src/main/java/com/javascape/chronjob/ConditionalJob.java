@@ -204,6 +204,12 @@ public class ConditionalJob extends Job {
                     if (currentSensorValue <= Double.parseDouble(args[3])) {
                         return true;
                     }
+                } else if (args[2].equals("!=")) {
+                    if (currentSensorValue != Double.parseDouble(args[3])) {
+                        return true;
+                    }
+                } else {
+                    System.out.println("Invalid Operator: " + args[2]);
                 }
 
             } else {

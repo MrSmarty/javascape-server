@@ -2,6 +2,7 @@ package com.javascape.sensors.digital;
 
 import com.javascape.ui.EditableLabel;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -32,15 +33,18 @@ public class Input extends DigitalSensor {
     public Node getSensorPane() {
         GridPane pane = new GridPane();
 
+        if (valueList == null) {
+            valueList = FXCollections.observableArrayList();
+        }
+
         try {
             EditableLabel label = new EditableLabel(getName(), this,
                     super.getClass().getMethod("setName", String.class));
             pane.add(label, 0, 0);
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
         }
 
-        String currentValue = "N/A";
+        String currentValue;
 
         try {
             currentValue = getValue();

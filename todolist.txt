@@ -1,2 +1,0 @@
-TODO: Waterproof temperature Sensor
-TODO: ESP32

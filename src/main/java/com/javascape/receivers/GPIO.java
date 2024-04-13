@@ -117,10 +117,10 @@ public class GPIO {
         Label nameLabel = new Label("GPIO " + index);
         g.add(nameLabel, 0, 0);
 
-        ComboBox<String> mode = new ComboBox<String>();
+        ComboBox<String> mode = new ComboBox<>();
         mode.getItems().addAll("Output", "Input");
 
-        ComboBox<String> device = new ComboBox<String>();
+        ComboBox<String> device = new ComboBox<>();
         device.getItems().add("None");
         device.getItems().addAll(SensorManager.getDigitalSensorList());
         device.visibleProperty().set(false);
@@ -134,7 +134,7 @@ public class GPIO {
             }
         });
 
-        if (value >= 0) {
+        if (value >= 0 || sensor == null) {
             mode.getSelectionModel().select("Output");
         } else {
             mode.getSelectionModel().select("Input");
@@ -195,12 +195,13 @@ public class GPIO {
 
     /**
      * Get the command to set the GPIO.
-     * 
+     *
      * @return
      */
     public String getCommand() {
-        if (sensor != null)
+        if (sensor != null) {
             return index + " " + sensor.getCommand();
+        }
         return null;
     }
 

@@ -153,8 +153,8 @@ public class NewConditionaljobPopup {
         });
 
         create.setOnAction(e -> {
-            ArrayList<String> commands = new ArrayList<String>(observableCommands);
-            ArrayList<String> conditions = new ArrayList<String>(observableConditions);
+            ArrayList<String> commands = new ArrayList<>(observableCommands);
+            ArrayList<String> conditions = new ArrayList<>(observableConditions);
 
             ConditionalJob job = new ConditionalJob(nameField.textProperty().getValue(), commands, conditions);
             manager.newConditional(job);
@@ -175,7 +175,7 @@ public class NewConditionaljobPopup {
 
         GridPane g = new GridPane();
 
-        ChoiceBox<ChronjobItem> setType = new ChoiceBox<ChronjobItem>();
+        ChoiceBox<ChronjobItem> setType = new ChoiceBox<>();
         setType.getItems().addAll(manager.getAllItems());
         setType.setValue(manager.getAllItems().get(0));
 
@@ -189,7 +189,7 @@ public class NewConditionaljobPopup {
         });
 
         Label receiverLabel = new Label("Receiver");
-        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<>();
 
         receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
         receiverBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));
@@ -231,12 +231,12 @@ public class NewConditionaljobPopup {
 
         GridPane g = new GridPane();
 
-        ChoiceBox<Receiver> setReceiver = new ChoiceBox<Receiver>(
+        ChoiceBox<Receiver> setReceiver = new ChoiceBox<>(
                 Server.getDataHandler().getReceiverHandler().getReceiverList());
         setReceiver.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));
 
-        ChoiceBox<SensorBase> setSensor = new ChoiceBox<SensorBase>();
-        ChoiceBox<String> digitalSensorIndex = new ChoiceBox<String>();
+        ChoiceBox<SensorBase> setSensor = new ChoiceBox<>();
+        ChoiceBox<String> digitalSensorIndex = new ChoiceBox<>();
         digitalSensorIndex.setVisible(false);
 
         for (GPIO gpio : setReceiver.getValue().getDigitalSensors()) {
@@ -256,10 +256,10 @@ public class NewConditionaljobPopup {
         });
 
         setSensor.setOnAction(e -> {
-            if (setSensor.getValue() instanceof DigitalSensor) {
+            if (setSensor.getValue() instanceof DigitalSensor digitalSensor) {
                 digitalSensorIndex.getItems().clear();
-                for (int i = 0; i < ((DigitalSensor) setSensor.getValue()).getNumValues(); i++) {
-                    digitalSensorIndex.getItems().add(((DigitalSensor) setSensor.getValue()).getValueNames()[i]);
+                for (int i = 0; i < digitalSensor.getNumValues(); i++) {
+                    digitalSensorIndex.getItems().add(digitalSensor.getValueNames()[i]);
                 }
                 digitalSensorIndex.setVisible(true);
             } else {
@@ -268,8 +268,8 @@ public class NewConditionaljobPopup {
 
         });
 
-        ChoiceBox<String> setOperator = new ChoiceBox<String>();
-        setOperator.getItems().addAll("==", ">", "<", ">=", "<=");
+        ChoiceBox<String> setOperator = new ChoiceBox<>();
+        setOperator.getItems().addAll("==", ">", "<", ">=", "<=", "!=");
         setOperator.setValue("==");
 
         TextField valueField = new TextField();
@@ -282,8 +282,8 @@ public class NewConditionaljobPopup {
 
         Button add = new Button("Add");
         add.setOnAction(e -> {
-            if (setSensor.getValue() instanceof Sensor) {
-                String condition = setReceiver.getValue().getUID() + ":" + ((Sensor) setSensor.getValue()).getIndex()
+            if (setSensor.getValue() instanceof Sensor sensor) {
+                String condition = setReceiver.getValue().getUID() + ":" + sensor.getIndex()
                         + " "
                         + setOperator.getValue() + " " + valueField.textProperty().get();
                 observableConditions.add(condition);
@@ -318,7 +318,7 @@ public class NewConditionaljobPopup {
 
         GridPane g = new GridPane();
 
-        ChoiceBox<ChronjobItem> setType = new ChoiceBox<ChronjobItem>();
+        ChoiceBox<ChronjobItem> setType = new ChoiceBox<>();
         setType.getItems().addAll(manager.getAllItems());
         setType.setValue(manager.getAllItems().get(0));
 
@@ -332,7 +332,7 @@ public class NewConditionaljobPopup {
         });
 
         Label receiverLabel = new Label("Receiver");
-        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<>();
 
         receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
         receiverBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiverList().get(0));

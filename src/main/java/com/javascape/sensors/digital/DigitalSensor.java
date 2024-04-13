@@ -7,19 +7,28 @@ import com.javascape.sensors.SensorBase;
  */
 public abstract class DigitalSensor extends SensorBase {
 
-    /** The delimiter used to split the value string into it's individual parts. */
+    /**
+     * The delimiter used to split the value string into it's individual parts.
+     */
     transient public static final String DELIMITER = ",";
 
-    /** The length of the valueNames array. */
+    /**
+     * The length of the valueNames array.
+     */
     public int numValues = 1;
     /**
-     * This type of sensor can collect multiple types of data at once. This array
-     * stores the names of those values at the indices they appear in the value
-     * string.
+     * This type of sensor can collect multiple types of data at once. This
+     * array stores the names of those values at the indices they appear in the
+     * value string.
      */
     public String[] valueNames;
 
-    /** Generic constructor for the DigitalSensor class. */
+    /**
+     * Generic constructor for the DigitalSensor class.
+     *
+     * @param receiverID ID of the receiver the sensor is connected to.
+     * @param index The index of the sensor on the receiver.
+     */
     public DigitalSensor(String receiverID, int index) {
         this.receiverID = receiverID;
         this.index = index;
@@ -31,40 +40,53 @@ public abstract class DigitalSensor extends SensorBase {
 
     /**
      * This overridden method will return the specified value given the
-     * <strong>index</strong> from {@link #valueNames} when the sensor
-     * returns more than one value at a time. e.g. a sensor that returns both
+     * <strong>index</strong> from {@link #valueNames} when the sensor returns
+     * more than one value at a time. e.g. a sensor that returns both
      * temperature and humidity
+     *
+     * @param index The index of the value to returnn
+     * @return The value of the variable at the specified index
      */
     public String getValue(int index) {
-        if (valueList == null || valueList.size() == 0)
+        if (valueList == null || valueList.isEmpty()) {
             return null;
+        }
         return valueList.get(0).split(DELIMITER)[index];
     }
 
     /**
      * This overridden method will return the specified value given the
-     * <strong>name</strong> from {@link #valueNames} when the sensor
-     * returns more than one value at a time. e.g. a sensor that returns both
+     * <strong>name</strong> from {@link #valueNames} when the sensor returns
+     * more than one value at a time. e.g. a sensor that returns both
      * temperature and humidity
+     *
+     * @param valueName The name of the value to return
+     * @return The value of the variable with the specified name
      */
     public String getValue(String valueName) {
-        if (valueList == null || valueList.size() == 0)
+        if (valueList == null || valueList.isEmpty()) {
             return null;
+        }
         int index = 0;
         for (String s : valueNames) {
-            if (s.equals(valueName))
+            if (s.equals(valueName)) {
                 return getValue(index);
+            }
             index++;
         }
         return null;
     }
 
-    /** Returns the array with the valueNames */
+    /**
+     * Returns the array with the valueNames
+     */
     public String[] getValueNames() {
         return valueNames;
     }
 
-    /** Returns the number of values the sensor reports on. */
+    /**
+     * Returns the number of values the sensor reports on.
+     */
     public int getNumValues() {
         return numValues;
     }
@@ -72,7 +94,8 @@ public abstract class DigitalSensor extends SensorBase {
     /**
      * Returns the command to send to the device to get the value.
      * <p>
-     * Used because different sensors require different commands to get the value.
+     * Used because different sensors require different commands to get the
+     * value.
      */
     public abstract String getCommand();
 
