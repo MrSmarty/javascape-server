@@ -63,14 +63,35 @@ public class TDS extends Sensor {
 
         if (tempSensorID != null) {
             receiverBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(receiverID));
+
+            sensorBox.getItems().clear();
+            for (GPIO gpio : receiverBox.getValue().getDigitalSensors()) {
+                sensorBox.getItems().add(gpio.getSensor());
+            }
+            sensorBox.getItems().addAll(Arrays.asList(receiverBox.getValue().getSensors()));
+            sensorBox.getItems().removeIf(sensor -> sensor == null);
+            sensorBox.setVisible(true);
         }
 
         if (tempSensorIndex != -1) {
-            sensorBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(tempSensorID).getSensor(tempSensorIndex));
+            if (tempSensorIndex < receiverBox.getValue().getGPIO().length) {
+                sensorBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(tempSensorID).getDigitalSensor(tempSensorIndex));
+            } else {
+                sensorBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(tempSensorID).getSensor(tempSensorIndex));
+            }
         }
 
         if (tempSensorValueIndex != -1) {
-            //valueBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(tempSensorID).getSensor(tempSensorIndex).getValueNames()[0]);
+            if (sensorBox.getValue() instanceof DigitalSensor digitalSensor) {
+                valueBox.getItems().clear();
+                for (int i = 0; i < digitalSensor.getNumValues(); i++) {
+                    valueBox.getItems().add(digitalSensor.getValueNames()[i]);
+                }
+                valueBox.setValue(digitalSensor.getValueNames()[tempSensorValueIndex]);
+            }
+
+        } else {
+            valueBox.setVisible(false);
         }
 
         receiverBox.setOnAction(e -> {
@@ -82,6 +103,7 @@ public class TDS extends Sensor {
                     sensorBox.getItems().add(gpio.getSensor());
                 }
                 sensorBox.getItems().addAll(Arrays.asList(receiverBox.getValue().getSensors()));
+                sensorBox.getItems().removeIf(sensor -> sensor == null);
                 sensorBox.setVisible(true);
             } else {
                 tempSensorID = null;
@@ -110,8 +132,8 @@ public class TDS extends Sensor {
         });
 
         valueBox.setOnAction(e -> {
-            System.out.println("Testing: " + ((DigitalSensor) sensorBox.getValue()).getNameOfValueAtIndex(valueBox.getValue()));
-            tempSensorValueIndex = ((DigitalSensor) sensorBox.getValue()).getNameOfValueAtIndex(valueBox.getValue());
+            System.out.println("Testing: " + ((DigitalSensor) sensorBox.getValue()).getIndexOfValueName(valueBox.getValue()));
+            tempSensorValueIndex = ((DigitalSensor) sensorBox.getValue()).getIndexOfValueName(valueBox.getValue());
         });
 
         g.add(tempLabel, 0, 1);

@@ -83,7 +83,7 @@ public abstract class DigitalSensor extends SensorBase {
      * @param valueName The name of the value to return
      * @return The index of the value with the specified name
      */
-    public int getNameOfValueAtIndex(String valueName) {
+    public int getIndexOfValueName(String valueName) {
         int tempIndex = 0;
         for (String s : valueNames) {
             if (s.equals(valueName)) {
