@@ -29,7 +29,7 @@ public class DHT11 extends DigitalSensor {
         String[] currentValue;
 
         try {
-            currentValue = getValue().split("|");
+            currentValue = getValue().split("\\|");
         } catch (NullPointerException e) {
             currentValue = new String[2];
             currentValue[0] = "N/A";

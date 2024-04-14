@@ -33,7 +33,7 @@ public class DS18B20 extends DigitalSensor {
 
         GridPane pane = new GridPane();
 
-        String currentValue = "N/A";
+        String currentValue;
 
         try {
             currentValue = getValue();

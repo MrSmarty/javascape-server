@@ -6,9 +6,7 @@ import com.javascape.ServerGUI;
 import com.javascape.sensors.SensorManager;
 import com.javascape.sensors.digital.DigitalSensor;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -40,13 +38,10 @@ public class GPIO {
         this.index = index;
         checkBoxLabel = new Label("GPIO " + index + ":");
 
-        checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
-                Server.getDataHandler().getReceiverHandler().getReceiver(uid)
-                        .sendCommand(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
-            }
+        checkBox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
+            Server.getDataHandler().getReceiverHandler().getReceiver(uid)
+                    .sendCommand(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
         });
     }
 
@@ -82,14 +77,10 @@ public class GPIO {
             }
             if (checkBox == null) {
                 checkBox = new CheckBox();
-                checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                            Boolean newValue) {
-                        Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
-                        Server.getDataHandler().getReceiverHandler().getReceiver(uid).sendCommand(
-                                String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
-                    }
+                checkBox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
+                    Server.getDataHandler().getReceiverHandler().getReceiver(uid).sendCommand(
+                            String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
                 });
             }
             hbox.getChildren().addAll(checkBoxLabel, checkBox);
@@ -97,12 +88,9 @@ public class GPIO {
             hbox.getChildren().addAll(sensor.getSensorPane());
         }
 
-        hbox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent click) {
-                if (click.getClickCount() == 2) {
-                    editWindow();
-                }
+        hbox.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent click) -> {
+            if (click.getClickCount() == 2) {
+                editWindow();
             }
         });
 

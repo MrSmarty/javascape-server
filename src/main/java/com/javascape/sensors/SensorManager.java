@@ -18,15 +18,15 @@ public class SensorManager {
     /**
      * The list of analog sensors that are available to be used.
      */
-    private static ObservableList<String> sensors = FXCollections.observableArrayList();
+    private static final ObservableList<String> sensors = FXCollections.observableArrayList();
     /**
      * The list of digital sensors that are available to be used.
      */
-    private static ObservableList<String> digitalSensors = FXCollections.observableArrayList();
+    private static final ObservableList<String> digitalSensors = FXCollections.observableArrayList();
 
     /**
      * Returns the list of analog sensors available to be used.
-     * 
+     *
      * @return
      */
     public static ObservableList<String> getSensorList() {
@@ -35,7 +35,7 @@ public class SensorManager {
 
     /**
      * Returns the list of digital sensors available to be used.
-     * 
+     *
      * @return
      */
     public static ObservableList<String> getDigitalSensorList() {
@@ -43,36 +43,43 @@ public class SensorManager {
     }
 
     /**
-     * Initializes the list of sensors from the sensors.txt file, and the list of
-     * digitalSensors from the digitalsensors.txt file.
+     * Initializes the list of sensors from the sensors.txt file, and the list
+     * of digitalSensors from the digitalsensors.txt file.
      */
     public static void initializeSensorLists() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "sensors.txt"));
-            while (scan.hasNextLine()) {
-                String[] item = scan.nextLine().split(" ");
+            try (Scanner scan = new Scanner(new File(Settings.storageLocation + "sensors.txt"))) {
+                while (scan.hasNextLine()) {
+                    String[] item = scan.nextLine().split(" ");
 
-                sensors.add(item[0]);
+                    sensors.add(item[0]);
+                }
             }
-            scan.close();
         } catch (IOException e) {
             Logger.error("Error trying to fetch sensors from sensor list");
         }
 
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "digitalsensors.txt"));
-            while (scan.hasNextLine()) {
-                String[] item = scan.nextLine().split(" ");
+            try (Scanner scan = new Scanner(new File(Settings.storageLocation + "digitalsensors.txt"))) {
+                while (scan.hasNextLine()) {
+                    String[] item = scan.nextLine().split(" ");
 
-                digitalSensors.add(item[0]);
+                    digitalSensors.add(item[0]);
+                }
             }
-            scan.close();
         } catch (IOException e) {
             Logger.error("Error trying to fetch digital sensors from digital sensor list");
         }
     }
 
-    /** Creates and returns a new analog sensor. */
+    /**
+     * Creates and returns a new analog sensor.
+     *
+     * @param deviceName the Name of the sensor to create
+     * @param receiverID the ID of the receiver that the sensor is connected to
+     * @param index the index of the sensor on the receiver
+     * @return the new sensor
+     */
     public static Sensor createNewAnalogSensor(String deviceName, String receiverID, int index) {
         try {
             Class<?> tempClass = Class.forName("com.javascape.sensors.analog." + deviceName);
@@ -91,7 +98,12 @@ public class SensorManager {
         return null;
     }
 
-    /** Creates and returns a new digital sensor */
+    /**
+     * Creates and returns a new digital sensor
+     * @param sensorName the name of the sensor to create
+     * @param index the index of the sensor on the receiver
+     * @return the new DigitalSensor
+     */
     public static DigitalSensor createNewDigitalSensor(String sensorName, int index) {
         try {
             Class<?> tempClass = Class.forName("com.javascape.sensors.digital." + sensorName);

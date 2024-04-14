@@ -70,6 +70,7 @@ public class ServerThread extends Thread {
     /**
      * The main method of the ServerThread.
      */
+    @Override
     public void run() {
         Logger.print("New thread created");
 
@@ -127,10 +128,8 @@ public class ServerThread extends Thread {
         run = true;
 
         if (deviceType == DeviceType.Receiver) {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    ServerGUI.receiverView.update();
-                }
+            Platform.runLater(() -> {
+                ServerGUI.receiverView.update();
             });
             sendFirstProtocol();
         } else
@@ -148,63 +147,54 @@ public class ServerThread extends Thread {
             // Block the thread for a second
             try {
                 Thread.sleep(1);
-            } catch (Exception e) {
-
+            } catch (InterruptedException e) {
+                Logger.print("Sleep interrupted");
             }
 
-            if (commands.size() > 0) {
+            if (!commands.isEmpty()) {
                 Logger.debug("New command executing...");
 
-                Future<String> future = executor.submit(new Callable<String>() {
-                    @Override
-                    public String call() {
-                        try {
-
-                            String out = commands.remove(0) + " ";
-
-                            printStream.println(out);
-                            printStream.flush();
-
-                            Logger.print("Sent: " + out);
-
-                            // give us the data coming in and print if not null
-                            String in = socketReader.readLine();
-                            Logger.print("Recieved: " + in);
-                            String[] inArgs = in.split(" ");
-                            switch (inArgs[0]) {
-                                case "internalTemp":
-                                    currentReceiver.addInternalTemperatureValue(Double.parseDouble(inArgs[1]));
-                                    break;
-                                case "sensorValues":
-                                    for (int i = 1; i < inArgs.length; i += 2) {
-                                        int tempI = i;
-                                        Platform.runLater(new Runnable() {
-                                            public void run() {
-                                                currentReceiver.getSensor(Integer.parseInt(inArgs[tempI]))
-                                                        .addValue(inArgs[tempI + 1]);
-                                            }
-                                        });
-                                    }
-                                    break;
-                                case "digitalSensorValues":
-                                    for (int i = 1; i < inArgs.length; i += 2) {
-                                        int tempI = i;
-                                        Platform.runLater(new Runnable() {
-                                            public void run() {
-                                                currentReceiver.getGPIO()[Integer.parseInt(inArgs[tempI])].sensor
-                                                        .addValue(
-                                                                inArgs[tempI + 1]);
-                                            }
-                                        });
-                                    }
-                                    break;
+                Future<String> future = executor.submit(() -> {
+                    try {
+                        
+                        String out = commands.remove(0) + " ";
+                        
+                        printStream.println(out);
+                        printStream.flush();
+                        
+                        Logger.print("Sent: " + out);
+                        
+                        // give us the data coming in and print if not null
+                        String in = socketReader.readLine();
+                        Logger.print("Recieved: " + in);
+                        String[] inArgs = in.split(" ");
+                        switch (inArgs[0]) {
+                            case "internalTemp" -> currentReceiver.addInternalTemperatureValue(Double.parseDouble(inArgs[1]));
+                            case "sensorValues" -> {
+                                for (int i = 1; i < inArgs.length; i += 2) {
+                                    int tempI = i;
+                                    Platform.runLater(() -> {
+                                        currentReceiver.getSensor(Integer.parseInt(inArgs[tempI]))
+                                                .addValue(inArgs[tempI + 1]);
+                                    });
+                                }
                             }
-                        } catch (IOException e) {
-                            Logger.print("Exception in send-first protocol: " + e.toString());
-                            e.printStackTrace();
+                            case "digitalSensorValues" -> {
+                                for (int i = 1; i < inArgs.length; i += 2) {
+                                    int tempI = i;
+                                    Platform.runLater(() -> {
+                                        currentReceiver.getGPIO()[Integer.parseInt(inArgs[tempI])].sensor
+                                                .addValue(
+                                                        inArgs[tempI + 1]);
+                                    });
+                                }
+                            }
                         }
-                        return "done";
+                    } catch (IOException e) {
+                        Logger.print("Exception in send-first protocol: " + e.toString());
+                        e.printStackTrace();
                     }
+                    return "done";
                 });
 
                 try {
@@ -227,7 +217,7 @@ public class ServerThread extends Thread {
     private void recieveFirstProtocol() {
         Logger.debug("Starting recieveFirstProtocol on " + this.getName());
 
-        String in = null;
+        String in;
         String out = null;
 
         while (run) {
@@ -243,49 +233,40 @@ public class ServerThread extends Thread {
 
                 String[] args = in.split(" ");
 
-                if (args[0].equals("getUserInfo")) {
-                    User tempUser = Server.getDataHandler().getUserHandler().getUser(args[1]);
-                    out = Server.getDataHandler().serialize(tempUser, true);
-                    System.out.println(out);
-                } else if (args[0].equals("createUser")) {
-                    out = "" + Server.getDataHandler().getUserHandler()
-                            .addUser(new User(args[1], args[2], Integer.parseInt(args[3]), args[4]));
-                } else if (args[0].equals("deleteUser")) {
-                    out = "" + Server.getDataHandler().getUserHandler().removeUser(args[1]);
-                } else if (args[0].equals("editUser")) {
-                    out = "" + Server.getDataHandler().getUserHandler().updateUser(
-                            Server.getDataHandler().getUserHandler().getUser(args[1]), args[2], args[3],
-                            Integer.parseInt(args[4]), args[5]);
-                } else if (args[0].equals("getUserList")) {
-                    out = Server.getDataHandler().serialize(Server.getDataHandler().getUserHandler().getAllUsers(),
-                            true);
-                } else if (args[0].equals("getReceiverList")) {
-                    out = Server.getDataHandler().serialize(
-                            Server.getDataHandler().getReceiverHandler().getReceiverList(), true);
-                } else if (args[0].equals("createHousehold")) {
-                    out = "" + Server.getDataHandler().getHouseholdHandler().createHousehold(args[1]);
-                } else if (args[0].equals("newRepeating")) {
-                    out = "" + Server.getDataHandler().getChronManager().newRepeating(in.substring(12));
-                } else if (args[0].equals("newConditional")) {
-                    // TODO: newConditional for clients
-                } else if (args[0].equals("getChronjobList")) {
-                    out = Server.getDataHandler().serialize(Server.getDataHandler().getChronManager().getAllJobs(),
-                            true);
-                } else if (args[0].equals("getChronjobListItems")) {
-                    out = Server.getDataHandler().serialize(
-                            Server.getDataHandler().getChronManager().getAllItems(), true);
-                } else if (args[0].equals("deleteChronjob")) {
-                    out = "" + Server.getDataHandler().getChronManager()
-                            .remove(!in.contains("conditions")
-                                    ? (Chronjob) Server.getDataHandler().deserialize(in.substring(14), Chronjob.class)
-                                    : (ConditionalJob) Server.getDataHandler().deserialize(in.substring(14),
-                                            ConditionalJob.class));
-                } else if (args[0].equals("setPin")) {
-                    out = "" + Server.getDataHandler().getReceiverHandler().getReceiver(args[1])
-                            .setValue(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
-                } else {
-                    out = "ok";
+                switch (args[0]) {
+                    case "getUserInfo" -> {
+                        User tempUser = Server.getDataHandler().getUserHandler().getUser(args[1]);
+                        out = Server.getDataHandler().serialize(tempUser, true);
+                        System.out.println(out);
+                    }
+                    case "createUser" -> out = "" + Server.getDataHandler().getUserHandler()
+                                .addUser(new User(args[1], args[2], Integer.parseInt(args[3]), args[4]));
+                    case "deleteUser" -> out = "" + Server.getDataHandler().getUserHandler().removeUser(args[1]);
+                    case "editUser" -> out = "" + Server.getDataHandler().getUserHandler().updateUser(
+                                Server.getDataHandler().getUserHandler().getUser(args[1]), args[2], args[3],
+                                Integer.parseInt(args[4]), args[5]);
+                    case "getUserList" -> out = Server.getDataHandler().serialize(Server.getDataHandler().getUserHandler().getAllUsers(),
+                                true);
+                    case "getReceiverList" -> out = Server.getDataHandler().serialize(
+                                Server.getDataHandler().getReceiverHandler().getReceiverList(), true);
+                    case "createHousehold" -> out = "" + Server.getDataHandler().getHouseholdHandler().createHousehold(args[1]);
+                    case "newRepeating" -> out = "" + Server.getDataHandler().getChronManager().newRepeating(in.substring(12));
+                    case "newConditional" -> {
+                    }
+                    case "getChronjobList" -> out = Server.getDataHandler().serialize(Server.getDataHandler().getChronManager().getAllJobs(),
+                                true);
+                    case "getChronjobListItems" -> out = Server.getDataHandler().serialize(
+                                Server.getDataHandler().getChronManager().getAllItems(), true);
+                    case "deleteChronjob" -> out = "" + Server.getDataHandler().getChronManager()
+                                .remove(!in.contains("conditions")
+                                        ? (Chronjob) Server.getDataHandler().deserialize(in.substring(14), Chronjob.class)
+                                        : (ConditionalJob) Server.getDataHandler().deserialize(in.substring(14),
+                                                ConditionalJob.class));
+                    case "setPin" -> out = "" + Server.getDataHandler().getReceiverHandler().getReceiver(args[1])
+                                .setValue(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+                    default -> out = "ok";
                 }
+                // TODO: newConditional for clients
 
                 printStream.println(out);
                 printStream.flush();
@@ -295,7 +276,6 @@ public class ServerThread extends Thread {
             } catch (IOException e) {
                 Logger.print(e.toString());
             }
-            in = null;
             out = null;
         }
     }

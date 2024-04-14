@@ -67,18 +67,20 @@ public abstract class DigitalSensor extends SensorBase {
         if (valueList == null || valueList.isEmpty()) {
             return null;
         }
-        int index = 0;
+        int tempIndex = 0;
         for (String s : valueNames) {
             if (s.equals(valueName)) {
-                return getValue(index);
+                return getValue(tempIndex);
             }
-            index++;
+            tempIndex++;
         }
         return null;
     }
 
     /**
      * Returns the array with the valueNames
+     *
+     * @return The array with the valueNames
      */
     public String[] getValueNames() {
         return valueNames;
@@ -86,6 +88,8 @@ public abstract class DigitalSensor extends SensorBase {
 
     /**
      * Returns the number of values the sensor reports on.
+     *
+     * @return The number of values the sensor reports on.
      */
     public int getNumValues() {
         return numValues;
@@ -96,9 +100,12 @@ public abstract class DigitalSensor extends SensorBase {
      * <p>
      * Used because different sensors require different commands to get the
      * value.
+     *
+     * @return The command to send to the device to get the value.
      */
     public abstract String getCommand();
 
+    @Override
     public void setName(String name) {
         super.setName(name);
     }

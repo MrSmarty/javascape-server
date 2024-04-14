@@ -7,28 +7,41 @@ import java.net.Socket;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/** The class that handles the socket connections & threads. The actual server. */
+/**
+ * The class that handles the socket connections & threads. The actual server.
+ */
 public class ServerThreadHandler extends Thread {
 
-    /** A refernce to the server */
+    /**
+     * A refernce to the server
+     */
     Server server;
 
-
-    /** List of all the threads (connections) */
+    /**
+     * List of all the threads (connections)
+     */
     ObservableList<ServerThread> threads;
 
-    /** The server socket connection */
+    /**
+     * The server socket connection
+     */
     ServerSocket serverSocket;
 
-    /** The temporary socket connection */
-    Socket socket;
 
-    /** Basic constructor */
+    /**
+     * Basic constructor
+     *
+     * @param server The server
+     *
+     */
     public ServerThreadHandler(Server server) {
         this.server = server;
     }
 
-    /** Starts the actual server  */
+    /**
+     * Starts the actual server
+     */
+    @Override
     public void run() {
         threads = FXCollections.observableArrayList();
 
@@ -38,9 +51,6 @@ public class ServerThreadHandler extends Thread {
         } catch (IOException e) {
             Logger.error(e.getMessage());
         }
-        
-
-        socket = null;
 
         while (true) {
             // May have to put this in a completable future:

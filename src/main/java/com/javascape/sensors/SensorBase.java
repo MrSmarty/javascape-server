@@ -64,9 +64,11 @@ public abstract class SensorBase {
 
     /**
      * Returns the last value stored
+     *
+     * @return the last value stored
      */
     public String getValue() {
-        if (valueList == null || valueList.size() == 0) {
+        if (valueList == null || valueList.isEmpty()) {
             return null;
         }
         return valueList.get(0);
@@ -74,6 +76,8 @@ public abstract class SensorBase {
 
     /**
      * Returns the name of the sensor
+     *
+     * @return the name of the sensor
      */
     public String getName() {
         return name;
@@ -81,6 +85,8 @@ public abstract class SensorBase {
 
     /**
      * Sets the name of the sensor
+     *
+     * @param newName the new name of the sensor
      */
     public void setName(String newName) {
         name = newName;
@@ -88,6 +94,8 @@ public abstract class SensorBase {
 
     /**
      * Returns the {@link #index} of the sensor.
+     *
+     * @return the index of the sensor
      */
     public int getIndex() {
         return index;
@@ -96,6 +104,7 @@ public abstract class SensorBase {
     /**
      * Returns a JavaFX {@link Node} that houses all information on the sensor.
      * Analog sensors should contain a delete button.
+     * @return a JavaFX {@link Node} that houses all information on the sensor
      */
     public abstract Node getSensorPane();
 
