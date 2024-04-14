@@ -24,7 +24,6 @@ com\javascape\sensors\SensorManager.class
 com\javascape\LoginWindow.class
 com\javascape\Logger$3.class
 com\javascape\user\User.class
-com\javascape\sensors\analog\CapacitiveV2$1.class
 com\javascape\sensors\SensorBase.class
 com\javascape\sensors\analog\KeyesPhotoresistorAnalog.class
 com\javascape\chronjob\ConditionalJob.class
@@ -51,13 +50,11 @@ com\javascape\Logger.class
 com\javascape\gsonDeserializers\DigitalSensorDeserializer.class
 com\javascape\receivers\PiPicoW.class
 com\javascape\sensors\analog\TDS.class
-com\javascape\sensors\analog\KeyesPhotoresistorAnalog$1.class
 com\javascape\ServerGUI.class
 com\javascape\chronjob\Job.class
 com\javascape\ui\EditableLabel$1.class
 com\javascape\sensors\digital\DHT11.class
 com\javascape\menuPopups\SettingsPopup.class
-com\javascape\ReceiverView$1.class
 com\javascape\menuPopups\DeleteChronjobPopup.class
 com\javascape\Server.class
 com\javascape\sensors\digital\DS18B20$1.class

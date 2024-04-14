@@ -55,18 +55,42 @@ public class TDS extends Sensor {
         }
 
         Label tempLabel = new Label("Temperature Sensor: ");
-        ChoiceBox<Receiver> receiverBox = new ChoiceBox<>(Server.getDataHandler().getReceiverHandler().getReceiverList());
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<>();
         ChoiceBox<SensorBase> sensorBox = new ChoiceBox<>();
         ChoiceBox<String> valueBox = new ChoiceBox<>();
+        receiverBox.getItems().add(null);
+        receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
+
+        if (tempSensorID != null) {
+            receiverBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(receiverID));
+        }
+
+        if (tempSensorIndex != -1) {
+            sensorBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(tempSensorID).getSensor(tempSensorIndex));
+        }
+
+        if (tempSensorValueIndex != -1) {
+            //valueBox.setValue(Server.getDataHandler().getReceiverHandler().getReceiver(tempSensorID).getSensor(tempSensorIndex).getValueNames()[0]);
+        }
 
         receiverBox.setOnAction(e -> {
-            receiverID = receiverBox.getValue().getUID();
+            if (receiverBox.getValue() != null) {
+                tempSensorID = receiverBox.getValue().getUID();
 
-            sensorBox.getItems().clear();
-            for (GPIO gpio : receiverBox.getValue().getDigitalSensors()) {
-                sensorBox.getItems().add(gpio.getSensor());
+                sensorBox.getItems().clear();
+                for (GPIO gpio : receiverBox.getValue().getDigitalSensors()) {
+                    sensorBox.getItems().add(gpio.getSensor());
+                }
+                sensorBox.getItems().addAll(Arrays.asList(receiverBox.getValue().getSensors()));
+                sensorBox.setVisible(true);
+            } else {
+                tempSensorID = null;
+                sensorBox.getItems().clear();
+                sensorBox.setVisible(false);
+                valueBox.getItems().clear();
+                valueBox.setVisible(false);
             }
-            sensorBox.getItems().addAll(Arrays.asList(receiverBox.getValue().getSensors()));
+
         });
 
         sensorBox.setOnAction(e -> {
@@ -79,13 +103,15 @@ public class TDS extends Sensor {
                 }
                 valueBox.setVisible(true);
             } else {
+                tempSensorIndex = -1;
                 valueBox.setVisible(false);
             }
 
         });
 
         valueBox.setOnAction(e -> {
-            tempSensorIndex = sensorBox.getValue().getIndex();
+            System.out.println("Testing: " + ((DigitalSensor) sensorBox.getValue()).getNameOfValueAtIndex(valueBox.getValue()));
+            tempSensorValueIndex = ((DigitalSensor) sensorBox.getValue()).getNameOfValueAtIndex(valueBox.getValue());
         });
 
         g.add(tempLabel, 0, 1);
@@ -130,19 +156,25 @@ public class TDS extends Sensor {
 
         temperature = defaultTemperature;
 
-        System.out.println("Test");
         if (receiverID != null && tempSensorIndex != -1) {
             Receiver receiver = Server.getDataHandler().getReceiverHandler().getReceiver(receiverID);
             if (receiver != null) {
-                SensorBase sensor = receiver.getSensor(tempSensorIndex);
-                if (sensor != null) {
+                if (tempSensorIndex >= receiver.getGPIO().length) {
+                    SensorBase sensor = receiver.getSensor(tempSensorIndex);
+                    //System.out.println("Sensor is " + sensor.getClass().getName());
+                    temperature = Double.parseDouble(sensor.getValue());
+                    //System.out.println("Using temperature: " + temperature);
+                } else {
+                    SensorBase sensor = receiver.getDigitalSensor(tempSensorIndex);
+                    //System.out.println("Sensor is digital & " + sensor.getClass().getName());
                     if (sensor instanceof DigitalSensor digitalSensor) {
                         if (tempSensorValueIndex != -1) {
                             temperature = Double.parseDouble(digitalSensor.getValue(tempSensorValueIndex));
-                            System.out.println("Using temperature: " + temperature);
+                            //System.out.println("Using temperature: " + temperature);
                         }
                     }
                 }
+
             }
         }
 

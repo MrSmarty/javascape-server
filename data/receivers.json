@@ -137,14 +137,15 @@
         {
           "temperature": 25.0,
           "defaultTemperature": 25.0,
-          "tempSensorIndex": -1,
-          "tempSensorValueIndex": -1,
+          "tempSensorID": "16600690508064624181",
+          "tempSensorIndex": 0,
+          "tempSensorValueIndex": 1,
           "referenceVoltage": 3.3,
           "maxCal": 65536,
           "minCal": 0,
           "receiverID": "16600690508064624181",
           "index": 0,
-          "className": "SensorBase",
+          "className": "TDS",
           "name": "TDS"
         },
         null,

@@ -57,6 +57,9 @@ public abstract class Sensor extends SensorBase {
      * @return the current value as a double
      */
     public Double getCurrentValueAsDouble() {
+        if (valueList == null) {
+            valueList = FXCollections.observableArrayList();
+        }
         if (!valueList.isEmpty()) {
             // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
@@ -71,6 +74,9 @@ public abstract class Sensor extends SensorBase {
      * @return the current raw value as a String
      */
     public String getCurrentRaw() {
+        if (valueList == null) {
+            valueList = FXCollections.observableArrayList();
+        }
         if (!valueList.isEmpty()) {
             return valueList.get(0);
         }
@@ -84,6 +90,9 @@ public abstract class Sensor extends SensorBase {
      * @return the current raw value as a double
      */
     public Double getCurrentRawAsDouble() {
+        if (valueList == null) {
+            valueList = FXCollections.observableArrayList();
+        }
         if (!valueList.isEmpty()) {
             return Double.valueOf(valueList.get(0));
         }
@@ -92,8 +101,10 @@ public abstract class Sensor extends SensorBase {
 
     /**
      * Need it for the editableLabel
+     *
      * @param name the new name of the sensor
      */
+    @Override
     public void setName(String name) {
         super.setName(name);
     }

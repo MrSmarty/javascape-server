@@ -6,6 +6,7 @@ import com.javascape.Logger;
 import com.javascape.ServerThread;
 import com.javascape.menuPopups.AddSensorPopup;
 import com.javascape.sensors.analog.Sensor;
+import com.javascape.sensors.digital.DigitalSensor;
 import com.javascape.ui.EditableLabel;
 
 import javafx.application.Platform;
@@ -190,6 +191,15 @@ public class PiPicoW extends Receiver {
         System.out.println(digitalSensors.size());
 
         return digitalSensors;
+    }
+
+    /**
+     * @param pin The pin of the Digital Sensor to return
+     * @return The Digital Sensor at the specified pin
+     */
+    @Override
+    public DigitalSensor getDigitalSensor(int pin) {
+        return gpio[pin].sensor;
     }
 
 }

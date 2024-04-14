@@ -11,7 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ReceiverHandler {
-    private ObservableList<Receiver> receivers = FXCollections.observableArrayList();
+    private final ObservableList<Receiver> receivers = FXCollections.observableArrayList();
 
     /**
      * Maps the the name of the device to the name of the Class.
@@ -27,20 +27,24 @@ public class ReceiverHandler {
     /** Pull the classes from the receivers file */
     private void getClasses() {
         try {
-            Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.txt"));
-            while (scan.hasNextLine()) {
-                String[] item = scan.nextLine().split(" ");
-
-                classList.add("com.javascape.receivers." + item[0]);
+            try (Scanner scan = new Scanner(new File(Settings.storageLocation + "receivers.txt"))) {
+                while (scan.hasNextLine()) {
+                    String[] item = scan.nextLine().split(" ");
+                    
+                    classList.add("com.javascape.receivers." + item[0]);
+                }
             }
-            scan.close();
         } catch (IOException e) {
             Logger.error("Error trying to fetch receivers from receiver list");
         }
 
     }
 
-    /** Get specified receiver by ID */
+    /** 
+     * Get specified receiver by ID
+     * @param ID The UID of the Receiver you would like to retrieve
+     * @return The Receiver with the specified ID
+     */
     public Receiver getReceiver(String ID) {
         if (!receivers.isEmpty())
             for (Receiver r : receivers) {
@@ -51,7 +55,10 @@ public class ReceiverHandler {
         return null;
     }
 
-    /** Returns the list of Receivers */
+    /**
+     * Returns the list of Receivers
+     * @return The list of Receivers
+     */
     public ObservableList<Receiver> getReceiverList() {
         System.out.println("There are " + receivers.size() + " receivers");
         return receivers;
@@ -60,6 +67,7 @@ public class ReceiverHandler {
     /**
      * Returns the list of active Receivers. A Receiver is considered active if
      * there is current a socket connection.
+     * @return The list of active Receivers
      */
     public ObservableList<Receiver> getActiveReceiverList() {
         ObservableList<Receiver> active = FXCollections.observableArrayList();
@@ -70,7 +78,10 @@ public class ReceiverHandler {
         return active;
     }
 
-    /** Add a receiver to the receivers list */
+    /** Add a receiver to the receivers list 
+     * @param deviceType The type of the device
+     * @param ID The UID of the device
+    */
     public void addReceiver(String deviceType, String ID) {
         try {
             Class<?> tempClass = Class.forName("com.javascape.receivers." + deviceType);
@@ -86,7 +97,11 @@ public class ReceiverHandler {
         }
     }
 
-    /** Add a receiver to the receivers list */
+    /** Add a receiver to the receivers list
+     * @param deviceType The type of the device
+     * @param ID The UID of the device
+     * @param name The name of the device
+    */
     public void addReceiver(String deviceType, String ID, String name) {
         try {
             Class<?> tempClass = Class.forName("com.javascape.receivers." + deviceType);

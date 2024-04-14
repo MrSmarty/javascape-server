@@ -8,14 +8,18 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 
-public class ReceiverView {
+public final class ReceiverView {
 
-    /** List that contains the Nodes to represent each receiver */
-    ObservableList<Node> receiverList = FXCollections.observableArrayList();
+    private boolean isUpdating = false;
+
+    /**
+     * List that contains the Nodes to represent each receiver
+     */
+    private final ObservableList<Node> receiverViewList = FXCollections.observableArrayList();
 
     /**
      * Creates a receiverView and sets it to update every time the
-     * {@link #receiverList} changes.
+     * {@link #receiverViewList} changes.
      */
     public ReceiverView() {
         update();
@@ -26,31 +30,36 @@ public class ReceiverView {
                 });
     }
 
-    /** Returns the list with the Receiver panes */
+    /**
+     * Returns the list with the Receiver panes
+     *
+     * @return The Node with the receiverView
+     */
     public ListView<Node> getReceiverView() {
-        ListView<Node> view = new ListView<Node>(receiverList);
+        ListView<Node> view = new ListView<>(receiverViewList);
 
         return view;
     }
 
-    /** Updates the ReceiverView with any new data */
+    /**
+     * Updates the ReceiverView with any new data
+     */
     public void update() {
         Logger.print("Updating ReceiverView");
-        Platform.runLater(new Runnable() {
-            public void run() {
-                receiverList.clear();
-                for (Receiver r : Server.getDataHandler().getReceiverHandler().getReceiverList()) {
-                    if (r != null) {
-                        if (r.getCurrentThread() != null) {
-                            receiverList.add(r.getReceiverPane());
-                        } else {
-                            Logger.debug("Null thread");
-                            receiverList.add(r.getReceiverPane());
-                        }
-                    }
-
+        // if (isUpdating) {
+        //     return;
+        // } else {
+        //     isUpdating = true;
+        // }
+        Platform.runLater(() -> {
+            receiverViewList.clear();
+            for (Receiver r : Server.getDataHandler().getReceiverHandler().getReceiverList()) {
+                if (r != null) {
+                    receiverViewList.add(r.getReceiverPane());
                 }
+
             }
+            // isUpdating = false;
         });
 
     }
