@@ -39,7 +39,8 @@ public class TDS extends Sensor {
 
     public TDS(String receiverID, String name, int index) {
         super(receiverID, name, index);
-        // TODO Auto-generated constructor stub
+
+        className = "TDS";
     }
 
     @Override

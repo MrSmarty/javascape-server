@@ -18,25 +18,32 @@ public class CapacitiveV2 extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
-    public int maxCal = 22000;
-    public int minCal = 10500;
+    
 
     public CapacitiveV2(String receiverID, int index) {
         super(receiverID, "Capacitive V2", index);
         this.className = "CapacitiveV2";
+
+        maxCal = 22000;
+        minCal = 10500;
     }
 
     public CapacitiveV2(String receiverID, String name, int index) {
         super(receiverID, name, index);
         this.className = "CapacitiveV2";
+
+        maxCal = 22000;
+        minCal = 10500;
     }
 
+    @Override
     public void addValue(String value) {
-        valueList.add(0, Double.parseDouble(value));
+        valueList.add(0, Double.valueOf(value));
         if (valueList.size() > Settings.maxSensorData)
             valueList.remove(Settings.maxSensorData);
     }
 
+    @Override
     public GridPane getSensorPane() {
         GridPane g = new GridPane();
 
@@ -53,10 +60,8 @@ public class CapacitiveV2 extends Sensor {
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         valueList.addListener((ListChangeListener.Change<? extends Double> change) -> {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    valueLabel.setText(String.format("Moisture: %s%%", getCurrentValue()));
-                }
+            Platform.runLater(() -> {
+                valueLabel.setText(String.format("Moisture: %s%%", getCurrentValue()));
             });
         });
 
@@ -77,12 +82,12 @@ public class CapacitiveV2 extends Sensor {
     /**
      * Returns the current value as a string.
      * 
-     * @return
+     * @return the current value as a string
      */
     private String getCurrentValue() {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
-        if (valueList.size() > 0) {
+        if (!valueList.isEmpty()) {
             double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
             // double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
             return String.format("%.2f", percent);
@@ -92,11 +97,13 @@ public class CapacitiveV2 extends Sensor {
 
     /**
      * Returns the current value as a double instead of a String.
+     * @return the current value as a double
      */
+    @Override
     public Double getCurrentValueAsDouble() {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
-        if (valueList.size() > 0) {
+        if (!valueList.isEmpty()) {
             double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
             return percent;
         }

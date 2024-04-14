@@ -18,25 +18,31 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
-    public int maxCal = 65565;
-    public int minCal = 0;
-
     public KeyesPhotoresistorAnalog(String receiverID, int index) {
         super(receiverID, "Analog photoresistor", index);
         className = "KeyesPhotoresistorAnalog";
+
+        maxCal = 65565;
+        minCal = 0;
     }
 
     public KeyesPhotoresistorAnalog(String receiverID, String name, int index) {
         super(receiverID, name, index);
         className = "KeyesPhotoresistorAnalog";
+
+        maxCal = 65565;
+        minCal = 0;
     }
 
+    @Override
     public void addValue(String value) {
-        valueList.add(0, Double.parseDouble(value));
-        if (valueList.size() > Settings.maxSensorData)
+        valueList.add(0, Double.valueOf(value));
+        if (valueList.size() > Settings.maxSensorData) {
             valueList.remove(Settings.maxSensorData);
+        }
     }
 
+    @Override
     public GridPane getSensorPane() {
         GridPane g = new GridPane();
 
@@ -50,13 +56,12 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
         Label valueLabel = new Label(String.format("Light Level: %s%%", getCurrentValue()));
 
-        if (valueList == null)
+        if (valueList == null) {
             valueList = FXCollections.<Double>observableArrayList();
+        }
         valueList.addListener((ListChangeListener.Change<? extends Double> change) -> {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    valueLabel.setText(String.format("Light Level: %s%%", getCurrentValue()));
-                }
+            Platform.runLater(() -> {
+                valueLabel.setText(String.format("Light Level: %s%%", getCurrentValue()));
             });
         });
 
@@ -76,13 +81,14 @@ public class KeyesPhotoresistorAnalog extends Sensor {
 
     /**
      * This method will return the current value as a String.
-     * 
-     * @return
+     *
+     * @return the current value as a String
      */
     private String getCurrentValue() {
-        if (valueList == null)
+        if (valueList == null) {
             valueList = FXCollections.observableArrayList();
-        if (valueList.size() > 0) {
+        }
+        if (!valueList.isEmpty()) {
             // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return String.format("%.2f", percent);
@@ -91,10 +97,13 @@ public class KeyesPhotoresistorAnalog extends Sensor {
     }
 
     /**
-     * This method will return the current value as a double instead of a String.
+     * This method will return the current value as a double instead of a
+     * String.
+     * @return the current value as a double
      */
+    @Override
     public Double getCurrentValueAsDouble() {
-        if (valueList.size() > 0) {
+        if (!valueList.isEmpty()) {
             // double percent = (valueList.get(0) - minCal) / (maxCal - minCal) * 100;
             double percent = Helper.convertToPercentage(valueList.get(0), minCal, maxCal);
             return percent;

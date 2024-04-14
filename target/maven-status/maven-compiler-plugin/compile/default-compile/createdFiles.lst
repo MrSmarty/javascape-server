@@ -1,7 +1,5 @@
 com\javascape\gsonDeserializers\ObservableListDeserializer.class
 com\javascape\chronjob\Chronjob.class
-com\javascape\ServerThread$2$1.class
-com\javascape\ServerThread$2.class
 com\javascape\ReceiverHandler.class
 com\javascape\Logger$1.class
 com\javascape\menuPopups\NewConditionaljobPopup.class
@@ -25,7 +23,6 @@ com\javascape\receivers\Receiver.class
 com\javascape\sensors\SensorManager.class
 com\javascape\LoginWindow.class
 com\javascape\Logger$3.class
-com\javascape\receivers\GPIO$1.class
 com\javascape\user\User.class
 com\javascape\sensors\analog\CapacitiveV2$1.class
 com\javascape\sensors\SensorBase.class
@@ -33,7 +30,6 @@ com\javascape\sensors\analog\KeyesPhotoresistorAnalog.class
 com\javascape\chronjob\ConditionalJob.class
 com\javascape\menuPopups\DeleteUserPopup.class
 com\javascape\chronjob\ChronjobItem.class
-com\javascape\receivers\GPIO$2.class
 com\javascape\user\Permissions.class
 com\javascape\chronjob\ConditionalJob$1.class
 com\javascape\sensors\digital\DigitalSensor.class
@@ -47,9 +43,7 @@ module-info.class
 com\javascape\sensors\digital\Input.class
 com\javascape\DataHandler.class
 com\javascape\receivers\PiPicoW$1.class
-com\javascape\ServerThread$2$2.class
 com\javascape\Logger$2.class
-com\javascape\receivers\GPIO$3.class
 com\javascape\ServerThread$DeviceType.class
 com\javascape\Settings.class
 com\javascape\HouseholdHandler.class
@@ -64,7 +58,6 @@ com\javascape\ui\EditableLabel$1.class
 com\javascape\sensors\digital\DHT11.class
 com\javascape\menuPopups\SettingsPopup.class
 com\javascape\ReceiverView$1.class
-com\javascape\ServerThread$1.class
 com\javascape\menuPopups\DeleteChronjobPopup.class
 com\javascape\Server.class
 com\javascape\sensors\digital\DS18B20$1.class
