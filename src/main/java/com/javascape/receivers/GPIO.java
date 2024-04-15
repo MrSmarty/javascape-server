@@ -24,6 +24,8 @@ public class GPIO {
 
     public int index;
 
+    private String name;
+
     private transient CheckBox checkBox;
     private transient Label checkBoxLabel;
 
@@ -38,6 +40,7 @@ public class GPIO {
 
         this.index = index;
         checkBoxLabel = new Label("GPIO " + index + ":");
+        name = "GPIO " + index;
 
         checkBox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
             Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
@@ -74,7 +77,10 @@ public class GPIO {
 
         if (value >= 0 || sensor == null) {
             if (checkBoxLabel == null) {
-                checkBoxLabel = new Label("GPIO " + index + ":");
+                if (name != null)
+                    checkBoxLabel = new Label(name + ":");
+                else
+                    checkBoxLabel = new Label("GPIO " + index + ":");
             }
             if (checkBox == null) {
                 checkBox = new CheckBox();
@@ -107,9 +113,19 @@ public class GPIO {
         g.add(gpioLabel, 0, 0);
 
         try {
-            EditableLabel nameLabel = new EditableLabel(sensor.getName(), sensor,
-                    sensor.getClass().getMethod("setName", String.class));
-            g.add(nameLabel, 0, 1);
+            if (this.sensor != null) {
+                EditableLabel nameLabel = new EditableLabel(sensor.getName(), sensor,
+                        sensor.getClass().getMethod("setName", String.class));
+                g.add(nameLabel, 0, 1);
+            } else {
+                if (name == null) {
+                    name = "GPIO " + index;
+                }
+                EditableLabel nameLabel = new EditableLabel(name, this,
+                        this.getClass().getMethod("setName", String.class));
+                g.add(nameLabel, 0, 1);
+            }
+            
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -203,6 +219,13 @@ public class GPIO {
             return index + " " + sensor.getCommand();
         }
         return null;
+    }
+
+    /** 
+     * @param name The name to set
+    */
+    public void setName(String name) {
+        this.name = name;
     }
 
 }
