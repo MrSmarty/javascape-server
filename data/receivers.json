@@ -2,7 +2,7 @@
   "receivers": [
     {
       "uid": "16600690508064624181",
-      "name": "Orange",
+      "name": "OrangePico",
       "type": "PiPicoW",
       "householdID": -1,
       "gpio": [
@@ -19,7 +19,7 @@
             "receiverID": "",
             "index": 0,
             "className": "DHT11",
-            "name": "DHT11"
+            "name": "DHT11_Orange"
           }
         },
         {

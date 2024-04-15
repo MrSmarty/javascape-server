@@ -5,6 +5,7 @@ import com.javascape.Server;
 import com.javascape.ServerGUI;
 import com.javascape.sensors.SensorManager;
 import com.javascape.sensors.digital.DigitalSensor;
+import com.javascape.ui.EditableLabel;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -102,8 +103,16 @@ public class GPIO {
         popup.setTitle("Edit GPIO " + index);
         GridPane g = new GridPane();
 
-        Label nameLabel = new Label("GPIO " + index);
-        g.add(nameLabel, 0, 0);
+        Label gpioLabel = new Label("GPIO " + index);
+        g.add(gpioLabel, 0, 0);
+
+        try {
+            EditableLabel nameLabel = new EditableLabel(sensor.getName(), sensor,
+                    sensor.getClass().getMethod("setName", String.class));
+            g.add(nameLabel, 0, 1);
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
 
         ComboBox<String> mode = new ComboBox<>();
         mode.getItems().addAll("Output", "Input");
@@ -131,8 +140,8 @@ public class GPIO {
 
         }
 
-        g.add(mode, 0, 1);
-        g.add(device, 0, 2);
+        g.add(mode, 0, 2);
+        g.add(device, 0, 3);
 
         Button saveButton = new Button("Save");
 
@@ -144,7 +153,10 @@ public class GPIO {
                 sensor = null;
             } else {
                 setValue(-1);
-                setSensor(SensorManager.createNewDigitalSensor(device.getSelectionModel().getSelectedItem(), index));
+                if (sensor != null && sensor.className.equals(device.getSelectionModel().getSelectedItem())) {
+                } else {
+                    setSensor(SensorManager.createNewDigitalSensor(device.getSelectionModel().getSelectedItem(), index));
+                }
             }
             System.out.println("Sensor: " + sensor);
             ServerGUI.getReceiverView().update();
@@ -155,8 +167,8 @@ public class GPIO {
             popup.close();
         });
 
-        g.add(saveButton, 0, 3);
-        g.add(cancelButton, 1, 3);
+        g.add(saveButton, 0, 4);
+        g.add(cancelButton, 1, 4);
 
         Scene scene = new Scene(g);
 

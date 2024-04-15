@@ -38,8 +38,8 @@ public class DHT11 extends DigitalSensor {
 
         GridPane pane = new GridPane();
 
-        Label label = new Label("DHT11");
-        pane.add(label, 0, 0);
+        Label nameLabel = new Label(super.getName());
+        pane.add(nameLabel, 0, 0);
 
         Label tempLabel = new Label("Temperature: ");
         Label tempValue = new Label(currentValue[1]);
