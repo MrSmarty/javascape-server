@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 /** The popup menu for the Settings. */
 public class SettingsPopup {
 
-    public SettingsPopup() {
+    public static void showSettingsPopup() {
         Stage popupStage = new Stage();
         popupStage.setTitle("Settings");
 
@@ -43,7 +43,7 @@ public class SettingsPopup {
 
         Label sensorDataPollingLabel = new Label("Sensor Data Polling Rate:");
         TextField sensorDataPollingField = new TextField("" + Settings.getSensorDataJobInterval);
-        ChoiceBox<TimeUnit> sensorDataPollingUnits = new ChoiceBox<TimeUnit>(
+        ChoiceBox<TimeUnit> sensorDataPollingUnits = new ChoiceBox<>(
                 FXCollections.observableArrayList(TimeUnit.values()));
 
         g.add(sensorDataPollingLabel, 0, 3);
@@ -58,7 +58,7 @@ public class SettingsPopup {
 
         Label conditionalPollingLabel = new Label("Conditional Polling Rate:");
         TextField conditionalPollingField = new TextField("" + Settings.conditionalCheckInterval);
-        ChoiceBox<TimeUnit> conditionalPollingUnits = new ChoiceBox<TimeUnit>(
+        ChoiceBox<TimeUnit> conditionalPollingUnits = new ChoiceBox<>(
                 FXCollections.observableArrayList(TimeUnit.values()));
 
         g.add(conditionalPollingLabel, 0, 5);
@@ -90,7 +90,7 @@ public class SettingsPopup {
 
         Scene scene = new Scene(g);
 
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(SettingsPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         popupStage.setScene(scene);
         popupStage.show();

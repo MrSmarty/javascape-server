@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class CreateNewHouseholdPopup {
-    public CreateNewHouseholdPopup() {
+    public static void showCreateNewHouseholdPopup() {
         Stage popupStage = new Stage();
         popupStage.setTitle("Create new household");
 
@@ -47,7 +47,7 @@ public class CreateNewHouseholdPopup {
 
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(CreateNewHouseholdPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         popupStage.setScene(scene);
         popupStage.show();

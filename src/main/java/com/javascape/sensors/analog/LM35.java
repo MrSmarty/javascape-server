@@ -14,25 +14,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class CapacitiveV2 extends Sensor {
+public class LM35 extends Sensor {
 
     transient ObservableList<Double> valueList = FXCollections.observableArrayList();
 
 
-    public CapacitiveV2(String receiverID, int index) {
-        super(receiverID, "Capacitive V2", index);
-        this.className = "CapacitiveV2";
-
-        maxCal = 22000;
-        minCal = 10500;
+    public LM35(String receiverID, int index) {
+        super(receiverID, "LM35", index);
+        this.className = "LM35";
     }
 
-    public CapacitiveV2(String receiverID, String name, int index) {
+    public LM35(String receiverID, String name, int index) {
         super(receiverID, name, index);
-        this.className = "CapacitiveV2";
-
-        maxCal = 22000;
-        minCal = 10500;
+        this.className = "LM35";
     }
 
     @Override
@@ -54,13 +48,13 @@ public class CapacitiveV2 extends Sensor {
             e.printStackTrace();
         }
 
-        Label valueLabel = new Label(String.format("Moisture: %s%%", getCurrentValue()));
+        Label valueLabel = new Label(String.format("Temperature: %sC", getCurrentValue()));
 
         if (valueList == null)
             valueList = FXCollections.<Double>observableArrayList();
         valueList.addListener((ListChangeListener.Change<? extends Double> change) -> {
             Platform.runLater(() -> {
-                valueLabel.setText(String.format("Moisture: %s%%", getCurrentValue()));
+                valueLabel.setText(String.format("Temperature: %sC", getCurrentValue()));
             });
         });
 
@@ -88,9 +82,9 @@ public class CapacitiveV2 extends Sensor {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
         if (!valueList.isEmpty()) {
-            double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
+            double value = valueList.get(0) * .00005 * 100;
             // double percent = (valueList.get(0) - maxCal) / (minCal - maxCal) * 100;
-            return String.format("%.2f", percent);
+            return String.format("%.2f", value);
         }
         return "N/A";
     }
@@ -104,8 +98,8 @@ public class CapacitiveV2 extends Sensor {
         if (valueList == null)
             valueList = FXCollections.observableArrayList();
         if (!valueList.isEmpty()) {
-            double percent = Helper.convertToPercentage(valueList.get(0), maxCal, minCal);
-            return percent;
+            double value = valueList.get(0) * .00005 * 100;
+            return Math.round(value * 100.0) / 100.0;
         }
         return null;
     }

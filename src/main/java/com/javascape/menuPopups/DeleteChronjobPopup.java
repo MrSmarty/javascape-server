@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DeleteChronjobPopup {
-    public DeleteChronjobPopup() {
+    public static void showDeleteChronjobPopup() {
         Stage stage = new Stage();
         stage.setTitle("Delete Chronjob");
 
@@ -19,7 +19,7 @@ public class DeleteChronjobPopup {
 
         ObservableList<Job> chronList = Server.getDataHandler().getChronManager().getAllJobs();
 
-        ChoiceBox<Job> dropdown = new ChoiceBox<Job>(chronList);
+        ChoiceBox<Job> dropdown = new ChoiceBox<>(chronList);
 
 
         Button delete = new Button("Delete Chronjob");
@@ -40,7 +40,7 @@ public class DeleteChronjobPopup {
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(DeleteChronjobPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         stage.setScene(scene);
         stage.show();

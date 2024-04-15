@@ -21,11 +21,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class NewChronjobPopup {
-    private ObservableList<String> observableCommands = FXCollections.observableArrayList();
+    private static final ObservableList<String> observableCommands = FXCollections.observableArrayList();
 
-    private ChronManager manager = Server.getDataHandler().getChronManager();
+    private static final ChronManager manager = Server.getDataHandler().getChronManager();
 
-    public NewChronjobPopup() {
+    public static void showNewChronjobPopup() {
         Stage stage = new Stage();
         stage.setTitle("Create New Chronjob");
 
@@ -40,7 +40,7 @@ public class NewChronjobPopup {
         ObservableList<TimeUnit> timeUnitList = FXCollections.observableArrayList();
         timeUnitList.addAll(TimeUnit.values());
 
-        ChoiceBox<TimeUnit> timeUnits = new ChoiceBox<TimeUnit>(timeUnitList);
+        ChoiceBox<TimeUnit> timeUnits = new ChoiceBox<>(timeUnitList);
         timeUnits.valueProperty().set(TimeUnit.MINUTES);
 
         VBox commandBox = new VBox();
@@ -90,7 +90,7 @@ public class NewChronjobPopup {
         });
 
         create.setOnAction(e -> {
-            ArrayList<String> commands = new ArrayList<String>(observableCommands);
+            ArrayList<String> commands = new ArrayList<>(observableCommands);
 
             Chronjob job = new Chronjob(nameField.textProperty().getValue(), commands,
                     Integer.parseInt(periodField.textProperty().getValue()), timeUnits.getValue());
@@ -99,20 +99,20 @@ public class NewChronjobPopup {
         });
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(NewChronjobPopup.class.getResource("/stylesheets/buttonStyles.css").toExternalForm());
+        scene.getStylesheets().add(NewChronjobPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         stage.setScene(scene);
 
         stage.show();
     }
 
-    public void addCommand() {
+    public static void addCommand() {
         Stage stage = new Stage();
 
         GridPane g = new GridPane();
 
-        ChoiceBox<ChronjobItem> setType = new ChoiceBox<ChronjobItem>();
+        ChoiceBox<ChronjobItem> setType = new ChoiceBox<>();
         setType.getItems().addAll(manager.getAllItems());
         setType.valueProperty().set(setType.getItems().get(0));
 
@@ -126,7 +126,7 @@ public class NewChronjobPopup {
         });
 
         Label receiverLabel = new Label("Receiver");
-        ChoiceBox<Receiver> receiverBox = new ChoiceBox<Receiver>();
+        ChoiceBox<Receiver> receiverBox = new ChoiceBox<>();
 
         receiverBox.getItems().addAll(Server.getDataHandler().getReceiverHandler().getReceiverList());
         receiverBox.valueProperty().set(receiverBox.getItems().get(0));
@@ -155,7 +155,7 @@ public class NewChronjobPopup {
         g.add(cancel, 1, 3);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        s.getStylesheets().add(NewChronjobPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         stage.setScene(s);
 

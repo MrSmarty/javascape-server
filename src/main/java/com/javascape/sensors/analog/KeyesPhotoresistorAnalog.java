@@ -84,7 +84,7 @@ public class KeyesPhotoresistorAnalog extends Sensor {
      *
      * @return the current value as a String
      */
-    private String getCurrentValue() {
+    public String getCurrentValue() {
         if (valueList == null) {
             valueList = FXCollections.observableArrayList();
         }

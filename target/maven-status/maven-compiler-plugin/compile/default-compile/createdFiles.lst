@@ -19,6 +19,7 @@ com\javascape\sensors\analog\Sensor.class
 com\javascape\chronjob\ChronManager.class
 com\javascape\Household.class
 com\javascape\menuPopups\NewChronjobPopup.class
+com\javascape\sensors\analog\LM35.class
 com\javascape\receivers\Receiver.class
 com\javascape\sensors\SensorManager.class
 com\javascape\LoginWindow.class
@@ -37,6 +38,7 @@ com\javascape\menuPopups\EditUserPopup.class
 com\javascape\menuPopups\CreateNewUserPopup.class
 com\javascape\gsonDeserializers\ReceiverDeserializer.class
 com\javascape\sensors\digital\Input$1.class
+com\javascape\sensors\SensorView.class
 com\javascape\ui\EditableLabel.class
 module-info.class
 com\javascape\sensors\digital\Input.class

@@ -18,6 +18,7 @@ C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascap
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\menuPopups\NewChronjobPopup.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\ServerThreadHandler.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\module-info.java
+C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\sensors\analog\LM35.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\gsonDeserializers\ReceiverDeserializer.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\sensors\digital\DS18B20.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\gsonDeserializers\SensorDeserializer.java
@@ -48,3 +49,4 @@ C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascap
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\ReceiverHandler.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\sensors\analog\TDS.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\menuPopups\CreateNewUserPopup.java
+C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\sensors\SensorView.java

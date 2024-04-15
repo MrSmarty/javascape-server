@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class CreateNewUserPopup {
 
-    public CreateNewUserPopup() {
+    public static void showCreateNewUserPopup() {
 
         Stage popupStage = new Stage();
         popupStage.setTitle("Create New User");
@@ -31,7 +31,7 @@ public class CreateNewUserPopup {
         TextField emailField = new TextField();
 
         Label adminLabel = new Label("Permissions Level:");
-        ChoiceBox<String> adminDropdown = new ChoiceBox<String>();
+        ChoiceBox<String> adminDropdown = new ChoiceBox<>();
         adminDropdown.getItems().addAll(Permissions.getPermissionsList());
 
         Label errorLabel = new Label();
@@ -39,8 +39,8 @@ public class CreateNewUserPopup {
         Button submit = new Button("Done");
 
         submit.setOnAction(e -> {
-            if (usernameField.textProperty().getValue() != "" && passwordField.textProperty().getValue() != ""
-                    && emailField.textProperty().getValue() != "") {
+            if (!usernameField.textProperty().getValue().equals("") && !passwordField.textProperty().getValue().equals("")
+                    && !emailField.textProperty().getValue().equals("")) {
                         boolean result = Server.getDataHandler().getUserHandler()
                         .addUser(new User(usernameField.textProperty().getValue(),
                                 passwordField.textProperty().getValue(), Permissions.toInt(adminDropdown.getValue()),
@@ -75,7 +75,7 @@ public class CreateNewUserPopup {
         g.add(cancel, 1, 5);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        s.getStylesheets().add(CreateNewUserPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         popupStage.setScene(s);
 

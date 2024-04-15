@@ -13,14 +13,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class EditUserPopup {
-    public EditUserPopup() {
+    public static void showEditUserPopup() {
 
         Stage popupStage = new Stage();
         popupStage.setTitle("Edit User");
 
         GridPane g = new GridPane();
 
-        ChoiceBox<User> dropdown = new ChoiceBox<User>(Server.getDataHandler().getUserHandler().getAllUsers());
+        ChoiceBox<User> dropdown = new ChoiceBox<>(Server.getDataHandler().getUserHandler().getAllUsers());
 
         Label usernameLabel = new Label("Username:");
         TextField usernameField = new TextField();
@@ -69,7 +69,7 @@ public class EditUserPopup {
         g.add(cancel, 1, 5);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(EditUserPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
 
         popupStage.setScene(scene);

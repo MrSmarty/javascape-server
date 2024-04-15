@@ -11,19 +11,18 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class DeleteUserPopup {
-    public DeleteUserPopup(Server server) {
+    public static void showDeleteUserPopup(Server server) {
 
         Stage popupStage = new Stage();
         popupStage.setTitle("Delete User");
 
-        
 
         GridPane g = new GridPane();
 
         ObservableList<User> userList = Server.getDataHandler().getUserHandler().getAllUsers();
         userList.remove(server.loggedInUser);
 
-        ChoiceBox<User> dropdown = new ChoiceBox<User>(userList);
+        ChoiceBox<User> dropdown = new ChoiceBox<>(userList);
 
 
         Button delete = new Button("Delete User");
@@ -44,8 +43,7 @@ public class DeleteUserPopup {
         g.add(close, 1, 1);
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
-
+        scene.getStylesheets().add(DeleteUserPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         popupStage.setScene(scene);
 

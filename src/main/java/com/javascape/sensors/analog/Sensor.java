@@ -34,8 +34,7 @@ public abstract class Sensor extends SensorBase {
      *
      * @return the current value as a String
      */
-    @SuppressWarnings("unused")
-    private String getCurrentValue() {
+    public String getCurrentValue() {
         if (valueList == null) {
             valueList = FXCollections.observableArrayList();
         }

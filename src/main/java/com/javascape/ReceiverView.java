@@ -10,7 +10,6 @@ import javafx.scene.control.ListView;
 
 public final class ReceiverView {
 
-    private boolean isUpdating = false;
 
     /**
      * List that contains the Nodes to represent each receiver
@@ -46,11 +45,6 @@ public final class ReceiverView {
      */
     public void update() {
         Logger.print("Updating ReceiverView");
-        // if (isUpdating) {
-        //     return;
-        // } else {
-        //     isUpdating = true;
-        // }
         Platform.runLater(() -> {
             receiverViewList.clear();
             for (Receiver r : Server.getDataHandler().getReceiverHandler().getReceiverList()) {
@@ -59,7 +53,6 @@ public final class ReceiverView {
                 }
 
             }
-            // isUpdating = false;
         });
 
     }

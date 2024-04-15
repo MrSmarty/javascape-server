@@ -1,3 +1,4 @@
 CapacitiveV2
 KeyesPhotoresistorAnalog
 TDS
+LM35

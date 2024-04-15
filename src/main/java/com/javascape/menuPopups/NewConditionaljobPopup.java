@@ -26,15 +26,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class NewConditionaljobPopup {
-    private ObservableList<String> observableCommands = FXCollections.observableArrayList();
+    private static final ObservableList<String> observableCommands = FXCollections.observableArrayList();
 
-    private ObservableList<String> observableElseCommands = FXCollections.observableArrayList();
+    private static final ObservableList<String> observableElseCommands = FXCollections.observableArrayList();
 
-    private ObservableList<String> observableConditions = FXCollections.observableArrayList();
+    private static final ObservableList<String> observableConditions = FXCollections.observableArrayList();
 
-    private ChronManager manager = Server.getDataHandler().getChronManager();
+    private static final ChronManager manager = Server.getDataHandler().getChronManager();
 
-    public NewConditionaljobPopup() {
+    public static void showNewConditionaljobPopup() {
         Stage stage = new Stage();
         stage.setTitle("Create New Conditional Job");
 
@@ -162,15 +162,15 @@ public class NewConditionaljobPopup {
         });
 
         Scene scene = new Scene(g);
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/buttonStyles.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        scene.getStylesheets().add(NewConditionaljobPopup.class.getResource("/stylesheets/buttonStyles.css").toExternalForm());
+        scene.getStylesheets().add(NewConditionaljobPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         stage.setScene(scene);
 
         stage.show();
     }
 
-    public void addCommand() {
+    public static void addCommand() {
         Stage stage = new Stage();
 
         GridPane g = new GridPane();
@@ -218,7 +218,7 @@ public class NewConditionaljobPopup {
         g.add(cancel, 1, 3);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        s.getStylesheets().add(NewConditionaljobPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         stage.setScene(s);
 
@@ -226,7 +226,7 @@ public class NewConditionaljobPopup {
 
     }
 
-    public void addCondition() {
+    public static void addCondition() {
         Stage stage = new Stage();
 
         GridPane g = new GridPane();
@@ -306,7 +306,7 @@ public class NewConditionaljobPopup {
         g.add(cancel, 1, 1);
 
         Scene s = new Scene(g);
-        s.getStylesheets().add(getClass().getResource("/stylesheets/main.css").toExternalForm());
+        s.getStylesheets().add(NewConditionaljobPopup.class.getResource("/stylesheets/main.css").toExternalForm());
 
         stage.setScene(s);
 
