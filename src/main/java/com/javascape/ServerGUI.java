@@ -1,6 +1,14 @@
 package com.javascape;
 
-import com.javascape.menuPopups.*;
+import com.javascape.menuPopups.CreateNewHouseholdPopup;
+import com.javascape.menuPopups.CreateNewUserPopup;
+import com.javascape.menuPopups.DeleteChronjobPopup;
+import com.javascape.menuPopups.DeleteUserPopup;
+import com.javascape.menuPopups.EditUserPopup;
+import com.javascape.menuPopups.NewChronjobPopup;
+import com.javascape.menuPopups.NewConditionaljobPopup;
+import com.javascape.menuPopups.SettingsPopup;
+import com.javascape.receivers.OutputView;
 import com.javascape.sensors.SensorView;
 
 import javafx.application.Platform;
@@ -105,6 +113,7 @@ public class ServerGUI {
         name.setStyle("-fx-color: #222222;");
         Button homeButton = new Button("Home");
         Button sensorButton = new Button("Sensors");
+        Button outputButton = new Button("Outputs");
         homeButton.setOnAction(e -> {
             mainPane.setCenter(receiverView.getReceiverView());
         });
@@ -113,8 +122,12 @@ public class ServerGUI {
             mainPane.setCenter(sensorView.getSensorView());
         });
 
+        outputButton.setOnAction(e -> {
+            mainPane.setCenter(OutputView.getOutputsListView());
+        });
+
         // ADD PROFILE IMAGW BACK TO THE FRONT
-        menu.getChildren().addAll(name, homeButton, sensorButton);
+        menu.getChildren().addAll(name, homeButton, sensorButton, outputButton);
 
         return menu;
     }

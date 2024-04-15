@@ -162,7 +162,9 @@ public abstract class Receiver {
      *
      * @return ServerThread of the Receiver
      */
-    public abstract ServerThread getCurrentThread();
+    public ServerThread getCurrentThread() {
+        return currentThread;
+    }
 
     /**
      * Sets the thead info of this Receiver.

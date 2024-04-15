@@ -87,17 +87,23 @@ public class Server extends Application {
     }
 
     // #region Get and Set functions
-    /** Returns the DataHandler */
+    /** Returns the DataHandler 
+     * @return The DataHandler used by the Server
+    */
     public static DataHandler getDataHandler() {
         return dataHandler;
     }
 
-    /** Returns the ServerThreadHandler */
+    /** Returns the ServerThreadHandler
+     * @return the ServerThreadHandler used by the Server
+    */
     public ServerThreadHandler getServerThreadHandler() {
         return serverThreadHandler;
     }
 
-    /** Returns the GUI */
+    /** Returns the GUI 
+     * @return The GUI used by the Server
+    */
     public static ServerGUI getGUI() {
         return gui;
     }

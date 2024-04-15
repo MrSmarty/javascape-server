@@ -35,6 +35,7 @@ public class PiPicoW extends Receiver {
         sensors = new Sensor[3];
     }
 
+    @Override
     public GridPane getReceiverPane() {
         GridPane g = new GridPane();
 
@@ -49,13 +50,12 @@ public class PiPicoW extends Receiver {
         g.add(new Label("UID: " + super.getUID()), 1, 0);
         g.add(new Label("Temperature: "), 2, 0);
         tempLabel = new Label();
-        if (internalTemps == null)
+        if (internalTemps == null) {
             internalTemps = FXCollections.<Double>observableArrayList();
+        }
         internalTemps.addListener((ListChangeListener.Change<? extends Double> change) -> {
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    tempLabel.setText(String.format("%.2f˚ Celcius", getInternalTemperatureValue()));
-                }
+            Platform.runLater(() -> {
+                tempLabel.setText(String.format("%.2f˚ Celcius", getInternalTemperatureValue()));
             });
         });
 
@@ -64,8 +64,9 @@ public class PiPicoW extends Receiver {
         GridPane buttonPane = new GridPane();
 
         for (int i = 0; i < gpio.length; i++) {
-            if (gpio[i] == null)
+            if (gpio[i] == null) {
                 gpio[i] = new GPIO(uid, i);
+            }
 
             if (i < gpio.length / 2) {
                 buttonPane.add(gpio[i].getUI(), 0, i);
@@ -117,10 +118,10 @@ public class PiPicoW extends Receiver {
         return g;
     }
 
-    public ServerThread getCurrentThread() {
-        return currentThread;
-    }
-
+    /**
+     * @return An int array with the values of all the GPIO pins.
+     */
+    @Override
     public int[] getValues() {
         int[] values = new int[gpio.length];
         for (int i = 0; i < gpio.length; i++) {
@@ -146,8 +147,9 @@ public class PiPicoW extends Receiver {
     }
 
     public void sendCommand(String message) {
-        if (currentThread == null)
+        if (currentThread == null) {
             return;
+        }
         Logger.print("Sending Command to " + currentThread.getName());
         currentThread.addCommand(message);
     }
@@ -181,7 +183,7 @@ public class PiPicoW extends Receiver {
     }
 
     public ArrayList<GPIO> getDigitalSensors() {
-        ArrayList<GPIO> digitalSensors = new ArrayList<GPIO>();
+        ArrayList<GPIO> digitalSensors = new ArrayList<>();
         System.out.println("Getting digital sensors");
         for (GPIO g : gpio) {
             if (g.sensor != null) {

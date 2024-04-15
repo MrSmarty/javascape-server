@@ -43,6 +43,7 @@ public class GPIO {
         name = "GPIO " + index;
 
         checkBox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            this.value = checkBox.selectedProperty().get() ? 1 : 0;
             Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
             Server.getDataHandler().getReceiverHandler().getReceiver(uid)
                     .sendCommand(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
@@ -77,14 +78,16 @@ public class GPIO {
 
         if (value >= 0 || sensor == null) {
             if (checkBoxLabel == null) {
-                if (name != null)
-                    checkBoxLabel = new Label(name + ":");
-                else
+                if (name != null) {
+                    checkBoxLabel = new Label(name + ":"); 
+                } else {
                     checkBoxLabel = new Label("GPIO " + index + ":");
+                }
             }
             if (checkBox == null) {
                 checkBox = new CheckBox();
                 checkBox.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    this.value = checkBox.selectedProperty().get() ? 1 : 0;
                     Logger.print(String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
                     Server.getDataHandler().getReceiverHandler().getReceiver(uid).sendCommand(
                             String.format("setPin %d %d", index, checkBox.selectedProperty().get() ? 1 : 0));
@@ -125,7 +128,7 @@ public class GPIO {
                         this.getClass().getMethod("setName", String.class));
                 g.add(nameLabel, 0, 1);
             }
-            
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -221,11 +224,18 @@ public class GPIO {
         return null;
     }
 
-    /** 
+    /**
      * @param name The name to set
-    */
+     */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the name of the GPIO
+     */
+    public String getName() {
+        return this.name;
     }
 
 }

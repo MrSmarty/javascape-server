@@ -1,3 +1,4 @@
+com/javascape/receivers/OutputView.class
 com/javascape/gsonDeserializers/ReceiverDeserializer.class
 com/javascape/ui/EditableLabel.class
 com/javascape/Logger$1.class
@@ -33,7 +34,6 @@ com/javascape/gsonDeserializers/DigitalSensorDeserializer.class
 com/javascape/chronjob/ConditionalJob$1.class
 com/javascape/Settings.class
 com/javascape/menuPopups/NewConditionaljobPopup.class
-com/javascape/receivers/PiPicoW$1.class
 com/javascape/chronjob/ChronManager.class
 com/javascape/ServerGUI.class
 com/javascape/sensors/digital/Input$1.class

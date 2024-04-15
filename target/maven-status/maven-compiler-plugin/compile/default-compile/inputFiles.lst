@@ -25,6 +25,7 @@
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ui/EditableLabel.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/DigitalSensorDeserializer.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/ServerThreadHandler.java
+/Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/receivers/OutputView.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/chronjob/Chronjob.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/user/Preferences.java
 /Users/lincoln/GTISM_2023-2024/Server/server/src/main/java/com/javascape/gsonDeserializers/ReceiverDeserializer.java
