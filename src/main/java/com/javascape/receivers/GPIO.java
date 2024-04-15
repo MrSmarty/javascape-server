@@ -79,7 +79,7 @@ public class GPIO {
         if (value >= 0 || sensor == null) {
             if (checkBoxLabel == null) {
                 if (name != null) {
-                    checkBoxLabel = new Label(name + ":"); 
+                    checkBoxLabel = new Label(name + ":");
                 } else {
                     checkBoxLabel = new Label("GPIO " + index + ":");
                 }

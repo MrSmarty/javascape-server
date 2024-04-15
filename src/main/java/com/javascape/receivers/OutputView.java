@@ -13,7 +13,7 @@ public final class OutputView {
     /**
      * List that contains the Nodes to represent each output.
      */
-    public static final ObservableList<Node> outputs = FXCollections.observableArrayList();
+    public final ObservableList<Node> outputs = FXCollections.observableArrayList();
 
     public OutputView() {
         update();
@@ -24,7 +24,7 @@ public final class OutputView {
                 });
     }
 
-    public static ListView<Node> getOutputsListView() {
+    public ListView<Node> getOutputsListView() {
         update();
         ListView<Node> view = new ListView<>(outputs);
 
@@ -34,7 +34,7 @@ public final class OutputView {
     /**
      * Updates the outputs list.
      */
-    public static void update() {
+    public void update() {
         outputs.clear();
         for (Receiver r : Server.getDataHandler().getReceiverHandler().getReceiverList()) {
             for (GPIO g : r.getGPIO()) {

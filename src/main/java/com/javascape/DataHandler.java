@@ -27,7 +27,7 @@ import javafx.collections.ObservableList;
 public class DataHandler {
 
     /** The GSON object to be used for saving and loading the JSON */
-    private Gson gson = new GsonBuilder().setPrettyPrinting()
+    private final Gson gson = new GsonBuilder().setPrettyPrinting()
             .excludeFieldsWithModifiers(java.lang.reflect.Modifier.TRANSIENT)
             .registerTypeAdapter(ObservableList.class, new ObservableListDeserializer())
             .registerTypeAdapter(Sensor.class, new SensorDeserializer())
@@ -91,7 +91,7 @@ public class DataHandler {
     /** Deserializes and loads the settings */
     private void loadSettings() {
         try {
-            if (!settingsFile.exists() || settingsFile.equals(null)) {
+            if (!settingsFile.exists() || settingsFile == null) {
                 Logger.print("Settings file does not exist, creating new one");
                 settings = new Settings();
             } else {
@@ -121,7 +121,7 @@ public class DataHandler {
         Path usersFilePath = Paths.get(Settings.storageLocation + "users.json");
         File usersFile = new File(usersFilePath.toString());
         try {
-            if (!usersFile.exists() || usersFile.equals(null)) {
+            if (!usersFile.exists() || usersFile == null) {
                 Logger.print("Users file does not exist, creating new one");
                 userHandler = new UserHandler();
                 Logger.print("Initializing an admin user...");
@@ -144,7 +144,7 @@ public class DataHandler {
         Path filePath = Paths.get(Settings.storageLocation + "households.json");
         File file = new File(filePath.toString());
         try {
-            if (!file.exists() || file.equals(null)) {
+            if (!file.exists() || file == null) {
                 Logger.print("Household file does not exist, creating new one");
                 householdHandler = new HouseholdHandler();
             } else {
@@ -275,7 +275,7 @@ public class DataHandler {
     }
 
     public void createTempJob() {
-        ArrayList<String> commands = new ArrayList<String>();
+        ArrayList<String> commands = new ArrayList<>();
         commands.add("getTemp - all");
 
         Chronjob getTempJob = new Chronjob("GetTempJob", commands, Settings.getTempInterval,
@@ -284,7 +284,7 @@ public class DataHandler {
     }
 
     public void createSensorDataJob() {
-        ArrayList<String> commands = new ArrayList<String>();
+        ArrayList<String> commands = new ArrayList<>();
         commands.add("getSensors - all");
 
         Chronjob getTempJob = new Chronjob("getSensorDataJob", commands, Settings.getSensorDataJobInterval,
@@ -293,7 +293,7 @@ public class DataHandler {
     }
 
     public void createDigitalSensorDataJob() {
-        ArrayList<String> commands = new ArrayList<String>();
+        ArrayList<String> commands = new ArrayList<>();
         commands.add("getDigitalSensors - all");
 
         Chronjob getTempJob = new Chronjob("getDigitalSensorDataJob", commands, Settings.getSensorDataJobInterval,

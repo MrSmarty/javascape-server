@@ -132,6 +132,7 @@ public abstract class Receiver {
 
     /**
      * Returns the last recorded internal temperature.
+     * @return The last recorded internal temperature
      */
     public double getInternalTemperatureValue() {
         if (internalTemps.isEmpty()) {
@@ -142,11 +143,11 @@ public abstract class Receiver {
 
     /**
      * Returns true if the UIDs are the same.
+     * @param o The object to compare to
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Receiver) {
-            Receiver r = (Receiver) o;
+        if (o instanceof Receiver r) {
             return r.uid.equals(uid);
         }
         return false;

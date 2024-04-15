@@ -16,7 +16,7 @@ public class ReceiverHandler {
     /**
      * Maps the the name of the device to the name of the Class.
      */
-    transient ArrayList<String> classList = new ArrayList<String>();
+    transient ArrayList<String> classList = new ArrayList<>();
 
     /** Generic constructor that creates and initializes the ReceiverHandler. */
     public ReceiverHandler() {

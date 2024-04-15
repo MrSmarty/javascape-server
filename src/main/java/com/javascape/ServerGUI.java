@@ -45,6 +45,7 @@ public class ServerGUI {
 
     static ReceiverView receiverView;
     static SensorView sensorView;
+    static OutputView outputView;
 
     /**
      * A reference to the terminal
@@ -84,6 +85,7 @@ public class ServerGUI {
 
         receiverView = new ReceiverView();
         sensorView = new SensorView();
+        outputView = new OutputView();
 
         mainPane.setCenter(receiverView.getReceiverView());
 
@@ -123,10 +125,10 @@ public class ServerGUI {
         });
 
         outputButton.setOnAction(e -> {
-            mainPane.setCenter(OutputView.getOutputsListView());
+            mainPane.setCenter(outputView.getOutputsListView());
         });
 
-        // ADD PROFILE IMAGW BACK TO THE FRONT
+        // ADD PROFILE IMAGE BACK TO THE FRONT
         menu.getChildren().addAll(name, homeButton, sensorButton, outputButton);
 
         return menu;

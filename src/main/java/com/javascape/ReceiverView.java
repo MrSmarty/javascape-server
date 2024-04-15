@@ -10,7 +10,6 @@ import javafx.scene.control.ListView;
 
 public final class ReceiverView {
 
-
     /**
      * List that contains the Nodes to represent each receiver
      */
@@ -35,6 +34,7 @@ public final class ReceiverView {
      * @return The Node with the receiverView
      */
     public ListView<Node> getReceiverView() {
+        update();
         ListView<Node> view = new ListView<>(receiverViewList);
 
         return view;
