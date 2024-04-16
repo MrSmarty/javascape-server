@@ -7,20 +7,9 @@
       "householdID": -1,
       "gpio": [
         {
-          "value": -1,
+          "value": 0,
           "index": 0,
-          "uid": "16600690508064624181",
-          "sensor": {
-            "numValues": 2,
-            "valueNames": [
-              "Humidity",
-              "Temperature"
-            ],
-            "receiverID": "",
-            "index": 0,
-            "className": "DHT11",
-            "name": "DHT11_Orange"
-          }
+          "uid": "16600690508064624181"
         },
         {
           "value": 0,
@@ -29,9 +18,20 @@
           "uid": "16600690508064624181"
         },
         {
-          "value": 0,
+          "value": -1,
           "index": 2,
-          "uid": "16600690508064624181"
+          "name": "GPIO 2",
+          "uid": "16600690508064624181",
+          "sensor": {
+            "numValues": 1,
+            "valueNames": [
+              "Flowrate"
+            ],
+            "receiverID": "",
+            "index": 2,
+            "className": "Flowmeter",
+            "name": "Flowmeter_1"
+          }
         },
         {
           "value": 0,

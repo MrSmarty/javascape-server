@@ -40,6 +40,7 @@ C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascap
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\ServerGUI.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\receivers\PiPicoW.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\chronjob\Chronjob.java
+C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\sensors\digital\Flowmeter.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\gsonDeserializers\DigitalSensorDeserializer.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\DataHandler.java
 C:\Users\MrSma\GTISM\JavascapeServer\javascape-server\src\main\java\com\javascape\user\User.java

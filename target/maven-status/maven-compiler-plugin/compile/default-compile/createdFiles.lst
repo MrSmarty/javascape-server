@@ -12,6 +12,7 @@ com\javascape\menuPopups\AddSensorPopup.class
 com\javascape\ServerThreadHandler.class
 com\javascape\gsonDeserializers\SensorDeserializer.class
 com\javascape\Helper.class
+com\javascape\sensors\digital\Flowmeter$1.class
 com\javascape\ServerThread.class
 com\javascape\user\UserHandler.class
 com\javascape\sensors\analog\CapacitiveV2.class
@@ -36,6 +37,7 @@ com\javascape\sensors\digital\DigitalSensor.class
 com\javascape\menuPopups\CreateNewHouseholdPopup.class
 com\javascape\menuPopups\EditUserPopup.class
 com\javascape\menuPopups\CreateNewUserPopup.class
+com\javascape\sensors\digital\Flowmeter.class
 com\javascape\gsonDeserializers\ReceiverDeserializer.class
 com\javascape\sensors\digital\Input$1.class
 com\javascape\sensors\SensorView.class
